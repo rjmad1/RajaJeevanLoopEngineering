@@ -9,6 +9,120 @@ Welcome to the **RajaJeevanLoopEngineering** repository. This repository provide
 Rather than executing open-ended prompts, this framework enables software developers and stakeholders to codify agent processes into formal, state-bound, auditable execution loops governed by the **Maker/Checker** pattern and human oversight.
 
 ---
+```mermaid
+stateDiagram-v2
+    [*] --> Discovery : Initialize Loop Run
+
+    state Discovery {
+        [*] --> MapContext
+        MapContext --> IdentifyScope
+    }
+
+    Discovery --> Planning : Transition Validated
+    
+    state Planning {
+        [*] --> DefineSteps
+        DefineSteps --> CreateChecklist
+    }
+
+    Planning --> Implementation : Transition Validated
+
+    state Implementation {
+        [*] --> GenerateCode
+        GenerateCode --> SelfReview
+    }
+
+    Implementation --> Verification : Maker Step Complete
+
+    state Verification {
+        [*] --> ExecuteTests
+        ExecuteTests --> EvaluateMetrics
+    }
+
+    Verification --> Reflection : Pass (Checker Approval)
+    Verification --> Implementation : Fail (Retry Count < Max)
+
+    state "Circuit Breaker Tripped" as CBTriage
+    Verification --> CBTriage : Fail (Retry Count >= Max)
+    CBTriage --> Implementation : Manual Overrides / Reset
+    CBTriage --> [*] : Abort Run
+
+    state Reflection {
+        [*] --> DocumentLessons
+        DocumentLessons --> UpdateStandards
+    }
+
+    Reflection --> [*] : Terminate Loop (Success)
+
+    style CBTriage fill:#f9d5d5,stroke:#e06666,stroke-width:2px;
+
+```
+
+```mermaid
+graph TD
+    subgraph ClientLayer [Client & Bootstrapping Utilities]
+        A[PowerShell: interactive-bootstrap.ps1] -->|Triggers/Ports| C[Target Repository Workspace]
+        B[Python: bootstrap.py] -->|Triggers/Ports| C
+        D[Shell: loop-control.sh] -->|CLI Commands| E[Agent Worker Execution]
+    end
+
+    subgraph ContainerBoundary [Sandboxed Docker Container: loop-engine]
+        direction TB
+        F[Spring Boot / REST API Endpoint] -->|Inbound Requests| G[Java 21 Rule Engine Core]
+        G -->|State Tracking| H[Circuit Breaker Manager]
+        G -->|Validation Logic| I[JSON Schema Validator]
+    end
+
+    E -->|POST /api/v1/loops/transit| F
+    E -->|GET /api/v1/loops/:id/status| F
+    C -->|DevContainer Mounting| ContainerBoundary
+    
+    style ContainerBoundary fill:#f4f7f9,stroke:#023e8a,stroke-width:2px;
+
+```
+
+```mermaid
+graph TD
+    subgraph RepositoryRoot [RajaJeevanLoopEngineering Workspace]
+        direction LR
+        
+        subgraph CoreConfigurations [1. Core Definitions]
+            direction TB
+            Shared[shared/ <br>Cross-Cutting Standards]
+            Loops[loops/ <br>Bounded Loop Specifications]
+            Templates[templates/ <br>Run-Status Checklists]
+        end
+
+        subgraph CoreEngine [2. Executable Logic]
+            direction TB
+            Code[code/ <br>Java 21 Engine & Gradle]
+            Docker[Dockerfile & <br>.devcontainer/]
+        end
+
+        subgraph AutomationLayers [3. Ingestion & Porting]
+            direction TB
+            Scripts[bootstrap.py <br>interactive-bootstrap.ps1]
+            Control[loop-control.sh]
+        end
+    end
+
+    subgraph TargetedWorkspaces [Target Enterprise Repository]
+        direction TB
+        G1[Greenfield Loop]
+        B1[Brownfield Loop]
+        M1[Modernization Loop]
+        I1[Incident Response Loop]
+    end
+
+    Scripts -->|Extracts & Provisions| TargetedWorkspaces
+    Shared -->|Injected As Base Rules| TargetedWorkspaces
+    Loops -->|Maps to Project Nature| TargetedWorkspaces
+    Control -->|Drives Execution State Inside| TargetedWorkspaces
+    Code -->|Compiles to Service Inside| Docker
+
+```
+
+---
 The **[RajaJeevanLoopEngineering framework](https://github.com/rjmad1/RajaJeevanLoopEngineering)** is designed to solve a major problem with AI coding agents: **unpredictability**.
 
 When developers let AI agents write or fix code without boundaries, the AI can sometimes go off track, make bad assumptions, or create loops that waste time and computing power. This repository introduces strict discipline to that process.
