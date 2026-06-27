@@ -16,20 +16,22 @@ The Loop Engineering Framework is highly extensible. Developers can easily write
 
 ## 2. Implementing Custom Verification Rules
 
-You can extend `ConditionEvaluator` or add custom logic to execute complex checks:
+> [!NOTE]
+> **Not Implemented in Current Release:** The Java classes `ConditionEvaluator`, `Condition`, and `ExecutionContext` are not implemented in the current standalone Loop Engine codebase. 
 
-```java
-public class SecurityChecksEvaluator extends ConditionEvaluator {
-    
-    @Override
-    public boolean evaluate(Condition condition, ExecutionContext context) {
-        if ("security.scan.failed".equals(condition.getField())) {
-            // Implement custom integration validation
-            return runCustomSecurityScan(context);
-        }
-        return super.evaluate(condition, context);
-    }
-}
+Instead, custom verification checks should be implemented within your client-side agent runner or validation scripts (e.g. Python scripts, Shell tasks). The Checker agent evaluates the output, logs the results, and communicates the binary pass/fail result to the Loop Engine by making a state transition API call.
+
+For example, a custom python validator would evaluate the conditions locally and invoke `loop-control.sh`:
+```python
+def verify_output(artifact_path):
+    # Run custom linter or scanner checks locally
+    success = run_custom_security_scan(artifact_path)
+    if success:
+        # Transit state to VERIFICATION or PLANNING
+        os.system("./loop-control.sh transit my-loop IMPLEMENTATION VERIFICATION")
+    else:
+        # Record failure (will increment consecutive failures)
+        os.system("./loop-control.sh transit my-loop IMPLEMENTATION IMPLEMENTATION 'Security checks failed'")
 ```
 
 ---

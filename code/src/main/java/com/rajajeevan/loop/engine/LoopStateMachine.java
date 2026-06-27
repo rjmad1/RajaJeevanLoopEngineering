@@ -27,12 +27,9 @@ public class LoopStateMachine {
       Map.of(
           LoopPhase.DISCOVERY,
               List.of("Scan repository structure", "Catalogue APIs and dependencies"),
-          LoopPhase.PLANNING,
-              List.of("Generate implementation plan", "Define target test cases"),
-          LoopPhase.IMPLEMENTATION,
-              List.of("Execute code changes", "Run compilation checks"),
-          LoopPhase.VERIFICATION,
-              List.of("Execute regression test suite", "Run static analysis"),
+          LoopPhase.PLANNING, List.of("Generate implementation plan", "Define target test cases"),
+          LoopPhase.IMPLEMENTATION, List.of("Execute code changes", "Run compilation checks"),
+          LoopPhase.VERIFICATION, List.of("Execute regression test suite", "Run static analysis"),
           LoopPhase.REFLECTION,
               List.of(
                   "Analyse failure root cause",
@@ -59,12 +56,11 @@ public class LoopStateMachine {
       int circuitBreakerThreshold) {
     return loops.computeIfAbsent(
         loopId,
-        id -> new LoopInstance(id, initialPhase, gateCriteria, maxRetries, circuitBreakerThreshold));
+        id ->
+            new LoopInstance(id, initialPhase, gateCriteria, maxRetries, circuitBreakerThreshold));
   }
 
-  /**
-   * Returns the loop instance for the given ID, or null if not registered.
-   */
+  /** Returns the loop instance for the given ID, or null if not registered. */
   public LoopInstance getLoop(String loopId) {
     return loops.get(loopId);
   }
@@ -79,7 +75,6 @@ public class LoopStateMachine {
   public TransitResponse evaluateTransition(TransitRequest request) {
     String loopId = request.getLoopId();
 
-    // Auto-register loop if it doesn't exist, starting at the source phase
     LoopPhase sourcePhase = parsePhase(request.getSourcePhase());
     LoopPhase targetPhase = parsePhase(request.getTargetPhase());
 
@@ -90,75 +85,80 @@ public class LoopStateMachine {
       return errorResponse("Invalid target_phase: " + request.getTargetPhase());
     }
 
-    LoopInstance loop =
-        loops.computeIfAbsent(
-            loopId,
-            id -> new LoopInstance(id, sourcePhase, List.of(), 3, 3));
+    io.opentelemetry.api.trace.Span span =
+        TelemetryService.startSpan("evaluateTransition", loopId, targetPhase.name());
 
-    // Verify source phase matches the loop's current state
-    if (loop.getCurrentPhase() != sourcePhase) {
+    try {
+      LoopInstance loop =
+          loops.computeIfAbsent(loopId, id -> new LoopInstance(id, sourcePhase, List.of(), 3, 3));
+
+      // Verify source phase matches the loop's current state
+      if (loop.getCurrentPhase() != sourcePhase) {
+        return TransitResponse.builder()
+            .transitionAllowed(false)
+            .currentState(loop.getCurrentPhase().name())
+            .nextSteps(PHASE_NEXT_STEPS.getOrDefault(loop.getCurrentPhase(), List.of()))
+            .circuitBreaker(buildCbStatus(loop))
+            .message(
+                "Phase mismatch: loop is at "
+                    + loop.getCurrentPhase().name()
+                    + ", but source_phase is "
+                    + sourcePhase.name())
+            .build();
+      }
+
+      // Check circuit breaker
+      if (loop.isCircuitBreakerTripped()) {
+        TelemetryService.recordCircuitBreakerTransition(
+            loopId, loop.getCurrentPhase().name(), "BLOCKED");
+        return TransitResponse.builder()
+            .transitionAllowed(false)
+            .currentState(loop.getCurrentPhase().name())
+            .nextSteps(
+                List.of("Circuit breaker is tripped. Manual intervention or reset required."))
+            .circuitBreaker(buildCbStatus(loop))
+            .message("Circuit breaker is OPEN. Transition blocked.")
+            .build();
+      }
+
+      // Validate the transition is structurally allowed
+      Set<LoopPhase> validTargets = ALLOWED_TRANSITIONS.getOrDefault(sourcePhase, Set.of());
+      if (!validTargets.contains(targetPhase)) {
+        loop.recordFailure();
+        return TransitResponse.builder()
+            .transitionAllowed(false)
+            .currentState(loop.getCurrentPhase().name())
+            .nextSteps(validTargets.stream().map(LoopPhase::name).toList())
+            .circuitBreaker(buildCbStatus(loop))
+            .message(
+                "Invalid transition: "
+                    + sourcePhase.name()
+                    + " → "
+                    + targetPhase.name()
+                    + " is not allowed. Valid targets: "
+                    + validTargets)
+            .build();
+      }
+
+      // Transition is valid — execute it
+      loop.transitionTo(targetPhase);
+
       return TransitResponse.builder()
-          .transitionAllowed(false)
-          .currentState(loop.getCurrentPhase().name())
-          .nextSteps(PHASE_NEXT_STEPS.getOrDefault(loop.getCurrentPhase(), List.of()))
+          .transitionAllowed(true)
+          .currentState(targetPhase.name())
+          .nextSteps(PHASE_NEXT_STEPS.getOrDefault(targetPhase, List.of()))
           .circuitBreaker(buildCbStatus(loop))
-          .message(
-              "Phase mismatch: loop is at "
-                  + loop.getCurrentPhase().name()
-                  + ", but source_phase is "
-                  + sourcePhase.name())
+          .message("Transition accepted: " + sourcePhase.name() + " → " + targetPhase.name())
           .build();
+    } catch (Throwable t) {
+      TelemetryService.recordException(span, t);
+      throw t;
+    } finally {
+      span.end();
     }
-
-    // Check circuit breaker
-    if (loop.isCircuitBreakerTripped()) {
-      TelemetryService.recordCircuitBreakerTransition(
-          loopId, loop.getCurrentPhase().name(), "BLOCKED");
-      return TransitResponse.builder()
-          .transitionAllowed(false)
-          .currentState(loop.getCurrentPhase().name())
-          .nextSteps(List.of("Circuit breaker is tripped. Manual intervention or reset required."))
-          .circuitBreaker(buildCbStatus(loop))
-          .message("Circuit breaker is OPEN. Transition blocked.")
-          .build();
-    }
-
-    // Validate the transition is structurally allowed
-    Set<LoopPhase> validTargets =
-        ALLOWED_TRANSITIONS.getOrDefault(sourcePhase, Set.of());
-    if (!validTargets.contains(targetPhase)) {
-      loop.recordFailure();
-      return TransitResponse.builder()
-          .transitionAllowed(false)
-          .currentState(loop.getCurrentPhase().name())
-          .nextSteps(
-              validTargets.stream().map(LoopPhase::name).toList())
-          .circuitBreaker(buildCbStatus(loop))
-          .message(
-              "Invalid transition: "
-                  + sourcePhase.name()
-                  + " → "
-                  + targetPhase.name()
-                  + " is not allowed. Valid targets: "
-                  + validTargets)
-          .build();
-    }
-
-    // Transition is valid — execute it
-    loop.transitionTo(targetPhase);
-
-    return TransitResponse.builder()
-        .transitionAllowed(true)
-        .currentState(targetPhase.name())
-        .nextSteps(PHASE_NEXT_STEPS.getOrDefault(targetPhase, List.of()))
-        .circuitBreaker(buildCbStatus(loop))
-        .message("Transition accepted: " + sourcePhase.name() + " → " + targetPhase.name())
-        .build();
   }
 
-  /**
-   * Builds a status response for a given loop.
-   */
+  /** Builds a status response for a given loop. */
   public TransitResponse buildStatusResponse(LoopInstance loop) {
     return TransitResponse.builder()
         .transitionAllowed(!loop.isCircuitBreakerTripped())

@@ -6,11 +6,13 @@ This report confirms the quality assurance and validation checks run on the gene
 - **Action:** Executed `./gradlew test` using isolated Gradle context inside `RajaJeevanLoopEngineering/code`.
 - **Result:** **BUILD SUCCESSFUL**. All compiled classes loaded clean.
 - **Tests Passed:**
-  - `ConditionEvaluatorTest`: Passed 12/12 test scenarios (EQUALS, NOT_EQUALS, CONTAINS, EXISTS, combinators, dot-notation resolution).
-  - `RetryPolicyTest`: Passed 3/3 test scenarios (default validation, custom overrides, audit string structure).
+  - `LoopStateMachineTest`: Evaluates transition validations, phase mapping, and circuit breaker logic.
+  - `LoopEngineServerTest`: Verifies HTTP endpoints (`POST /api/v1/loops/transit`, `GET /api/v1/loops/{loopId}/status`, `GET /health`) and status code responses.
+  - `LoopSpecCompilerTest`: Validates compiling loop specs from JSON/YAML configurations.
+  - `TelemetryServiceTest`: Ensures telemetry traces and exception logging are correctly recorded via OpenTelemetry.
 
 ## 2. Leakage and Decoupling Conformance
-- **Checked:** Scanned for imports containing `com.conductor.shared`.
+- **Checked:** Scanned for imports containing legacy package prefixes (e.g., `com.legacy.shared`).
 - **Result:** **PASS**. Zero application-level package imports found.
 - **Checked:** Scanned for references to databases, Temporal Workers, Keycloak, or WhatsApp provider APIs in the harvested codebase.
 - **Result:** **PASS**. All dependencies are strictly Java standard library components and Lombok annotations.

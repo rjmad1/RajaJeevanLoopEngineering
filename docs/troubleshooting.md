@@ -22,18 +22,20 @@ This guide covers common issues encountered during loop setup, execution, and ve
 
 ---
 
-## 2. Condition Evaluation returns False unexpectedly
+## 2. Transition Request Blocked (HTTP 409 Conflict)
 
 ### Symptoms
-- The step fails postcondition checks even though outputs look correct.
+- The engine rejects a transition request, returning HTTP status code `409` and transition_allowed = `false`.
 
 ### Causes
-- The dot-notation variable path in `Condition` field does not exist in `ExecutionContext` variables.
-- Case-sensitivity differences or type mismatches (e.g. comparing numeric `500` to string `"500"` using strict comparator).
+- **Circuit Breaker is Tripped (OPEN):** The loop has encountered consecutive transition errors reaching its threshold.
+- **Phase Mismatch:** The `source_phase` provided in the request body does not match the actual current phase of the loop in server memory.
+- **Invalid Transition Chain:** The target phase requested is not a valid successor of the current phase (e.g. jumping directly from `DISCOVERY` to `IMPLEMENTATION`).
 
 ### Resolution
-- Add debug logging in `ConditionEvaluator` to print the resolved variables map.
-- Ensure that expected values are formatted correctly (the evaluator compares string representations for basic equivalence and parses doubles for numeric comparisons).
+- Query the status endpoint `GET /api/v1/loops/{loopId}/status` to inspect `current_state` and `circuit_breaker` tripped flag.
+- If the circuit breaker is tripped, restart the loop engine server (since states are transient in-memory map).
+- Correct the client-side state sequence in your agent code to proceed step-by-step (`DISCOVERY` -> `PLANNING` -> `IMPLEMENTATION` -> `VERIFICATION` -> `REFLECTION`).
 
 ---
 

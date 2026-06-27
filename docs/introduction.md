@@ -1,6 +1,6 @@
 # Introduction to Loop Engineering
 
-Welcome to the **General Purpose Loop Engineering Library**. 
+Welcome to the **RajaJeevanLoopEngineering Framework**. 
 
 This library provides a repository-independent, technology-agnostic framework for defining, executing, and auditing structured AI agent workflows. It represents the transition from ad-hoc, uncontrolled AI prompts to highly reliable, deterministic, and auditable engineering systems.
 

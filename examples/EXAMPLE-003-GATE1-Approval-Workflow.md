@@ -132,7 +132,7 @@ This qualifies as `significant_change = true` under the GATE-1 trigger condition
   - Current state: 3 services (`MessageRouterService`, `NotificationService`, `TemplateEngineService`)
   - Current state: 6 REST API endpoints (internal stability)
   - Current state: 4 event types produced (`message.dispatched`, `notification.delivered`, `notification.failed`, `template.compiled`)
-  - Evidence: `platform/messaging-core/build.gradle` found; `platform/messaging-core/src/main/java/com/conductor/messaging/` scanned
+  - Evidence: `platform/messaging-core/build.gradle` found; `platform/messaging-core/src/main/java/com/rajajeevan/loop/messaging/` scanned
 
 **Changed:**
 - Event type names: all four prior event types have new names in the replacement module (e.g., `message.sent` → `message.dispatched`). This affects any downstream consumer configured for the prior event type names.

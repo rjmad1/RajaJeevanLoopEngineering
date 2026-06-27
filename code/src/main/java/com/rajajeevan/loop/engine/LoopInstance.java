@@ -42,9 +42,7 @@ public class LoopInstance {
     LoopPhase previous = this.currentPhase;
     this.currentPhase = newPhase;
     this.consecutiveFailures.set(0);
-    addAuditEntry(
-        "TRANSITION",
-        "Phase changed from " + previous.name() + " to " + newPhase.name());
+    addAuditEntry("TRANSITION", "Phase changed from " + previous.name() + " to " + newPhase.name());
   }
 
   public int recordFailure() {

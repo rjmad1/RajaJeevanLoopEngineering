@@ -3,9 +3,7 @@ package com.rajajeevan.loop.spec;
 import java.util.List;
 import lombok.Data;
 
-/**
- * Java representation of a Loop Specification parsed from YAML/JSON schema configurations.
- */
+/** Java representation of a Loop Specification parsed from YAML/JSON schema configurations. */
 @Data
 public class LoopDefinition {
   private String id;

@@ -1,5 +1,7 @@
 package com.rajajeevan.loop.bootstrap;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,15 +10,17 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 /**
- * Native Java implementation of the Loop Engineering Framework Bootstrapper CLI.
- * Standardizes workspace provisioning cross-platform without PowerShell dependencies.
+ * Native Java implementation of the Loop Engineering Framework Bootstrapper CLI. Standardizes
+ * workspace provisioning cross-platform without PowerShell dependencies.
  */
 public class BootstrapCli {
 
   public static void main(String[] args) {
     if (args.length < 2) {
-      System.out.println("Usage: java com.rajajeevan.loop.bootstrap.BootstrapCli <target-project-path> <project-type> [overwrite-devcontainer: true/false]");
-      System.out.println("Project types: Greenfield, Brownfield, Modernization, IncidentResponse, All");
+      System.out.println(
+          "Usage: java com.rajajeevan.loop.bootstrap.BootstrapCli <target-project-path> <project-type> [overwrite-devcontainer: true/false]");
+      System.out.println(
+          "Project types: Greenfield, Brownfield, Modernization, IncidentResponse, All");
       System.exit(1);
     }
 
@@ -34,9 +38,10 @@ public class BootstrapCli {
     }
   }
 
-  public void run(String targetProjectPath, String projectType, boolean overwriteDevcontainer) throws Exception {
+  public void run(String targetProjectPath, String projectType, boolean overwriteDevcontainer)
+      throws Exception {
     System.out.println("=== RajaJeevanLoopEngineering Java Bootstrap CLI ===");
-    
+
     File targetDir = new File(targetProjectPath);
     if (!targetDir.exists()) {
       System.out.println("[+] Creating target project folder: " + targetProjectPath);
@@ -77,8 +82,8 @@ public class BootstrapCli {
 
     // 2. Contextual Loop Provisioning
     System.out.println("[+] Copying contextual loop process definitions...");
-    List<String> loopsToPort = getLoopsForType(projectType);
-    
+    List<String> loopsToPort = getLoopsForType(srcLibRoot, projectType);
+
     if (projectType.equalsIgnoreCase("All")) {
       File loopsSrc = new File(srcLibRoot, "loops");
       if (loopsSrc.exists()) {
@@ -90,10 +95,14 @@ public class BootstrapCli {
         if (fullSrcFile.exists()) {
           File categoryDestDir = new File(targetDocsDir, fullSrcFile.getParentFile().getName());
           categoryDestDir.mkdirs();
-          Files.copy(fullSrcFile.toPath(), new File(categoryDestDir, fullSrcFile.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+          Files.copy(
+              fullSrcFile.toPath(),
+              new File(categoryDestDir, fullSrcFile.getName()).toPath(),
+              StandardCopyOption.REPLACE_EXISTING);
           System.out.println("    - Imported loop: " + loopRelPath);
         } else {
-          System.err.println("Warning: Source loop file not found: " + fullSrcFile.getAbsolutePath());
+          System.err.println(
+              "Warning: Source loop file not found: " + fullSrcFile.getAbsolutePath());
         }
       }
     }
@@ -104,7 +113,7 @@ public class BootstrapCli {
     File templateDest = new File(targetAgentsDir, "templates");
     if (templateSrc.exists()) {
       copyDirectory(templateSrc.toPath(), templateDest.toPath());
-      
+
       File agentsDestFile = new File(targetAgentsDir, "AGENTS.md");
       if (!agentsDestFile.exists()) {
         File templateBase = new File(templateSrc, "AGENTS-TEMPLATE.md");
@@ -120,7 +129,7 @@ public class BootstrapCli {
     File codeSrc = new File(srcLibRoot, "code");
     if (codeSrc.exists()) {
       copyDirectory(codeSrc.toPath(), targetCodeDir.toPath());
-      
+
       // Copy Gradle wrappers
       copyWrapperFile(srcLibRoot, targetCodeDir, "gradlew");
       copyWrapperFile(srcLibRoot, targetCodeDir, "gradlew.bat");
@@ -142,7 +151,8 @@ public class BootstrapCli {
       setupScriptFile.setExecutable(true);
       System.out.println("    - Dev Container files written and execution limits enforced.");
     } else {
-      System.out.println("    - Dev Container files already exist. Skipping. (Use overwrite flag to force)");
+      System.out.println(
+          "    - Dev Container files already exist. Skipping. (Use overwrite flag to force)");
     }
 
     System.out.println("=== Java Bootstrapping Completed Successfully ===");
@@ -155,20 +165,25 @@ public class BootstrapCli {
   }
 
   private void copyDirectory(Path source, Path target) throws IOException {
-    Files.walkFileTree(source, new SimpleFileVisitor<Path>() {
-      @Override
-      public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-        Path targetDir = target.resolve(source.relativize(dir));
-        Files.createDirectories(targetDir);
-        return FileVisitResult.CONTINUE;
-      }
+    Files.walkFileTree(
+        source,
+        new SimpleFileVisitor<Path>() {
+          @Override
+          public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs)
+              throws IOException {
+            Path targetDir = target.resolve(source.relativize(dir));
+            Files.createDirectories(targetDir);
+            return FileVisitResult.CONTINUE;
+          }
 
-      @Override
-      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        Files.copy(file, target.resolve(source.relativize(file)), StandardCopyOption.REPLACE_EXISTING);
-        return FileVisitResult.CONTINUE;
-      }
-    });
+          @Override
+          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+              throws IOException {
+            Files.copy(
+                file, target.resolve(source.relativize(file)), StandardCopyOption.REPLACE_EXISTING);
+            return FileVisitResult.CONTINUE;
+          }
+        });
   }
 
   private void copyWrapperFile(File srcRoot, File targetDir, String name) {
@@ -190,44 +205,28 @@ public class BootstrapCli {
     }
   }
 
-  private List<String> getLoopsForType(String type) {
-    List<String> list = new ArrayList<>();
-    switch (type.toLowerCase()) {
-      case "greenfield":
-        list.add("governance/LOOP-301-ADR-Generation.md");
-        list.add("engineering/LOOP-104-Documentation.md");
-        list.add("core/LOOP-001-Architecture-Discovery.md");
-        list.add("engineering/LOOP-103-Test-Generation.md");
-        list.add("core/LOOP-005-Implementation.md");
-        list.add("platform/LOOP-202-Integration-Validation.md");
-        list.add("governance/LOOP-304-Release-Readiness.md");
-        break;
-      case "brownfield":
-        list.add("core/LOOP-002-Context-Assembly.md");
-        list.add("engineering/LOOP-103-Test-Generation.md");
-        list.add("core/LOOP-005-Implementation.md");
-        list.add("core/LOOP-006-Verification.md");
-        list.add("engineering/LOOP-102-Refactoring.md");
-        list.add("governance/LOOP-303-Compliance.md");
-        break;
-      case "modernization":
-        list.add("core/LOOP-001-Architecture-Discovery.md");
-        list.add("engineering/LOOP-105-Code-Review.md");
-        list.add("engineering/LOOP-103-Test-Generation.md");
-        list.add("engineering/LOOP-102-Refactoring.md");
-        list.add("platform/LOOP-204-API-Contract-Validation.md");
-        list.add("governance/LOOP-302-Documentation-Governance.md");
-        break;
-      case "incidentresponse":
-        list.add("core/LOOP-002-Context-Assembly.md");
-        list.add("engineering/LOOP-101-Bug-Fixing.md");
-        list.add("engineering/LOOP-103-Test-Generation.md");
-        list.add("core/LOOP-005-Implementation.md");
-        list.add("core/LOOP-006-Verification.md");
-        list.add("core/LOOP-007-Reflection.md");
-        break;
+  private List<String> getLoopsForType(File srcLibRoot, String type) {
+    File manifestFile = new File(srcLibRoot, "shared/loops-manifest.json");
+    if (!manifestFile.exists()) {
+      System.err.println(
+          "Warning: Loops manifest file not found at " + manifestFile.getAbsolutePath());
+      return Collections.emptyList();
     }
-    return list;
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      Map<String, List<String>> manifest =
+          mapper.readValue(manifestFile, new TypeReference<Map<String, List<String>>>() {});
+
+      for (Map.Entry<String, List<String>> entry : manifest.entrySet()) {
+        if (entry.getKey().equalsIgnoreCase(type)) {
+          return entry.getValue();
+        }
+      }
+      System.err.println("Warning: Project type '" + type + "' not found in manifest.");
+    } catch (Exception e) {
+      System.err.println("Error reading loops manifest: " + e.getMessage());
+    }
+    return Collections.emptyList();
   }
 
   private String getDevContainerJson() {

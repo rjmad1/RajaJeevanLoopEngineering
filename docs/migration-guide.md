@@ -4,16 +4,11 @@ This guide describes how to migrate an existing application (such as the origina
 
 ---
 
-## 1. Migrating Java Dependencies
+If you are migrating an existing codebase that imports classes from legacy packages:
 
-If you are migrating an existing codebase that imports classes from `com.conductor.shared.execution` or `com.conductor.shared.rules`:
-
-1. Add the standalone library gradle project or source files to your build.
-2. Update all imports in your codebase:
-   - Replace `import com.conductor.shared.execution.ExecutionContext;` with `import com.rajajeevan.loop.execution.ExecutionContext;`
-   - Replace `import com.conductor.shared.execution.RetryPolicy;` with `import com.rajajeevan.loop.execution.RetryPolicy;`
-   - Replace `import com.conductor.shared.rules.ConditionEvaluator;` with `import com.rajajeevan.loop.rules.ConditionEvaluator;`
-3. If your code depended on `com.conductor.shared.execution.provider.WhatsAppProvider` or other integration-specific classes, leave those classes in your local application directory; they are domain-specific implementations and are not part of this general-purpose execution library.
+1. Note that legacy packages (like `com.legacy.shared.execution` and `com.legacy.shared.rules`) containing `ExecutionContext`, `RetryPolicy`, and `ConditionEvaluator` are **not implemented** in the current standalone release.
+2. Instead, migrate your applications to interface directly with the standalone `LoopEngineServer` REST API using standard HTTP clients (e.g. `curl`, Python `requests`, or Java `HttpClient`) or using the provided CLI wrapper script `loop-control.sh`.
+3. If your code depended on legacy integration-specific provider classes (such as database or notification integrations), leave those classes in your local application directory; they are domain-specific implementations and are not part of the decoupled loop engine server.
 
 ---
 

@@ -140,41 +140,18 @@ def main():
 
     # 4. Contextual Loop Selection
     print("[+] Porting contextual loop workflows...")
-    loops_map = {
-        "Greenfield": [
-            "governance/LOOP-301-ADR-Generation.md",
-            "engineering/LOOP-104-Documentation.md",
-            "core/LOOP-001-Architecture-Discovery.md",
-            "engineering/LOOP-103-Test-Generation.md",
-            "core/LOOP-005-Implementation.md",
-            "platform/LOOP-202-Integration-Validation.md",
-            "governance/LOOP-304-Release-Readiness.md"
-        ],
-        "Brownfield": [
-            "core/LOOP-002-Context-Assembly.md",
-            "engineering/LOOP-103-Test-Generation.md",
-            "core/LOOP-005-Implementation.md",
-            "core/LOOP-006-Verification.md",
-            "engineering/LOOP-102-Refactoring.md",
-            "governance/LOOP-303-Compliance.md"
-        ],
-        "Modernization": [
-            "core/LOOP-001-Architecture-Discovery.md",
-            "engineering/LOOP-105-Code-Review.md",
-            "engineering/LOOP-103-Test-Generation.md",
-            "engineering/LOOP-102-Refactoring.md",
-            "platform/LOOP-204-API-Contract-Validation.md",
-            "governance/LOOP-302-Documentation-Governance.md"
-        ],
-        "IncidentResponse": [
-            "core/LOOP-002-Context-Assembly.md",
-            "engineering/LOOP-101-Bug-Fixing.md",
-            "engineering/LOOP-103-Test-Generation.md",
-            "core/LOOP-005-Implementation.md",
-            "core/LOOP-006-Verification.md",
-            "core/LOOP-007-Reflection.md"
-        ]
-    }
+    manifest_path = os.path.join(src_root, "shared", "loops-manifest.json")
+    if os.path.exists(manifest_path):
+        try:
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                loops_map = json.load(f)
+        except Exception as e:
+            print(f"Error reading manifest: {e}")
+            loops_map = {}
+    else:
+        print(f"Warning: Manifest file not found at {manifest_path}. Using empty map.")
+        loops_map = {}
+
 
     if project_type == "All":
         loops_src = os.path.join(src_root, "loops")

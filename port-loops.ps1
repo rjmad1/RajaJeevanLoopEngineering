@@ -72,57 +72,31 @@ Write-Host "[+] Porting contextual loop workflows..." -ForegroundColor Cyan
 
 $SelectedLoops = @()
 
-switch ($ProjectType) {
-    "Greenfield" {
-        $SelectedLoops = @(
-            "governance/LOOP-301-ADR-Generation.md",
-            "engineering/LOOP-104-Documentation.md",
-            "core/LOOP-001-Architecture-Discovery.md",
-            "engineering/LOOP-103-Test-Generation.md",
-            "core/LOOP-005-Implementation.md",
-            "platform/LOOP-202-Integration-Validation.md",
-            "governance/LOOP-304-Release-Readiness.md"
-        )
+if ($ProjectType -eq "All") {
+    # Copy everything recursively from the loops directory
+    $LoopsSrc = Join-Path $SrcLibRoot "loops"
+    if (Test-Path -Path $LoopsSrc) {
+        Copy-Item -Path "$LoopsSrc/*" -Destination $TargetDocsDir -Recurse -Force
+        Write-Host "    - Copied all loops recursively to docs/loops/" -ForegroundColor Gray
     }
-    "Brownfield" {
-        $SelectedLoops = @(
-            "core/LOOP-002-Context-Assembly.md",
-            "engineering/LOOP-103-Test-Generation.md",
-            "core/LOOP-005-Implementation.md",
-            "core/LOOP-006-Verification.md",
-            "engineering/LOOP-102-Refactoring.md",
-            "governance/LOOP-303-Compliance.md"
-        )
-    }
-    "Modernization" {
-        $SelectedLoops = @(
-            "core/LOOP-001-Architecture-Discovery.md",
-            "engineering/LOOP-105-Code-Review.md",
-            "engineering/LOOP-103-Test-Generation.md",
-            "engineering/LOOP-102-Refactoring.md",
-            "platform/LOOP-204-API-Contract-Validation.md",
-            "governance/LOOP-302-Documentation-Governance.md"
-        )
-    }
-    "IncidentResponse" {
-        $SelectedLoops = @(
-            "core/LOOP-002-Context-Assembly.md",
-            "engineering/LOOP-101-Bug-Fixing.md",
-            "engineering/LOOP-103-Test-Generation.md",
-            "core/LOOP-005-Implementation.md",
-            "core/LOOP-006-Verification.md",
-            "core/LOOP-007-Reflection.md"
-        )
-    }
-    "All" {
-        # Copy everything recursively from the loops directory
-        $LoopsSrc = Join-Path $SrcLibRoot "loops"
-        if (Test-Path -Path $LoopsSrc) {
-            Copy-Item -Path "$LoopsSrc/*" -Destination $TargetDocsDir -Recurse -Force
-            Write-Host "    - Copied all loops recursively to docs/loops/" -ForegroundColor Gray
+} else {
+    $ManifestPath = Join-Path $SrcLibRoot "shared/loops-manifest.json"
+    if (Test-Path -Path $ManifestPath) {
+        try {
+            $Manifest = Get-Content -Raw -Path $ManifestPath | ConvertFrom-Json
+            if ($null -ne $Manifest.$ProjectType) {
+                $SelectedLoops = $Manifest.$ProjectType
+            } else {
+                Write-Warning "Project type '$ProjectType' not found in manifest."
+            }
+        } catch {
+            Write-Error "Failed to parse loops manifest: $_"
         }
+    } else {
+        Write-Warning "Loops manifest file not found at: $ManifestPath"
     }
 }
+
 
 if ($ProjectType -ne "All") {
     foreach ($LoopPath in $SelectedLoops) {

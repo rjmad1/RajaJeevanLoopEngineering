@@ -142,7 +142,8 @@ class LoopStateMachineTest {
   @Test
   @DisplayName("Status response shows correct state")
   void statusResponse() {
-    LoopInstance loop = machine.registerLoop("status-loop", LoopPhase.IMPLEMENTATION, List.of(), 3, 3);
+    LoopInstance loop =
+        machine.registerLoop("status-loop", LoopPhase.IMPLEMENTATION, List.of(), 3, 3);
 
     TransitResponse resp = machine.buildStatusResponse(loop);
     assertThat(resp.getCurrentState()).isEqualTo("IMPLEMENTATION");

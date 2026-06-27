@@ -44,8 +44,7 @@ class LoopEngineServerTest {
                   "target_phase", "PLANNING",
                   "execution_logs", "Scan completed successfully.");
 
-          var resp =
-              client.post("/api/v1/loops/transit", payload);
+          var resp = client.post("/api/v1/loops/transit", payload);
 
           assertThat(resp.code()).isEqualTo(200);
           String body = resp.body().string();
@@ -66,8 +65,7 @@ class LoopEngineServerTest {
                   "source_phase", "DISCOVERY",
                   "target_phase", "VERIFICATION");
 
-          var resp =
-              client.post("/api/v1/loops/transit", payload);
+          var resp = client.post("/api/v1/loops/transit", payload);
 
           assertThat(resp.code()).isEqualTo(409);
           String body = resp.body().string();
@@ -84,8 +82,7 @@ class LoopEngineServerTest {
         (server, client) -> {
           Map<String, Object> payload = Map.of("loop_id", "incomplete");
 
-          var resp =
-              client.post("/api/v1/loops/transit", payload);
+          var resp = client.post("/api/v1/loops/transit", payload);
 
           assertThat(resp.code()).isEqualTo(400);
         });

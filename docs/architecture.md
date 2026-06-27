@@ -24,10 +24,10 @@ RajaJeevanLoopEngineering/
 ## Module Interaction
 
 1. **Trigger:** The loop runner reads the loop specification (under `loops/`) and resolves dependencies.
-2. **Context:** The environment variables and state mapping are populated into `ExecutionContext` (under `code/`).
+2. **Context:** The environment variables and state mapping are resolved by the client wrapper script or orchestrator (the class `ExecutionContext` is not implemented in the current release; state is managed natively in `LoopStateMachine`).
 3. **Execution Steps:** For each step in the `## Workflow`:
    - The runner invokes the designated **Maker** agent.
-   - The output is validated by the **Checker** using `ConditionEvaluator` rules.
+   - The output is validated by the **Checker** (note that the dynamic `ConditionEvaluator` rules engine is not implemented in the current release; validation checks are performed on the client-side or verified against transition gates in `LoopStateMachine`).
 4. **Verification:** The postconditions are verified.
 5. **Gating:** Human gates are resolved via notifications or blocking hooks.
 6. **Reflection:** A reflection artifact is saved, and metrics are recorded.

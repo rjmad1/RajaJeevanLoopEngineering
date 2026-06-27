@@ -27,19 +27,18 @@ graph TD
     LOOP006 --> LOOP102
 ```
 
-## 2. Decoupled Java Module Dependency Graph
+## 2. Decoupled Java Module Dependency Graph (Current Standalone Release)
 
-The harvested code structure has zero circular dependencies and is isolated from the `RajaJeevanLoopEngineering` application core:
+The Java code structure is cleanly structured, with zero circular dependencies:
 
 ```mermaid
-graph LR
-    ExecutionContext["ExecutionContext"]
-    RetryPolicy["RetryPolicy"]
-    RateLimitPolicy["RateLimitPolicy"]
-    CircuitBreaker["CircuitBreaker"]
-    SimpleCircuitBreaker["SimpleCircuitBreaker"] --> CircuitBreaker
+graph TD
+    LoopEngineServer["LoopEngineServer (HTTP API)"] --> LoopStateMachine["LoopStateMachine (State Transition Evaluator)"]
+    LoopEngineServer --> TransitRequest["TransitRequest"]
+    LoopEngineServer --> TransitResponse["TransitResponse"]
     
-    Condition["Condition"] --> Operator["Operator"]
-    ConditionEvaluator["ConditionEvaluator"] --> Condition
-    ConditionEvaluator --> ExecutionContext
+    LoopStateMachine --> LoopInstance["LoopInstance (State & Audit Log)"]
+    LoopStateMachine --> TelemetryService["TelemetryService (OpenTelemetry Tracing)"]
+    
+    LoopSpecCompiler["LoopSpecCompiler (YAML/JSON Compiler)"] --> LoopDefinition["LoopDefinition"]
 ```

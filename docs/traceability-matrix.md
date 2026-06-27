@@ -11,13 +11,17 @@ This matrix maps every generalized/extracted file in `RajaJeevanLoopEngineering`
 | `loops/governance/` | `docs/loops/governance/` | 1.0 | Governance loops. |
 | `templates/` | `docs/loops/templates/` | 1.0 | Reusable loop templates. |
 | `examples/` | `docs/loops/examples/` | 1.0 | Worked execution logs. |
-| `code/src/main/java/com/rajajeevan/loop/rules/Condition.java` | `shared/rules/src/main/java/com/conductor/shared/rules/Condition.java` | 1.0.0 | Remapped package. |
-| `code/src/main/java/com/rajajeevan/loop/rules/Operator.java` | `shared/rules/src/main/java/com/conductor/shared/rules/Operator.java` | 1.0.0 | Remapped package. |
-| `code/src/main/java/com/rajajeevan/loop/rules/ConditionEvaluator.java` | `shared/rules/src/main/java/com/conductor/shared/rules/ConditionEvaluator.java` | 1.0.0 | Remapped package. |
-| `code/src/main/java/com/rajajeevan/loop/execution/ExecutionContext.java` | `shared/execution/src/main/java/com/conductor/shared/execution/ExecutionContext.java` | 1.0.0 | Decoupled imports. |
-| `code/src/main/java/com/rajajeevan/loop/execution/RetryPolicy.java` | `shared/execution/src/main/java/com/conductor/shared/execution/RetryPolicy.java` | 1.0.0 | Decoupled imports. |
-| `code/src/main/java/com/rajajeevan/loop/execution/provider/CircuitBreaker.java` | `shared/execution/src/main/java/com/conductor/shared/execution/provider/CircuitBreaker.java` | 1.0.0 | Remapped package. |
-| `code/src/main/java/com/rajajeevan/loop/execution/provider/SimpleCircuitBreaker.java` | `shared/execution/src/main/java/com/conductor/shared/execution/provider/SimpleCircuitBreaker.java` | 1.0.0 | Remapped package. |
-| `code/src/main/java/com/rajajeevan/loop/execution/provider/RateLimitPolicy.java` | `shared/execution/src/main/java/com/conductor/shared/execution/provider/RateLimitPolicy.java` | 1.0.0 | Remapped package. |
-| `code/src/test/java/com/rajajeevan/loop/rules/ConditionEvaluatorTest.java` | `shared/rules/src/test/java/com/conductor/shared/rules/ConditionEvaluatorTest.java` | 1.0.0 | Remapped package. |
-| `code/src/test/java/com/rajajeevan/loop/execution/RetryPolicyTest.java` | `shared/execution/src/test/java/com/conductor/shared/execution/RetryPolicyTest.java` | 1.0.0 | Remapped package. |
+| `code/src/main/java/com/rajajeevan/loop/bootstrap/BootstrapCli.java` | N/A | 1.0.0 | Standalone CLI entrypoint. |
+| `code/src/main/java/com/rajajeevan/loop/engine/LoopEngineServer.java` | N/A | 1.0.0 | HTTP server API entrypoint. |
+| `code/src/main/java/com/rajajeevan/loop/engine/LoopInstance.java` | N/A | 1.0.0 | State tracking instance. |
+| `code/src/main/java/com/rajajeevan/loop/engine/LoopPhase.java` | N/A | 1.0.0 | State phase enumeration. |
+| `code/src/main/java/com/rajajeevan/loop/engine/LoopStateMachine.java` | N/A | 1.0.0 | State transition engine. |
+| `code/src/main/java/com/rajajeevan/loop/engine/TransitRequest.java` | N/A | 1.0.0 | API payload definition. |
+| `code/src/main/java/com/rajajeevan/loop/engine/TransitResponse.java` | N/A | 1.0.0 | API payload definition. |
+| `code/src/main/java/com/rajajeevan/loop/spec/LoopDefinition.java` | N/A | 1.0.0 | Specification data model. |
+| `code/src/main/java/com/rajajeevan/loop/spec/LoopSpecCompiler.java` | N/A | 1.0.0 | YAML compiler for loop specs. |
+| `code/src/main/java/com/rajajeevan/loop/telemetry/TelemetryService.java` | N/A | 1.0.0 | OpenTelemetry metrics mapping. |
+| `code/src/test/java/com/rajajeevan/loop/spec/LoopSpecCompilerTest.java` | N/A | 1.0.0 | Test coverage for spec compiler. |
+| `code/src/test/java/com/rajajeevan/loop/engine/LoopStateMachineTest.java` | N/A | 1.0.0 | Test coverage for state transitions. |
+| `code/src/test/java/com/rajajeevan/loop/engine/LoopEngineServerTest.java` | N/A | 1.0.0 | Integration tests for server REST API. |
+| `code/src/test/java/com/rajajeevan/loop/telemetry/TelemetryServiceTest.java` | N/A | 1.0.0 | Test coverage for metrics collection. |

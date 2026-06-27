@@ -73,7 +73,11 @@ public class LoopEngineServer {
       }
 
       TransitResponse response = stateMachine.evaluateTransition(request);
-      ctx.status(response.isTransitionAllowed() ? 200 : 409).json(response);
+      if ("UNKNOWN".equals(response.getCurrentState())) {
+        ctx.status(400).json(response);
+      } else {
+        ctx.status(response.isTransitionAllowed() ? 200 : 409).json(response);
+      }
     } catch (Exception e) {
       ctx.status(400).json(errorMap("Invalid request body: " + e.getMessage()));
     }
@@ -93,9 +97,7 @@ public class LoopEngineServer {
   }
 
   private java.util.Map<String, Object> errorMap(String message) {
-    return java.util.Map.of(
-        "transition_allowed", false,
-        "message", message);
+    return java.util.Map.of("transition_allowed", false, "message", message);
   }
 
   /** Production entry point. Starts on port 8080. */

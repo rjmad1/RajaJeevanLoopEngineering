@@ -6,7 +6,7 @@ This report outlines the steps taken to decouple and generalize the loop enginee
 
 ## 1. Decoupling Java Code
 
-### WhatsApp and Connector Removal
+### WhatsApp and Legacy Module Removal
 - **Coupling:** The original `shared/execution` module had dependencies on external clients (e.g. `WhatsAppProvider`), database repositories, and security frameworks.
 - **Resolution:** These dependencies were completely omitted from the new library. We extracted only generic, reusable components:
   - `ExecutionContext` - Simplifies context mapping to a thread-safe map.
@@ -15,7 +15,7 @@ This report outlines the steps taken to decouple and generalize the loop enginee
   - `RateLimitPolicy` - Standard configurations for rate limiting.
 
 ### Remapping Namespace imports
-- **Coupling:** Classes in the original repository imported dependencies from `com.conductor.shared.*`.
+- **Coupling:** Classes in the legacy codebase imported dependencies from legacy execution packages (e.g. `com.legacy.shared.*`).
 - **Resolution:** All classes and test frameworks were remapped to package `com.rajajeevan.loop.*`, making them independent.
 
 ---
