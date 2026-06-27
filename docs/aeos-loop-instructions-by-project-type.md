@@ -19,14 +19,52 @@ This reference guide provides copy-paste ready, context-specific instructions fo
 
 ## Overview & How to Use
 
-Each instruction block is designed to be submitted directly to your **AEOS runtime** or your **AI agent**'s prompt. 
-Before copy-pasting an instruction, ensure you:
-1. Identify your **Project Type** (Greenfield, Brownfield, Modernisation, Open Source, or Maintenance).
-2. Follow the loops in the specified **sequential order**.
-3. Replace all bracketed values `[like this]` with your project's specific details (e.g., `[TASK-NNN]` with `TASK-104`, or `[module name]` with `auth-service`).
+This guide contains copy-paste prompts (instructions) for using AEOS (Agentic Engineering Operating System) loops. These loops are predefined templates that help you structure, write, review, test, and document your code.
+
+### What are loops and how do I use them?
+Think of a "loop" as a recipe for a specific task (like fixing a bug, writing a test, or cleaning up code). You use them by copying the templates (the code blocks in this guide) and pasting them directly to your AI coding assistant or AEOS command prompt.
+
+### Simple 3-Step Guide to Run a Loop
+
+1. **Find your project type**: Scroll down to find the section that matches your project (for example, **Greenfield** for new projects, or **Brownfield** for working on existing codebases).
+2. **Copy the template**: Find the loop you need (e.g. `LOOP-101` for bug fixing) and copy the template code block.
+3. **Fill in the brackets and send**: Replace any placeholder text in brackets `[like this]` with your actual task details, and paste it to your AI tool.
 
 > [!TIP]
-> Always verify that your target paths and file names match the actual directory structure of your repository before initiating execution.
+> Always verify that your target file paths and folder names match the actual structure of your project before sending the prompt.
+
+---
+
+### Step-by-Step Example
+
+Let's say you need to fix a bug in your payment code and your task number is `TASK-104`. You are working on an existing codebase, so you are in **Project Type 2 — Brownfield**.
+
+1. You scroll down to **Project Type 2 — Brownfield** and find **LOOP-101 — Bug Fixing**.
+2. You copy the prompt template:
+   ```markdown
+   Loop: LOOP-101
+   Goal: Fix the defect described in [TASK-NNN].
+   Task: [paste your task record here]
+   Context: [paste LOOP-001's module-catalog entry for the affected module]
+   Constraints:
+     - Identify the root cause before proposing a fix. Document it in the
+       engineering-analysis.md.
+     - The fix must not change the public interface of any module.
+     - All existing tests must pass after the fix.
+   ```
+3. You replace the bracketed sections with your actual details. Your final message to your AI assistant will look like this:
+   ```markdown
+   Loop: LOOP-101
+   Goal: Fix the defect described in TASK-104.
+   Task: TASK-104: Payment checkout form crashes on blank zip code input.
+   Context: payment-service: Handles user credit card checkouts and validation.
+   Constraints:
+     - Identify the root cause before proposing a fix. Document it in the
+       engineering-analysis.md.
+     - The fix must not change the public interface of any module.
+     - All existing tests must pass after the fix.
+   ```
+4. Paste it and run!
 
 ---
 
