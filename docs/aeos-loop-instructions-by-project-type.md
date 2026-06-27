@@ -223,6 +223,28 @@ Output: docs/reflection/
 | 9 | **LOOP-006** | Automatically invoked after LOOP-005 — do not skip; regression detection is critical. | Regression check against `session_start_sha` is mandatory. |
 | 10 | **LOOP-007** | Automatically invoked at session end — review output after every 3–4 cycles. | Review findings to identify structural patterns. |
 
+### Specialized Engineering & Operational Audit Loops
+
+These loops are triggered either periodically or based on specific task categories to manage ongoing health, telemetry, experimental variants, dependencies, and environments.
+
+| Loop | Name | When to Use It | Key Gate/Constraint |
+| :--- | :--- | :--- | :--- |
+| **LOOP-106** | Customer Journey Analytics | On-demand; correlating runtime exceptions to business conversion drop-offs. | Requires integration with business logs. |
+| **LOOP-111** | Technical Debt Remediation | Weekly/monthly scheduled runs; prioritizing complexity and refactoring backlog. | Focus on high-churn files first. |
+| **LOOP-150** | Dependency Patching | Weekly, or immediately on critical CVE vulnerability disclosures. | Strictly upgrade one package per PR. |
+| **LOOP-170** | Zero-Trust Token Rotation | Periodic scheduled rotation, or immediately following key exposures. | Must maintain zero downtime. |
+| **LOOP-180** | Environment Drift Audit | Monthly scheduled check; validating IaC alignments. | Highlights mismatches in staging/production. |
+| **LOOP-205** | Multi-Tenant Isolation Audit | Periodic security audits; tests tenant data bleed via query injection. | Enforces strict data boundaries. |
+| **LOOP-209** | Partner API Degradation | Monthly or on-demand; checks circuit-breaker resilient degradation. | Simulates third-party service failures. |
+| **LOOP-211** | FinOps Cloud Bursting | On cost alerts; recommends workload scaling/relocation options. | Optimizes resource configuration costs. |
+| **LOOP-212** | Chaos Engineering Resilience | Periodic drills; injects service failures to verify system self-healing. | Validates recovery bounds. |
+| **LOOP-305** | Telemetry Compliance | When changing event pipelines, schemas, or analytics tracking. | Matches tracking specifications. |
+| **LOOP-306** | SaaS Cost Optimization | Monthly licensing audits; flags inactive seats for deprovisioning. | Lowers software seat licensing waste. |
+| **LOOP-307** | Regulatory Compliance Drift | Pre-audit reviews; checks changes against GDPR/HIPAA standards. | Prevents silent data compliance failures. |
+| **LOOP-404** | Feature Flag Lifecycle | Rollout/rollback of toggles, or automated removal of stale toggles. | Prevents tech debt from stale flags. |
+| **LOOP-405** | Experimentation Guardrail | Active A/B experiments; tracks health and auto-terminates failing variants. | Blocks variants breaking safety thresholds. |
+| **LOOP-406** | Edge Deployment Rollback | Automatically on edge alert spikes; reverts to last known good image. | Minimizes blast radius at edge locations. |
+
 ### LOOP-001 — Architecture Discovery
 
 **When:** First time adopting AEOS on this codebase. After major branch merges. After dependency upgrades that change the module graph. After any team adds or removes modules.
@@ -389,6 +411,207 @@ Focus areas for brownfield:
 Output: docs/reflection/
 Review docs/reflection/improvement-opportunities.md after every 4 cycles and
 schedule the top P1 items as ARCH or RFCT tasks in the backlog.
+```
+
+### LOOP-106 — Customer Journey Analytics
+
+**When:** Run on-demand when runtime errors or exceptions correlate with drops in conversion funnels or user drop-offs.
+
+**Explainer:** Maps application error telemetry to user checkout or conversion logs to evaluate business impact.
+
+```markdown
+Loop: LOOP-106
+Goal: Correlate runtime errors with drops in customer conversion funnels.
+Scope: Application error logs and user journey telemetry.
+Target Funnel: [e.g., checkout flow, user signup]
+Expected output: A report mapping specific exception patterns to funnel drops with estimated business impact.
+```
+
+### LOOP-111 — Technical Debt Remediation
+
+**When:** Weekly or monthly scheduled run to evaluate complexity trends and schedule localized refactoring.
+
+**Explainer:** Scans code churn and files with high cyclomatic complexity to generate refactoring tasks.
+
+```markdown
+Loop: LOOP-111
+Goal: Quantify technical debt and identify top refactoring candidates.
+Scope: Codebase complexity analysis and file edit history (git churn).
+Expected output: A technical debt report listing candidate modules for refactoring under LOOP-102.
+```
+
+### LOOP-150 — Dependency Patching
+
+**When:** Weekly, or immediately upon a security vulnerability disclosure (CVE) affecting third-party packages.
+
+**Explainer:** Scans package manifests, identifies out-of-date or vulnerable packages, and updates them safely.
+
+```markdown
+Loop: LOOP-150
+Goal: Scan and apply upgrades to third-party dependencies.
+Target Package: [e.g., spring-core or express]
+Scope: Build manifests (e.g., package.json, build.gradle, pom.xml).
+Expected output: Updated dependency file and verified clean build/test output.
+Constraints: Upgrade only one package at a time to prevent multi-point failure.
+```
+
+### LOOP-170 — Zero-Trust Token Rotation
+
+**When:** Periodic schedule or immediately following a security incident or credential exposure.
+
+**Explainer:** Automates rotation of keys, API tokens, and access credentials without system downtime.
+
+```markdown
+Loop: LOOP-170
+Goal: Rotate active credentials or API tokens safely.
+Target secret: [Name of secret or token to rotate]
+Expected output: Verified successful token rotation with zero-downtime service execution.
+```
+
+### LOOP-180 — Environment Drift Audit
+
+**When:** Monthly, or after major environment configuration changes in staging, UAT, or production.
+
+**Explainer:** Compares infrastructure-as-code configurations with actual deployed states to flag drift.
+
+```markdown
+Loop: LOOP-180
+Goal: Audit environment configuration drift across staging, UAT, and production.
+Scope: Infrastructure-as-code files and environment deployment descriptors.
+Expected output: Drift audit report highlighting mismatches and remediation scripts.
+```
+
+### LOOP-205 — Multi-Tenant Isolation Audit
+
+**When:** Periodic schedule, or after significant changes to data routing, schemas, or tenant isolation layers.
+
+**Explainer:** Validates data boundary safety by injecting cross-tenant data query simulations.
+
+```markdown
+Loop: LOOP-205
+Goal: Audit multi-tenant isolation and verify zero data bleed across tenants.
+Scope: Database queries, API routing middleware, and session context resolvers.
+Expected output: Tenant isolation validation report detailing security test execution.
+```
+
+### LOOP-209 — Partner API Degradation
+
+**When:** Monthly scheduled run or after updating integrations with critical third-party APIs.
+
+**Explainer:** Simulates partner API failures (latency, errors) to verify that circuit breakers trigger correctly.
+
+```markdown
+Loop: LOOP-209
+Goal: Validate resilience and circuit-breaker behavior under partner API degradation.
+Target API: [Name/URL of the external integration]
+Expected output: Circuit-breaker threshold validation report.
+```
+
+### LOOP-211 — FinOps Cloud Bursting
+
+**When:** On-demand when cloud resource cost alert thresholds are exceeded.
+
+**Explainer:** Identifies cost-saving workload placement opportunities and maps workload transfers.
+
+```markdown
+Loop: LOOP-211
+Goal: Analyze cloud consumption and recommend workload scaling or migration.
+Scope: Billing telemetry and deployment resource manifests.
+Expected output: Recommendations for FinOps cost reduction and workload placement.
+```
+
+### LOOP-212 — Chaos Engineering Resilience
+
+**When:** Scheduled periodic drills in non-production environments to verify system self-healing.
+
+**Explainer:** Injects service outages, network latency, or pod kills to verify clustering recovery.
+
+```markdown
+Loop: LOOP-212
+Goal: Verify resilience by injecting target service failures.
+Target service: [Name of service/component to fail]
+Failure type: [e.g., Pod kill, network latency injection]
+Expected output: System recovery analysis detailing failover success and duration.
+```
+
+### LOOP-305 — Telemetry Compliance
+
+**When:** Run when feature updates alter tracking logs, event pipelines, or analytics triggers.
+
+**Explainer:** Verifies event formats and payloads match defined business schema specifications.
+
+```markdown
+Loop: LOOP-305
+Goal: Verify telemetry event emission schema compliance.
+Tracking Spec: [Path to tracking dictionary or specification]
+Expected output: Compliance report checking emitted events against the dictionary.
+```
+
+### LOOP-306 — SaaS Cost Optimization
+
+**When:** Monthly or quarterly licensing review.
+
+**Explainer:** Identifies underutilized SaaS seats and generates lists of candidate accounts to deprovision.
+
+```markdown
+Loop: LOOP-306
+Goal: Identify unused SaaS seat licenses for cost savings.
+Target SaaS: [Name of SaaS application]
+Expected output: Audit report listing inactive accounts and potential cost savings.
+```
+
+### LOOP-307 — Regulatory Compliance Drift
+
+**When:** After changes in legal frameworks (e.g. GDPR, HIPAA updates) or prior to compliance audits.
+
+**Explainer:** Assesses recent commits and database schemas for compliance alignment.
+
+```markdown
+Loop: LOOP-307
+Goal: Audit codebase compliance against regulatory frameworks.
+Target Regulation: [e.g., GDPR, HIPAA]
+Scope: Recent database schema changes and PII data handlers.
+Expected output: Compliance check report identifying potential drift or exposure risks.
+```
+
+### LOOP-404 — Feature Flag Lifecycle
+
+**When:** When rolling out new features behind flags, or cleaning up stale/completed feature flags.
+
+**Explainer:** Manages rollout schedules, flags health metrics, and automates stale toggle removal.
+
+```markdown
+Loop: LOOP-404
+Goal: Rollout, rollback, or clean up feature flags.
+Feature Flag: [Feature Flag Key]
+Action: [Rollout / Rollback / Cleanup]
+Expected output: Surgical removal of feature flag code path or updated rollout configurations.
+```
+
+### LOOP-405 — Experimentation Guardrail
+
+**When:** During live A/B experiments to ensure variant performance doesn't cause customer harm.
+
+**Explainer:** Monitors metrics like latency or signup rates to automatically disable failing variants.
+
+```markdown
+Loop: LOOP-405
+Goal: Monitor live experimentation variants against health guardrails.
+Experiment Key: [Experiment ID]
+Expected output: Guardrail compliance log, with auto-termination trigger if safety bounds are breached.
+```
+
+### LOOP-406 — Edge Deployment Rollback
+
+**When:** Automatically on deployment anomaly alerts, or manually to revert container states at edge networks.
+
+**Explainer:** Monitors edge telemetry and deploys previous known good images upon error rate spike.
+
+```markdown
+Loop: LOOP-406
+Goal: Monitor edge deployment health and trigger rollbacks on error spikes.
+Scope: Edge container deployments and health checkers.
+Expected output: Edge rollback status and validation report.
 ```
 
 ---
