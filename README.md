@@ -7,6 +7,8 @@
 Welcome to the **RajaJeevanLoopEngineering** repository. This repository provides the infrastructure, guidelines, specifications, execution templates, and utility code for executing and auditing structured AI agent workflows.
 
 Rather than executing open-ended prompts, this framework enables software developers and stakeholders to codify agent processes into formal, state-bound, auditable execution loops governed by the **Maker/Checker** pattern and human oversight.
+---
+<img width="2752" height="1536" alt="image-1782557170463" src="https://github.com/user-attachments/assets/f0c7e7d7-fd27-4873-83ee-5c8a366fa9e2" />
 
 ---
 ```mermaid
