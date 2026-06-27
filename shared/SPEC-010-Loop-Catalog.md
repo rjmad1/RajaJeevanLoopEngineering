@@ -121,13 +121,30 @@ The following loop specifications are proposed and in Draft status. Content has 
 | Loop ID | Name | Status | Proposed By | Proposed Date | Notes |
 |---|---|---|---|---|---|
 | LOOP-105 | Code Review | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
-| LOOP-205 | Multi-Tenant Validation | Proposed | Platform Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-106 | Customer Journey Analytics | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-110 | Legacy Strangler | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-111 | Technical Debt Remediation | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-150 | Dependency Patching | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-170 | Zero-Trust Token Rotation | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-180 | Environment Drift Audit | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-205 | Multi-Tenant Isolation Audit | Proposed | Platform Engineering Function | 2026-06-27 | Planned draft skeleton |
 | LOOP-206 | Observability Validation | Proposed | Platform Engineering Function | 2026-06-27 | Planned draft skeleton |
 | LOOP-207 | Security Validation | Proposed | Platform Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-208 | Data Migration | Proposed | Platform Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-209 | Partner API Degradation | Proposed | Platform Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-210 | API Shadow IT Discovery | Proposed | Platform Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-211 | FinOps Cloud Bursting | Proposed | Platform Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-212 | Chaos Engineering Resilience | Proposed | Platform Engineering Function | 2026-06-27 | Planned draft skeleton |
 | LOOP-303 | Compliance | Proposed | Principal Architecture Function | 2026-06-27 | Reverted to Draft 0.2 due to draft dependency |
+| LOOP-305 | Telemetry Compliance | Proposed | Principal Architecture Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-306 | SaaS Cost Optimization | Proposed | Principal Architecture Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-307 | Regulatory Compliance Drift | Proposed | Principal Architecture Function | 2026-06-27 | Planned draft skeleton |
 | LOOP-401 | Release Checklist | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
 | LOOP-402 | Deployment Validation | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
 | LOOP-403 | Post-Release Verification | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-404 | Feature Flag Lifecycle | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-405 | Experimentation Guardrail | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-406 | Edge Deployment Rollback | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
 
 ---
 

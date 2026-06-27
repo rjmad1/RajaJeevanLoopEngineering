@@ -1,26 +1,26 @@
 ---
 # PROVENANCE METADATA
-Original Path: docs/loops/platform/LOOP-205-Multi-Tenant-Validation.md
+Original Path: docs/loops/engineering/LOOP-150-Dependency-Patching.md
 Original Version: 0.1
 Extraction Date: 2026-06-27
-Original Purpose: Platform validation loop to verify multi-tenant isolation.
-Generalized Purpose: Platform validation loop to verify multi-tenant isolation.
+Original Purpose: Scans open-source packages for vulnerabilities, applies upgrades, and verifies backward compatibility through automated regression suites.
+Generalized Purpose: Scans open-source packages for vulnerabilities, applies upgrades, and verifies backward compatibility through automated regression suites.
 Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
-Dependencies Retained: LOOP-006 — Verification
+Dependencies Retained: LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.
 ---
-# LOOP-205 — Multi-Tenant Validation
+# LOOP-150 — Dependency Patching
 
-**Loop ID:** LOOP-205
-**Name:** Multi-Tenant Validation
+**Loop ID:** LOOP-150
+**Name:** Dependency Patching
 **Version:** 0.1
 **Status:** Draft
-**Category:** Platform
-**Depends On:** LOOP-006 — Verification
+**Category:** Engineering
+**Depends On:** LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification
 **Human Gates:** Hard, Soft
-**Owner:** Platform Engineering Function
-**Maintainer:** Platform Engineering Function
+**Owner:** Principal Engineering Function
+**Maintainer:** Principal Engineering Function
 
 ---
 
@@ -74,4 +74,3 @@ Migration Notes: Direct copy of the general loop framework specification.
 ## Future Improvements
 
 ## Version History
-

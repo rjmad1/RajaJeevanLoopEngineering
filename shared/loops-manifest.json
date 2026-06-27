@@ -6,7 +6,12 @@
     "engineering/LOOP-103-Test-Generation.md",
     "core/LOOP-005-Implementation.md",
     "platform/LOOP-202-Integration-Validation.md",
-    "governance/LOOP-304-Release-Readiness.md"
+    "governance/LOOP-304-Release-Readiness.md",
+    "release/LOOP-404-Feature-Flag-Lifecycle.md",
+    "governance/LOOP-305-Telemetry-Compliance.md",
+    "release/LOOP-405-Experimentation-Guardrail.md",
+    "platform/LOOP-205-Multi-Tenant-Isolation-Audit.md",
+    "engineering/LOOP-170-Zero-Trust-Token-Rotation.md"
   ],
   "Brownfield": [
     "core/LOOP-002-Context-Assembly.md",
@@ -14,7 +19,22 @@
     "core/LOOP-005-Implementation.md",
     "core/LOOP-006-Verification.md",
     "engineering/LOOP-102-Refactoring.md",
-    "governance/LOOP-303-Compliance.md"
+    "governance/LOOP-303-Compliance.md",
+    "engineering/LOOP-180-Environment-Drift-Audit.md",
+    "platform/LOOP-209-Partner-API-Degradation.md",
+    "release/LOOP-404-Feature-Flag-Lifecycle.md",
+    "governance/LOOP-305-Telemetry-Compliance.md",
+    "release/LOOP-405-Experimentation-Guardrail.md",
+    "engineering/LOOP-150-Dependency-Patching.md",
+    "engineering/LOOP-111-Technical-Debt-Remediation.md",
+    "governance/LOOP-306-SaaS-Cost-Optimization.md",
+    "governance/LOOP-307-Regulatory-Compliance-Drift.md",
+    "platform/LOOP-211-FinOps-Cloud-Bursting.md",
+    "platform/LOOP-205-Multi-Tenant-Isolation-Audit.md",
+    "platform/LOOP-212-Chaos-Engineering-Resilience.md",
+    "engineering/LOOP-170-Zero-Trust-Token-Rotation.md",
+    "engineering/LOOP-106-Customer-Journey-Analytics.md",
+    "release/LOOP-406-Edge-Deployment-Rollback.md"
   ],
   "Modernization": [
     "core/LOOP-001-Architecture-Discovery.md",
@@ -22,7 +42,14 @@
     "engineering/LOOP-103-Test-Generation.md",
     "engineering/LOOP-102-Refactoring.md",
     "platform/LOOP-204-API-Contract-Validation.md",
-    "governance/LOOP-302-Documentation-Governance.md"
+    "governance/LOOP-302-Documentation-Governance.md",
+    "platform/LOOP-208-Data-Migration.md",
+    "engineering/LOOP-110-Legacy-Strangler.md",
+    "engineering/LOOP-180-Environment-Drift-Audit.md",
+    "engineering/LOOP-111-Technical-Debt-Remediation.md",
+    "platform/LOOP-210-API-Shadow-IT-Discovery.md",
+    "governance/LOOP-307-Regulatory-Compliance-Drift.md",
+    "engineering/LOOP-170-Zero-Trust-Token-Rotation.md"
   ],
   "IncidentResponse": [
     "core/LOOP-002-Context-Assembly.md",
@@ -30,6 +57,11 @@
     "engineering/LOOP-103-Test-Generation.md",
     "core/LOOP-005-Implementation.md",
     "core/LOOP-006-Verification.md",
-    "core/LOOP-007-Reflection.md"
+    "core/LOOP-007-Reflection.md",
+    "platform/LOOP-209-Partner-API-Degradation.md",
+    "engineering/LOOP-150-Dependency-Patching.md",
+    "platform/LOOP-212-Chaos-Engineering-Resilience.md",
+    "engineering/LOOP-106-Customer-Journey-Analytics.md",
+    "release/LOOP-406-Edge-Deployment-Rollback.md"
   ]
 }
