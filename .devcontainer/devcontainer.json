@@ -1,0 +1,27 @@
+{
+  "name": "Loop Engineering Framework Dev Environment",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+      "moby": true,
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21"
+    }
+  },
+  "remoteUser": "vscode",
+  "runArgs": [
+    "--cap-drop=all",
+    "--security-opt=no-new-privileges"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.vscode-yaml",
+        "vscjava.vscode-java-pack"
+      ]
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/devcontainer-setup.sh"
+}

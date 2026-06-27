@@ -58,12 +58,41 @@ The script automatically ports:
 
 ---
 
-## 🏁 Running the Java Rule Engine Natively
+## 🏁 Bootstrapping & Containerised Loop Engine
 
-To build and verify execution modules natively without docker:
+### 1. Cross-Platform Bootstrapping (Python 3)
+In addition to PowerShell, a cross-platform Python onboarding script is available:
 ```bash
-cd RajaJeevanLoopEngineering/code
-./gradlew test
+python3 bootstrap.py
+```
+This utility copies loop definitions, configures standard templates, ports the Java rule engine, and generates secure Dev Container workspaces natively across Linux, macOS, and Windows.
+
+### 2. Run the Containerised State Engine (Docker)
+Build and run the loop engine inside a sandboxed container:
+```bash
+# Build target Docker image
+docker build -t loop-engine .
+
+# Run the container (exposes REST API on port 8080)
+docker run -p 8080:8080 loop-engine
+```
+The container runs as a low-privilege, non-root user with dropped capabilities, preventing arbitrary shell command execution.
+
+### 3. Agnostic State Transition REST API
+The state engine exposes language-neutral endpoints on port `8080`:
+
+*   **`POST /api/v1/loops/transit`** — Submit phase transitions (e.g. `IMPLEMENTATION` to `VERIFICATION`) for validation and circuit breaker checks.
+*   **`GET /api/v1/loops/{loopId}/status`** — Query current phase, check if the circuit breaker is tripped, and receive recommended next actions.
+*   **`GET /health`** — Container liveness probe.
+
+### 4. Agnostic Shell Client (`loop-control.sh`)
+Submit transitions easily from any Python worker, CI/CD pipeline, or shell script:
+```bash
+# Transition state
+./loop-control.sh transit my-loop IMPLEMENTATION VERIFICATION
+
+# Check state status
+./loop-control.sh status my-loop
 ```
 
 ---
@@ -71,3 +100,4 @@ cd RajaJeevanLoopEngineering/code
 ## 📖 Wiki Documentation
 
 For in-depth explanations of the loop theory, classification matrices, and operational guides, visit the official [GitHub Wiki](https://github.com/rjmad1/RajaJeevanLoopEngineering/wiki).
+
