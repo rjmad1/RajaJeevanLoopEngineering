@@ -5,7 +5,7 @@ Original Version: 1.0
 Extraction Date: 2026-06-27
 Original Purpose: Loop specification or framework asset.
 Generalized Purpose: Loop specification or framework asset.
-Dependencies Removed: Conductor business workflow configurations
+Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
 Dependencies Retained: None
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.
@@ -289,7 +289,7 @@ Changes detected since the prior run (LOOP-001-20260626-000):
 | Category | Added | Removed | Changed | Notes |
 |----------|-------|---------|---------|-------|
 | Modules | 0 | 0 | 0 | No module boundary changes since first run |
-| Services | 1 | 0 | 2 | `OAuthTokenExchangeService` added; `WorkflowExecutionService` and `ConductorWorkflowImpl` configuration changed |
+| Services | 1 | 0 | 2 | `OAuthTokenExchangeService` added; `WorkflowExecutionService` and `RajaJeevanLoopEngineeringWorkflowImpl` configuration changed |
 | APIs | 4 | 1 | 2 | 4 new OAuth endpoints added; 1 legacy webhook endpoint removed; 2 KPI endpoints changed response schema |
 | Events | 2 | 0 | 0 | 2 new event types added in `platform/integrations/` |
 | Schemas | 0 | 0 | 0 | No schema changes |

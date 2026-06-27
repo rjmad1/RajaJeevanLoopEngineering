@@ -1,6 +1,6 @@
 # Generalization Report
 
-This report outlines the steps taken to decouple and generalize the loop engineering assets extracted from the parent `Conductor` repository.
+This report outlines the steps taken to decouple and generalize the loop engineering assets extracted from the parent `RajaJeevanLoopEngineering` repository.
 
 ---
 
@@ -16,7 +16,7 @@ This report outlines the steps taken to decouple and generalize the loop enginee
 
 ### Remapping Namespace imports
 - **Coupling:** Classes in the original repository imported dependencies from `com.conductor.shared.*`.
-- **Resolution:** All classes and test frameworks were remapped to package `com.conductor.loop.*`, making them independent.
+- **Resolution:** All classes and test frameworks were remapped to package `com.rajajeevan.loop.*`, making them independent.
 
 ---
 
@@ -27,5 +27,5 @@ This report outlines the steps taken to decouple and generalize the loop enginee
 - **Resolution:** Generalised descriptions to refer to abstract "orchestration pipelines", "identity providers", and "persistence layers".
 
 ### Templates and Examples
-- **Coupling:** Contained references to Conductor project structures.
+- **Coupling:** Contained references to RajaJeevanLoopEngineering project structures.
 - **Resolution:** Standardized template paths and added placeholder tags (e.g. `docs/<!-- function name -->/`) to support any target project architecture.

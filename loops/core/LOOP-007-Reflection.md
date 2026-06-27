@@ -5,7 +5,7 @@ Original Version: 1.0
 Extraction Date: 2026-06-27
 Original Purpose: Conduct retrospective reflection on the outcomes, risks, and performance of a loop run.
 Generalized Purpose: Conduct retrospective reflection on the outcomes, risks, and performance of a loop run.
-Dependencies Removed: Conductor business workflow configurations
+Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
 Dependencies Retained: LOOP-001 — Architecture Discovery, LOOP-002 — Context Assembly, LOOP-003 — Task Discovery, LOOP-004 — Planning, LOOP-005 — Implementation, LOOP-006 — Verification
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.

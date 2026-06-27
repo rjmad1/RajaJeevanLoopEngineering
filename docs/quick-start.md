@@ -9,7 +9,7 @@ Get started with the Loop Engineering Framework in under 10 minutes.
 Clone or copy the library directory into your project structure:
 
 ```bash
-cp -r general-purpose-loop-library/ /path/to/your/project/
+cp -r RajaJeevanLoopEngineering/ /path/to/your/project/
 ```
 
 ---
@@ -20,11 +20,11 @@ If your orchestrator is Java-based, declare the code dependencies in your `build
 
 ```gradle
 dependencies {
-    implementation project(':general-purpose-loop-library:code')
+    implementation project(':RajaJeevanLoopEngineering:code')
 }
 ```
 
-Or copy the source files from `code/src/main/java/com/conductor/loop/` directly into your workspace.
+Or copy the source files from `code/src/main/java/com/rajajeevan/loop/` directly into your workspace.
 
 ---
 

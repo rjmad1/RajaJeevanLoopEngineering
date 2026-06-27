@@ -5,7 +5,7 @@ Original Version: 1.0
 Extraction Date: 2026-06-27
 Original Purpose: Technical metrics and indicators collected during loop execution.
 Generalized Purpose: Technical metrics and indicators collected during loop execution.
-Dependencies Removed: Conductor business workflow configurations
+Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
 Dependencies Retained: None
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.

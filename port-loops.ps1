@@ -1,6 +1,6 @@
 # port-loops.ps1
 #
-# Ports the Conductor Loop Engineering Framework to target projects.
+# Ports the RajaJeevanLoopEngineering Loop Engineering Framework to target projects.
 # Sets up loop documents, templates, rule engines, and dev container configurations.
 #
 # Usage:
@@ -28,7 +28,7 @@ if ([string]::IsNullOrEmpty($SrcLibRoot)) {
     $SrcLibRoot = Get-Location
 }
 
-Write-Host "=== Conductor Loop Engineering Porting Utility ===" -ForegroundColor Green
+Write-Host "=== RajaJeevanLoopEngineering Loop Engineering Porting Utility ===" -ForegroundColor Green
 Write-Host "Source Library: $SrcLibRoot" -ForegroundColor Gray
 Write-Host "Target Project: $TargetProjectPath" -ForegroundColor Gray
 Write-Host "Project Type  : $ProjectType" -ForegroundColor Gray
@@ -42,7 +42,7 @@ if (-not (Test-Path -Path $TargetProjectPath)) {
 
 $TargetAgentsDir = Join-Path $TargetProjectPath ".agents"
 $TargetDocsDir   = Join-Path $TargetProjectPath "docs/loops"
-$TargetCodeDir   = Join-Path $TargetProjectPath "loop-library/code"
+$TargetCodeDir   = Join-Path $TargetProjectPath "RajaJeevanLoopEngineering/code"
 $TargetDevContainerDir = Join-Path $TargetProjectPath ".devcontainer"
 
 # 2. Provision Directory Structure
@@ -164,10 +164,10 @@ Write-Host "[+] Porting rule engine execution library..." -ForegroundColor Cyan
 $CodeSrc = Join-Path $SrcLibRoot "code"
 if (Test-Path -Path $CodeSrc) {
     Copy-Item -Path "$CodeSrc/*" -Destination $TargetCodeDir -Recurse -Force
-    Write-Host "    - Copy complete: loop-library/code/" -ForegroundColor Gray
+    Write-Host "    - Copy complete: RajaJeevanLoopEngineering/code/" -ForegroundColor Gray
 
-    # Grab Gradle wrapper from Conductor repository root (2 levels up from code directory)
-    $WorkspaceRoot = (Get-Item $SrcLibRoot).Parent.FullName
+    # Grab Gradle wrapper from RajaJeevanLoopEngineering repository root
+    $WorkspaceRoot = $SrcLibRoot
     $GradleSrcDir = Join-Path $WorkspaceRoot "gradle"
     $GradleW = Join-Path $WorkspaceRoot "gradlew"
     $GradleWBat = Join-Path $WorkspaceRoot "gradlew.bat"
@@ -176,9 +176,9 @@ if (Test-Path -Path $CodeSrc) {
         Copy-Item -Path $GradleSrcDir -Destination $TargetCodeDir -Recurse -Force
         Copy-Item -Path $GradleW -Destination $TargetCodeDir -Force
         Copy-Item -Path $GradleWBat -Destination $TargetCodeDir -Force
-        Write-Host "    - Added standalone Gradle wrapper files to loop-library/code/" -ForegroundColor Gray
+        Write-Host "    - Added standalone Gradle wrapper files to RajaJeevanLoopEngineering/code/" -ForegroundColor Gray
     } else {
-        Write-Warning "Gradle wrapper files not found in Conductor root directory. Stakeholders must supply Gradle."
+        Write-Warning "Gradle wrapper files not found in RajaJeevanLoopEngineering root directory. Stakeholders must supply Gradle."
     }
 }
 
@@ -227,10 +227,10 @@ set -euo pipefail
 echo "=== Initializing Loop Engineering Dev Container ==="
 
 # Compile rule engine core and run unit validations
-if [ -d "loop-library/code" ]; then
+if [ -d "RajaJeevanLoopEngineering/code" ]; then
     echo "Bootstrapping loop Java rule engine..."
-    chmod +x loop-library/code/gradlew || true
-    (cd loop-library/code && ./gradlew test) || echo "Warning: Initial unit tests failed or skipped."
+    chmod +x RajaJeevanLoopEngineering/code/gradlew || true
+    (cd RajaJeevanLoopEngineering/code && ./gradlew test) || echo "Warning: Initial unit tests failed or skipped."
 fi
 
 echo "=== Dev Container Loop Setup Completed Successfully ==="

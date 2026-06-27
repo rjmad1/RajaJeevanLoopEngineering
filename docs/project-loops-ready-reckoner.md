@@ -1,6 +1,6 @@
 # Project Loops Ready Reckoner
 
-This guide is a practical playbook and ready reckoner for applying the Conductor General Purpose Loop Engineering Framework across various software project models. It maps out sequential execution paths, provides copy-pasteable configuration templates, and lists deployment instructions to run structured loops safely.
+This guide is a practical playbook and ready reckoner for applying the RajaJeevanLoopEngineering General Purpose Loop Engineering Framework across various software project models. It maps out sequential execution paths, provides copy-pasteable configuration templates, and lists deployment instructions to run structured loops safely.
 
 ---
 
@@ -29,7 +29,7 @@ Ingest PRs & Audit     Immediate Hotfix     Dependency Patching
 *   **Architects & Gatekeepers:** To approve system designs, schema migrations, and code promotion.
 
 ### What is It?
-A formal mapping of the Conductor Loop Catalog into repeatable pipelines suited for specific codebase maturity levels.
+A formal mapping of the RajaJeevanLoopEngineering Loop Catalog into repeatable pipelines suited for specific codebase maturity levels.
 
 ### Why Use It?
 *   **Prevent Regression:** Every change requires verification before merge.
@@ -74,13 +74,13 @@ graph TD
 
 | Step | Loop ID & File Link | Objective | Input Artefacts | Output Artefacts | Key Gate / Guardrail |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1** | [LOOP-301 — ADR Generation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/governance/LOOP-301-ADR-Generation.md) | Formulate core architectural decisions. | Business constraints, target stack description | Architectural Decision Record (ADR) | **GATE-1:** Principal approval of target tech stack and database choices. |
-| **2** | [LOOP-104 — Documentation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-104-Documentation.md) | Author API contracts and specs first. | Approved ADR | OpenAPI schemas, Module Catalog, readme | **GATE-1:** API Contract validation check. |
-| **3** | [LOOP-001 — Architecture Discovery](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-001-Architecture-Discovery.md) | Parse workspace structure to establish boundaries. | Initial workspace directories | `dependency-map.md`, `technology-stack.md` | **GATE-2:** Warn if unexpected external frameworks are identified. |
-| **4** | [LOOP-103 — Test Generation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-103-Test-Generation.md) | Generate interface test harnesses (Test-First). | OpenAPI schema, module contracts | Unit & Mock Test templates | Assert that mock responses conform strictly to documentation. |
-| **5** | [LOOP-005 — Implementation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-005-Implementation.md) | Code generation matching specs and passing tests. | Context package, task details, test harness | Source code files, code check-ins | Enforce YAGNI: do not implement classes not in the approved spec. |
-| **6** | [LOOP-202 — Integration Validation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/platform/LOOP-202-Integration-Validation.md) | Verify integration between newly built modules. | Compiled classes, module catalog | Integration test reports | **GATE-1:** 100% test pass required. |
-| **7** | [LOOP-304 — Release Readiness](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/governance/LOOP-304-Release-Readiness.md) | Ensure project builds clean, docs are sync'd, and ready to tag. | Git delta, test run status | Verification scorecard | **GATE-1:** Compliance check and security scans. |
+| **1** | [LOOP-301 — ADR Generation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/governance/LOOP-301-ADR-Generation.md) | Formulate core architectural decisions. | Business constraints, target stack description | Architectural Decision Record (ADR) | **GATE-1:** Principal approval of target tech stack and database choices. |
+| **2** | [LOOP-104 — Documentation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-104-Documentation.md) | Author API contracts and specs first. | Approved ADR | OpenAPI schemas, Module Catalog, readme | **GATE-1:** API Contract validation check. |
+| **3** | [LOOP-001 — Architecture Discovery](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-001-Architecture-Discovery.md) | Parse workspace structure to establish boundaries. | Initial workspace directories | `dependency-map.md`, `technology-stack.md` | **GATE-2:** Warn if unexpected external frameworks are identified. |
+| **4** | [LOOP-103 — Test Generation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-103-Test-Generation.md) | Generate interface test harnesses (Test-First). | OpenAPI schema, module contracts | Unit & Mock Test templates | Assert that mock responses conform strictly to documentation. |
+| **5** | [LOOP-005 — Implementation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-005-Implementation.md) | Code generation matching specs and passing tests. | Context package, task details, test harness | Source code files, code check-ins | Enforce YAGNI: do not implement classes not in the approved spec. |
+| **6** | [LOOP-202 — Integration Validation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/platform/LOOP-202-Integration-Validation.md) | Verify integration between newly built modules. | Compiled classes, module catalog | Integration test reports | **GATE-1:** 100% test pass required. |
+| **7** | [LOOP-304 — Release Readiness](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/governance/LOOP-304-Release-Readiness.md) | Ensure project builds clean, docs are sync'd, and ready to tag. | Git delta, test run status | Verification scorecard | **GATE-1:** Compliance check and security scans. |
 
 ---
 
@@ -105,12 +105,12 @@ graph TD
 
 | Step | Loop ID & File Link | Objective | Input Artefacts | Output Artefacts | Key Gate / Guardrail |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1** | [LOOP-002 — Context Assembly](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-002-Context-Assembly.md) | Locate exact files, functions, and files affected. | Feature/Bug task description, codebase | `context-package.md`, `implementation-context.md` | Parse imports to map dependencies; alert on boundary crossing. |
-| **2** | [LOOP-103 — Test Generation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-103-Test-Generation.md) | Create regression tests matching current behavior. | Unmodified target code, spec sheet | Regression test files | Capture behavior invariants before introducing modifications. |
-| **3** | [LOOP-005 — Implementation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-005-Implementation.md) | Implement modifications using the Maker role. | `execution-plan.md`, test cases | Code diff, modified files | Scope control: reject any edits outside target files. |
-| **4** | [LOOP-006 — Verification](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-006-Verification.md) | Validate tests and ensure no regression exists. | Implementation diff, verification suite | `verification-report.md` | **GATE-1:** Verification confidence score must exceed `90%`. |
-| **5** | [LOOP-102 — Refactoring](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-102-Refactoring.md) | Clean up adjacent tech debt touched by the change. | Modified code, code quality report | Cleaner code structure (no behavior edits) | **GATE-1:** Prohibited from altering public API signatures. |
-| **6** | [LOOP-303 — Compliance](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/governance/LOOP-303-Compliance.md) | Audit security policies and dependency licensing. | Final change set, project configuration | Compliance report | **GATE-1:** 0 credentials leaks or GPL imports allowed. |
+| **1** | [LOOP-002 — Context Assembly](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-002-Context-Assembly.md) | Locate exact files, functions, and files affected. | Feature/Bug task description, codebase | `context-package.md`, `implementation-context.md` | Parse imports to map dependencies; alert on boundary crossing. |
+| **2** | [LOOP-103 — Test Generation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-103-Test-Generation.md) | Create regression tests matching current behavior. | Unmodified target code, spec sheet | Regression test files | Capture behavior invariants before introducing modifications. |
+| **3** | [LOOP-005 — Implementation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-005-Implementation.md) | Implement modifications using the Maker role. | `execution-plan.md`, test cases | Code diff, modified files | Scope control: reject any edits outside target files. |
+| **4** | [LOOP-006 — Verification](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-006-Verification.md) | Validate tests and ensure no regression exists. | Implementation diff, verification suite | `verification-report.md` | **GATE-1:** Verification confidence score must exceed `90%`. |
+| **5** | [LOOP-102 — Refactoring](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-102-Refactoring.md) | Clean up adjacent tech debt touched by the change. | Modified code, code quality report | Cleaner code structure (no behavior edits) | **GATE-1:** Prohibited from altering public API signatures. |
+| **6** | [LOOP-303 — Compliance](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/governance/LOOP-303-Compliance.md) | Audit security policies and dependency licensing. | Final change set, project configuration | Compliance report | **GATE-1:** 0 credentials leaks or GPL imports allowed. |
 
 ---
 
@@ -135,12 +135,12 @@ graph TD
 
 | Step | Loop ID & File Link | Objective | Input Artefacts | Output Artefacts | Key Gate / Guardrail |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1** | [LOOP-001 — Architecture Discovery](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-001-Architecture-Discovery.md) | Map legacy application components. | Unstructured legacy source directories | Component maps, module catalog | Generate a graphical dependency tree identifying circular references. |
-| **2** | [LOOP-105 — Code Review](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-105-Code-Review.md) | Audit legacy files for code smells and deprecation. | Target source modules | Technical debt inventory | Identify files containing > 500 lines or complex cyclomatic paths. |
-| **3** | [LOOP-103 — Test Generation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-103-Test-Generation.md) | Establish high-coverage integration tests around target boundaries. | Existing system interfaces | API boundary/contract tests | Build tests ensuring that legacy outputs map 1:1 with modernized outputs. |
-| **4** | [LOOP-102 — Refactoring](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-102-Refactoring.md) | Decouple code, extract modules, and migrate names. | Implementation plan, test boundaries | Modular code files | **GATE-1:** Refactoring must not break contract test suites. |
-| **5** | [LOOP-204 — API Contract Validation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/platform/LOOP-204-API-Contract-Validation.md) | Validate modernized API endpoints against legacy behavior. | Dynamic modernized service | API contract evaluation report | **GATE-1:** Strict schema and output equivalence validation. |
-| **6** | [LOOP-302 — Documentation Governance](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/governance/LOOP-302-Documentation-Governance.md) | Align codebase files, wikis, and markdown with new structure. | Modernized codebase, outdated docs | Synchronized architectural docs | Review and update `README.md` and module mapping. |
+| **1** | [LOOP-001 — Architecture Discovery](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-001-Architecture-Discovery.md) | Map legacy application components. | Unstructured legacy source directories | Component maps, module catalog | Generate a graphical dependency tree identifying circular references. |
+| **2** | [LOOP-105 — Code Review](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-105-Code-Review.md) | Audit legacy files for code smells and deprecation. | Target source modules | Technical debt inventory | Identify files containing > 500 lines or complex cyclomatic paths. |
+| **3** | [LOOP-103 — Test Generation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-103-Test-Generation.md) | Establish high-coverage integration tests around target boundaries. | Existing system interfaces | API boundary/contract tests | Build tests ensuring that legacy outputs map 1:1 with modernized outputs. |
+| **4** | [LOOP-102 — Refactoring](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-102-Refactoring.md) | Decouple code, extract modules, and migrate names. | Implementation plan, test boundaries | Modular code files | **GATE-1:** Refactoring must not break contract test suites. |
+| **5** | [LOOP-204 — API Contract Validation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/platform/LOOP-204-API-Contract-Validation.md) | Validate modernized API endpoints against legacy behavior. | Dynamic modernized service | API contract evaluation report | **GATE-1:** Strict schema and output equivalence validation. |
+| **6** | [LOOP-302 — Documentation Governance](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/governance/LOOP-302-Documentation-Governance.md) | Align codebase files, wikis, and markdown with new structure. | Modernized codebase, outdated docs | Synchronized architectural docs | Review and update `README.md` and module mapping. |
 
 ---
 
@@ -166,13 +166,13 @@ graph TD
 
 | Step | Loop ID & File Link | Objective | Input Artefacts | Output Artefacts | Key Gate / Guardrail |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1** | [LOOP-002 — Context Assembly](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-002-Context-Assembly.md) | Retrieve relevant error logs, stack traces, and source code. | Stack trace, bug ticket | Isolated target context pack | Limit search strictly to the traceback context. |
-| **2** | [LOOP-101 — Bug Fixing](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-101-Bug-Fixing.md) | Determine the root cause of the error. | Log analysis, context files | Root Cause Record | **GATE-2:** If root cause is ambiguous, pause and consult logs. |
-| **3** | [LOOP-103 — Test Generation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-103-Test-Generation.md) | Create a reproduction test confirming the defect. | Root Cause analysis, target class | Failing test (Red phase) | The test must fail precisely due to the incident symptom. |
-| **4** | [LOOP-005 — Implementation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-005-Implementation.md) | Apply targeted hotfix source change. | Reproduction test, bug fix plan | Source patch | Minimal edit constraint: do not modify unrelated variables/formatting. |
-| **5** | [LOOP-006 — Verification](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-006-Verification.md) | Confirm target reproduction test now passes. | Source patch, test suite | `verification-report.md` | **GATE-1:** Verification must pass 100% of integration checks. |
+| **1** | [LOOP-002 — Context Assembly](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-002-Context-Assembly.md) | Retrieve relevant error logs, stack traces, and source code. | Stack trace, bug ticket | Isolated target context pack | Limit search strictly to the traceback context. |
+| **2** | [LOOP-101 — Bug Fixing](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-101-Bug-Fixing.md) | Determine the root cause of the error. | Log analysis, context files | Root Cause Record | **GATE-2:** If root cause is ambiguous, pause and consult logs. |
+| **3** | [LOOP-103 — Test Generation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-103-Test-Generation.md) | Create a reproduction test confirming the defect. | Root Cause analysis, target class | Failing test (Red phase) | The test must fail precisely due to the incident symptom. |
+| **4** | [LOOP-005 — Implementation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-005-Implementation.md) | Apply targeted hotfix source change. | Reproduction test, bug fix plan | Source patch | Minimal edit constraint: do not modify unrelated variables/formatting. |
+| **5** | [LOOP-006 — Verification](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-006-Verification.md) | Confirm target reproduction test now passes. | Source patch, test suite | `verification-report.md` | **GATE-1:** Verification must pass 100% of integration checks. |
 | **6** | [Approval Gate] | Promptly elevate to human gatekeepers for release sign-off. | Complete hotfix patch, test outcomes | Merge authorization | **GATE-1:** Release Manager and Technical Lead sign-off. |
-| **7** | [LOOP-007 — Reflection](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-007-Reflection.md) | Author a Post-Mortem and catalog the bug root cause. | Incident metadata, patch logs | Reflection post-mortem document | File long-term action items to refactor the vulnerable module later. |
+| **7** | [LOOP-007 — Reflection](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-007-Reflection.md) | Author a Post-Mortem and catalog the bug root cause. | Incident metadata, patch logs | Reflection post-mortem document | File long-term action items to refactor the vulnerable module later. |
 
 ---
 
@@ -198,13 +198,13 @@ graph TD
 
 | Step | Loop ID & File Link | Objective | Input Artefacts | Output Artefacts | Key Gate / Guardrail |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1** | [LOOP-303 — Compliance](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/governance/LOOP-303-Compliance.md) | Verify CLA signing and license compatibility. | External PR metadata, license files | Compliance report (License validation) | **GATE-1:** Reject immediately if copyleft/GPL libraries are introduced. |
-| **2** | [LOOP-105 — Code Review](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-105-Code-Review.md) | Inspect code structure and run static safety/secret scans. | Contributed files, git diff | Static analysis report, vulnerability logs | **GATE-1:** 0 secrets or hardcoded keys allowed. Audit for injection vulnerabilities. |
-| **3** | [LOOP-002 — Context Assembly](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-002-Context-Assembly.md) | Scope changed modules to prepare test isolation. | Contributed branch files | Context package | Ensure context is isolated to prevent leakage of internal environment vars. |
-| **4** | [LOOP-202 — Integration Validation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/platform/LOOP-202-Integration-Validation.md) | Run testing inside a restricted sandbox environment. | Contributed patch, unit & integration suite | Execution test logs | Execute test commands in isolated containers without repo write secrets. |
-| **5** | [LOOP-204 — API Contract Validation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/platform/LOOP-204-API-Contract-Validation.md) | Verify changes do not break existing public API schemas. | Proposed schemas | Compatibility report | **GATE-1:** Breaking public schemas triggers mandatory version bump rules. |
+| **1** | [LOOP-303 — Compliance](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/governance/LOOP-303-Compliance.md) | Verify CLA signing and license compatibility. | External PR metadata, license files | Compliance report (License validation) | **GATE-1:** Reject immediately if copyleft/GPL libraries are introduced. |
+| **2** | [LOOP-105 — Code Review](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-105-Code-Review.md) | Inspect code structure and run static safety/secret scans. | Contributed files, git diff | Static analysis report, vulnerability logs | **GATE-1:** 0 secrets or hardcoded keys allowed. Audit for injection vulnerabilities. |
+| **3** | [LOOP-002 — Context Assembly](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-002-Context-Assembly.md) | Scope changed modules to prepare test isolation. | Contributed branch files | Context package | Ensure context is isolated to prevent leakage of internal environment vars. |
+| **4** | [LOOP-202 — Integration Validation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/platform/LOOP-202-Integration-Validation.md) | Run testing inside a restricted sandbox environment. | Contributed patch, unit & integration suite | Execution test logs | Execute test commands in isolated containers without repo write secrets. |
+| **5** | [LOOP-204 — API Contract Validation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/platform/LOOP-204-API-Contract-Validation.md) | Verify changes do not break existing public API schemas. | Proposed schemas | Compatibility report | **GATE-1:** Breaking public schemas triggers mandatory version bump rules. |
 | **6** | [Approval Gate] | Core maintainer performs manual audit and review. | Complete verified PR bundle | Merge approval | **GATE-1:** Review from a designated repo maintainer. |
-| **7** | [LOOP-007 — Reflection](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-007-Reflection.md) | Document the contributor credit and update release log. | PR history, reflection input | Release notes snippet | Register contributor attribution in `CHANGELOG.md`. |
+| **7** | [LOOP-007 — Reflection](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-007-Reflection.md) | Document the contributor credit and update release log. | PR history, reflection input | Release notes snippet | Register contributor attribution in `CHANGELOG.md`. |
 
 ---
 
@@ -230,13 +230,13 @@ graph TD
 
 | Step | Loop ID & File Link | Objective | Input Artefacts | Output Artefacts | Key Gate / Guardrail |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1** | [LOOP-001 — Architecture Discovery](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-001-Architecture-Discovery.md) | Map transitive dependency tree and resolve conflicts. | Dependency lock files, build scripts | Updated dependency mapping | Run discovery to ensure components do not have circular dependency locks. |
-| **2** | [LOOP-105 — Code Review](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/engineering/LOOP-105-Code-Review.md) | Identify if target package upgrades deprecate codebase APIs. | Target upgrade manifest, source code | API usage deprecation audit | Flag internal functions referencing deprecated library methods. |
-| **3** | [LOOP-005 — Implementation](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-005-Implementation.md) | Apply library version bump in build settings. | Build files, target upgrade details | Modified build scripts | Upgrades must be isolated. Do not bundle multiple major upgrades together. |
-| **4** | [LOOP-006 — Verification](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-006-Verification.md) | Execute complete integration and smoke test suites. | Source patch, target test files | `verification-report.md` | **GATE-1:** Compile checks and 100% test coverage pass is mandatory. |
-| **5** | [LOOP-303 — Compliance](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/governance/LOOP-303-Compliance.md) | Verify license terms on the new packages. | Newly pulled packages | License audit logs | Confirm library licenses remain compliant with corporate policy. |
+| **1** | [LOOP-001 — Architecture Discovery](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-001-Architecture-Discovery.md) | Map transitive dependency tree and resolve conflicts. | Dependency lock files, build scripts | Updated dependency mapping | Run discovery to ensure components do not have circular dependency locks. |
+| **2** | [LOOP-105 — Code Review](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-105-Code-Review.md) | Identify if target package upgrades deprecate codebase APIs. | Target upgrade manifest, source code | API usage deprecation audit | Flag internal functions referencing deprecated library methods. |
+| **3** | [LOOP-005 — Implementation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-005-Implementation.md) | Apply library version bump in build settings. | Build files, target upgrade details | Modified build scripts | Upgrades must be isolated. Do not bundle multiple major upgrades together. |
+| **4** | [LOOP-006 — Verification](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-006-Verification.md) | Execute complete integration and smoke test suites. | Source patch, target test files | `verification-report.md` | **GATE-1:** Compile checks and 100% test coverage pass is mandatory. |
+| **5** | [LOOP-303 — Compliance](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/governance/LOOP-303-Compliance.md) | Verify license terms on the new packages. | Newly pulled packages | License audit logs | Confirm library licenses remain compliant with corporate policy. |
 | **6** | [Approval Gate] | Run release criteria checks. | Binned test results, CVE resolution data | Deployment release | **GATE-1:** Verification score must hit 100%. |
-| **7** | [LOOP-007 — Reflection](file:///c:/Users/rajaj/Projects/Conductor/general-purpose-loop-library/loops/core/LOOP-007-Reflection.md) | Catalog resolved vulnerability IDs (CVEs) and logs. | Patch details | Reflection entry | Record the resolved CVE numbers and upgrade paths for future reference. |
+| **7** | [LOOP-007 — Reflection](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/core/LOOP-007-Reflection.md) | Catalog resolved vulnerability IDs (CVEs) and logs. | Patch details | Reflection entry | Record the resolved CVE numbers and upgrade paths for future reference. |
 
 ---
 
@@ -347,12 +347,12 @@ Integrating the Loop Library into a new target project is a straightforward proc
 ```
 [Target Project]
  ├── .loop-config.yml                   <-- Add configuration
- ├── general-purpose-loop-library/      <-- Copy loop catalog & engine
+ ├── RajaJeevanLoopEngineering/      <-- Copy loop catalog & engine
  └── scripts/run-loop-pipeline.sh       <-- Setup pipeline hooks
 ```
 
 ### Step 1: Clone or Copy Library
-Copy the `general-purpose-loop-library` folder to the root directory of your target repository.
+Copy the `RajaJeevanLoopEngineering` folder to the root directory of your target repository.
 
 ### Step 2: Configure Rules
 Add a `.loop-config.yml` configuration block to the root of your target project. Ensure you customize the `verification.commands` keys to match your project's build systems (e.g., Maven, NPM, Poetry).
@@ -370,7 +370,7 @@ In your CI/CD configuration (such as GitHub Actions, GitLab CI, or Jenkins), cal
 # Example GitHub Actions Step
 - name: Run Loop Verification
   run: |
-    ./general-purpose-loop-library/code/gradlew -p general-purpose-loop-library/code test
+    ./RajaJeevanLoopEngineering/code/gradlew -p RajaJeevanLoopEngineering/code test
     ./scripts/run-loop-pipeline.sh ${{ github.event.pull_request.number }} LOOP-105
 ```
 This forces all agent modifications and human PR contributions to be systematically scored and validated before merge approval.

@@ -3,9 +3,9 @@
 Original Path: docs/loops/shared/LOOP-STANDARD.md
 Original Version: 1.0
 Extraction Date: 2026-06-27
-Original Purpose: Define canonical engineering standard for Conductor execution loops.
+Original Purpose: Define canonical engineering standard for RajaJeevanLoopEngineering execution loops.
 Generalized Purpose: Define canonical engineering standard for execution loops.
-Dependencies Removed: Conductor business workflow configurations
+Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
 Dependencies Retained: LOOP-XXX, LOOP-YYY  (or "None")
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.

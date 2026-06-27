@@ -37,7 +37,7 @@ The script automatically ports:
 *   **Contextual Loops:** Copies only the necessary `.md` loop definitions to `docs/loops/<category>/`.
 *   **General Standards:** Provisions cross-cutting standards to `docs/loops/shared/`.
 *   **Customization Files:** Sets up `.agents/AGENTS.md` and templates for tasks and checklists.
-*   **Rule Engine Java Code:** Copies the `loop-library/code` and a standalone Gradle wrapper for local testing.
+*   **Rule Engine Java Code:** Copies the `RajaJeevanLoopEngineering/code` and a standalone Gradle wrapper for local testing.
 *   **Dev Container Workspace:** Creates `.devcontainer/devcontainer.json` and a setup script to compile and test files automatically on startup.
 
 ---
@@ -62,7 +62,7 @@ The script automatically ports:
 
 To build and verify execution modules natively without docker:
 ```bash
-cd loop-library/code
+cd RajaJeevanLoopEngineering/code
 ./gradlew test
 ```
 

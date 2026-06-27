@@ -5,7 +5,7 @@ Original Version: 1.0
 Extraction Date: 2026-06-27
 Original Purpose: Collect and assemble relevant source file contexts for a task.
 Generalized Purpose: Collect and assemble relevant source file contexts for a task.
-Dependencies Removed: Conductor business workflow configurations
+Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
 Dependencies Retained: LOOP-001 — Architecture Discovery
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.

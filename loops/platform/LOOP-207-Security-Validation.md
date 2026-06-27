@@ -5,7 +5,7 @@ Original Version: 0.1
 Extraction Date: 2026-06-27
 Original Purpose: Platform validation loop to check authentication and authorization controls.
 Generalized Purpose: Platform validation loop to check authentication and authorization controls.
-Dependencies Removed: Conductor business workflow configurations
+Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
 Dependencies Retained: LOOP-006 — Verification
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.

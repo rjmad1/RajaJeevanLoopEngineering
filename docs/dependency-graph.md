@@ -29,7 +29,7 @@ graph TD
 
 ## 2. Decoupled Java Module Dependency Graph
 
-The harvested code structure has zero circular dependencies and is isolated from the `Conductor` application core:
+The harvested code structure has zero circular dependencies and is isolated from the `RajaJeevanLoopEngineering` application core:
 
 ```mermaid
 graph LR

@@ -5,7 +5,7 @@ Original Version: 0.1
 Extraction Date: 2026-06-27
 Original Purpose: Release loop to check post-deployment live systems.
 Generalized Purpose: Release loop to check post-deployment live systems.
-Dependencies Removed: Conductor business workflow configurations
+Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
 Dependencies Retained: LOOP-402 — Deployment Validation
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.

@@ -5,9 +5,9 @@ All notable changes to the General Purpose Loop Engineering Library will be docu
 ## [1.0.0] — 2026-06-27
 
 ### Added
-- **Framework Standards:** Extracted canonical loop standard documents from Conductor's internal specs to `shared/`.
+- **Framework Standards:** Extracted canonical loop standard documents from RajaJeevanLoopEngineering's internal specs to `shared/`.
 - **General Purpose Loops:** Extracted and generalized Core, Engineering, Platform, and Governance loops.
-- **Remapped Rules Engine:** Extracted `Condition`, `Operator`, and `ConditionEvaluator` Java rules into independent `com.conductor.loop.rules` namespace.
-- **Decoupled Execution Helpers:** Extracted thread-safe `SimpleCircuitBreaker`, `RetryPolicy`, and `ExecutionContext` into `com.conductor.loop.execution` with zero external dependencies.
+- **Remapped Rules Engine:** Extracted `Condition`, `Operator`, and `ConditionEvaluator` Java rules into independent `com.rajajeevan.loop.rules` namespace.
+- **Decoupled Execution Helpers:** Extracted thread-safe `SimpleCircuitBreaker`, `RetryPolicy`, and `ExecutionContext` into `com.rajajeevan.loop.execution` with zero external dependencies.
 - **Recipes & Snippets:** Created copy-paste guides for autonomous AI agents, prompt engineering, product specs, and enterprise compliance.
 - **Standalone Build:** Set up isolated Gradle build configs with JUnit 5 test setups. All compiled checks and static assertions successfully validated.

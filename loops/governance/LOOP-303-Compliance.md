@@ -5,7 +5,7 @@ Original Version: 0.2
 Extraction Date: 2026-06-27
 Original Purpose: Governance loop for compliance and security checks.
 Generalized Purpose: Governance loop for compliance and security checks.
-Dependencies Removed: Conductor business workflow configurations
+Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
 Dependencies Retained: LOOP-006 — Verification, LOOP-207 — Security Validation
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.

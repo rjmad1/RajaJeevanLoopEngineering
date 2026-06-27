@@ -5,7 +5,7 @@ Original Version: 1.0
 Extraction Date: 2026-06-27
 Original Purpose: Platform validation loop to ensure workflow definition correctness.
 Generalized Purpose: Platform validation loop to ensure workflow definition correctness.
-Dependencies Removed: Conductor business workflow configurations
+Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
 Dependencies Retained: LOOP-001 — Architecture Discovery, LOOP-006 — Verification
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.
@@ -609,7 +609,7 @@ A run may not be marked closed until every applicable item is confirmed:
 
 ## Future Improvements
 
-- **Framework-specific rule extensions:** Support pluggable criterion sets for each workflow framework (Temporal, Conductor, Airflow, custom) to eliminate most `unclassified` results from non-standard annotations.
+- **Framework-specific rule extensions:** Support pluggable criterion sets for each workflow framework (Temporal, RajaJeevanLoopEngineering, Airflow, custom) to eliminate most `unclassified` results from non-standard annotations.
 - **Dependency graph visualization:** Produce a Mermaid diagram of the workflow-to-workflow invocation graph as part of the inventory artifact, making acyclicity checks human-readable.
 - **Historical trend tracking:** Maintain a rolling violation trend across the last ten runs in SKILL-201.md so Governance loops can detect improving or deteriorating workflow quality without reading all individual reports.
 - **Activity coverage matrix:** Produce a cross-reference matrix of workflow types to activity implementations showing which activities are shared across workflows.

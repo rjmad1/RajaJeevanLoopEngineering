@@ -1,6 +1,6 @@
 # interactive-bootstrap.ps1
 #
-# Interactive CLI utility to initialize the Conductor Loop Engineering Framework in any project.
+# Interactive CLI utility to initialize the RajaJeevanLoopEngineering Loop Engineering Framework in any project.
 # Prompts for target project path and type, executes port-loops.ps1, and displays setup instructions.
 
 $ErrorActionPreference = "Stop"

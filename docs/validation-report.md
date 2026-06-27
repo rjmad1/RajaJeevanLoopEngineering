@@ -3,7 +3,7 @@
 This report confirms the quality assurance and validation checks run on the general-purpose loop library.
 
 ## 1. Code Compilation and Test Conformance
-- **Action:** Executed `./gradlew test` using isolated Gradle context inside `general-purpose-loop-library/code`.
+- **Action:** Executed `./gradlew test` using isolated Gradle context inside `RajaJeevanLoopEngineering/code`.
 - **Result:** **BUILD SUCCESSFUL**. All compiled classes loaded clean.
 - **Tests Passed:**
   - `ConditionEvaluatorTest`: Passed 12/12 test scenarios (EQUALS, NOT_EQUALS, CONTAINS, EXISTS, combinators, dot-notation resolution).

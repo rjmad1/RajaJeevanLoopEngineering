@@ -3,7 +3,7 @@
 The Loop Engineering Framework structure is designed to separate standards, specifications, execution templates, recipes, and utility code.
 
 ```
-general-purpose-loop-library/
+RajaJeevanLoopEngineering/
 ├── README.md               # Root framework index and orientation
 ├── LICENSE                 # License terms
 ├── CHANGELOG.md            # Version change history

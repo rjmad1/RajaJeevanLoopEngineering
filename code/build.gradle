@@ -3,7 +3,7 @@ plugins {
     id 'com.diffplug.spotless' version '6.25.0'
 }
 
-group = 'com.conductor.loop'
+group = 'com.rajajeevan.loop'
 version = '1.0.0'
 
 repositories {

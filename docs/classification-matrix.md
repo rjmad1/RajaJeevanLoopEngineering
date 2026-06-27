@@ -14,7 +14,7 @@ This matrix classifies the loop specifications, standards, and assets from the o
 | `LOOP-001` to `LOOP-007` (Core) | **General Purpose** | Fundamental discovery, planning, implementation, verification, and reflection loops. |
 | `LOOP-101` to `LOOP-105` (Eng) | **General Purpose** | Standard engineering tasks (bug fixing, testing, code review). |
 | `LOOP-201` to `LOOP-204` (Plat) | **Mixed** | Originally checked Temporal and specific schemas. Abstracted in this library to support general workflow engines and API contracts. |
-| `LOOP-205` to `LOOP-207` (Plat) | **Project Specific** | Coupled to Conductor's internal tenant isolation and Keycloak configs. Kept as draft templates in the library. |
+| `LOOP-205` to `LOOP-207` (Plat) | **Project Specific** | Coupled to RajaJeevanLoopEngineering's internal tenant isolation and Keycloak configs. Kept as draft templates in the library. |
 | `LOOP-301` to `LOOP-304` (Gov) | **General Purpose** | General governance tasks (ADR generation, doc governance, release checks). |
 | `shared/rules/` (Java code) | **General Purpose** | Thread-safe condition expression evaluator. Remapped package imports. |
 | `shared/execution/` (Java code) | **Mixed** | Contained generic retry and circuit-breaker code alongside WhatsApp clients. Decoupled and harvested only core execution utilities. |

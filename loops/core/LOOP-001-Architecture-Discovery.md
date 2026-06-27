@@ -5,7 +5,7 @@ Original Version: 1.1
 Extraction Date: 2026-06-27
 Original Purpose: Discover and index repository modules and architectural boundaries.
 Generalized Purpose: Discover and index repository modules and architectural boundaries.
-Dependencies Removed: Conductor business workflow configurations
+Dependencies Removed: RajaJeevanLoopEngineering business workflow configurations
 Dependencies Retained: None
 Compatibility Notes: Fully compatible with standard loop orchestrators and documentation frameworks.
 Migration Notes: Direct copy of the general loop framework specification.
