@@ -475,6 +475,10 @@
 <svg fill="none" stroke="currentColor" style="width:16px;height:16px;margin-right:6px;vertical-align:text-bottom" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
             Enable Loops Ecosystem
         </button>
+<button class="enable-btn" onclick="openUpdateModal()" style="margin-left: 1rem; background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+<svg fill="none" stroke="currentColor" style="width:16px;height:16px;margin-right:6px;vertical-align:text-bottom" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            Update Loops
+        </button>
 </div>
 <div class="search-container"><div class="control-group" style="width: 100%; max-width: 600px; margin: 0 auto;">
 <label for="search">Search</label>
@@ -3144,6 +3148,22 @@ Constraints: [Enter constraints here]</pre>
         }
     });
 
+    function openUpdateModal() {
+        document.getElementById('updateModal').classList.remove('hidden');
+        document.body.classList.add('modal-open');
+    }
+    
+    function closeUpdateModal() {
+        document.getElementById('updateModal').classList.add('hidden');
+        document.body.classList.remove('modal-open');
+    }
+    
+    document.getElementById('updateModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeUpdateModal();
+        }
+    });
+
     function copyDeployPrompt(btn) {
         const text = `# SYSTEM INSTRUCTION: ENFORCE BOUNDED LOOP ENGINEERING
 You must execute all workspace updates inside the formal boundaries of the RajaJeevanLoopEngineering framework.
@@ -3273,6 +3293,28 @@ Before moving between phases, you must validate transitions using the agnostic s
 </div>
 </div>
 </div>
+</div>
+
+<div class="modal-overlay hidden" id="updateModal">
+<div class="modal-content" style="max-width: 800px;">
+<div class="modal-header">
+<h2>Update Loops Ecosystem</h2>
+<button class="close-btn" onclick="closeUpdateModal()">×</button>
+</div>
+<div class="modal-body">
+<h3>Keep Your Loops Updated</h3>
+<p>To pull in the latest and greatest loops from the central repository and update your local loop definitions, use the following commands:</p>
+<strong>Option A: Windows (PowerShell)</strong>
+<pre><code># Run the update script to sync your local loops
+.\update_loops.ps1</code></pre>
+<strong>Option B: Linux / macOS (Bash)</strong>
+<pre><code># Run the update script to sync your local loops
+./update_loops.sh</code></pre>
+<p><em>Note: This will synchronize your local project's loops with the latest release, ensuring you have the most up-to-date workflows and instructions without overriding your custom configurations.</em></p>
+</div>
+</div>
+</div>
+
 </div>
 </body>
 </html>
