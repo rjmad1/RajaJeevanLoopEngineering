@@ -205,8 +205,10 @@ The script automatically ports:
 *   **[`loops/`](loops/)** — Bounded loop specifications across different domains:
     *   **[`core/`](loops/core/)** — Foundational loops (Discovery, planning, implementation, verification, reflection).
     *   **[`engineering/`](loops/engineering/)** — Routine engineering tasks (Bug fixing, refactoring, testing).
-    *   **[`platform/`](loops/platform/)** — Generalized integration and contract validations.
     *   **[`governance/`](loops/governance/)** — ADR generation, compliance reviews, release gates.
+    *   **[`platform/`](loops/platform/)** — Generalized integration and contract validations.
+    *   **[`release/`](loops/release/)** — Deployment and release verification.
+    *   **[`strategy/`](loops/strategy/)** — High-level orchestration, product intelligence, and prioritization loops.
 *   **[`templates/`](templates/)** — Document structures for authoring new loops, skills, or run-status indicators.
 *   **[`examples/`](examples/)** — Sample execution logs demonstrating complete runs.
 *   **[`recipes/`](recipes/)** — Copy-paste prompts and configs for agent personas.
