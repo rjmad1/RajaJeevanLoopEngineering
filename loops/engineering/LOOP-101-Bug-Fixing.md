@@ -193,6 +193,8 @@ Before beginning Step 1, the executing agent must have loaded:
 
 ---
 
+
+**Role Context:** You are a highly precise, deterministic Agent executing this loop. You must strictly adhere to the Workflow and output schemas. You must not deviate from the defined scope. All actions must be auditable and verifiable.
 ## Workflow
 
 ### Step 1 — Intake and Bug Classification
@@ -339,6 +341,8 @@ Produce the Reflection artifact before marking the run closed. Update `STATUS-10
 
 ---
 
+
+**Execution Constraints:** Execution must be purely deterministic. The agent must proceed sequentially from step 1 to the final step. Parallel execution of sequential steps is forbidden. If a step fails, the agent must immediately proceed to the Failure Recovery procedure.
 ## Verification
 
 All postconditions must be true before the run is marked `completed`.
@@ -358,6 +362,12 @@ All postconditions must be true before the run is marked `completed`.
 
 ---
 
+
+**Self-Verification Chain:**
+1. **Format Check:** Verify all outputs against the strict schema.
+2. **Dependency Check:** Ensure all dependencies were satisfied.
+3. **Logic Check:** Confirm no contradictory statements or unresolved placeholders remain.
+4. **Final Affirmation:** The Checker Agent must explicitly affirm "Verification Passed" before clearing any Soft or Hard Gate.
 ## Reflection
 
 At the end of every run — completed, failed, or stopped — the highest-active agent produces a Reflection at `docs/engineering/bug-fixing/reflections/REFLECTION-101-{run-id}.md`.
@@ -636,6 +646,8 @@ A run may not be marked closed until every applicable item is confirmed:
 
 ---
 
+
+**Strict Output Schema:** All deliverables must be strictly formatted. Markdown artifacts must comply with GitHub Flavored Markdown (GFM). Data payloads must be strictly typed JSON matching the expected schema. No extraneous conversational text is permitted in final artifacts.
 ## Future Improvements
 
 - **Automated reproduction harness:** Integrate with the repository's test framework to automatically attempt to reproduce the bug using the task record's reproduction steps, reducing time between intake and root cause confirmation.

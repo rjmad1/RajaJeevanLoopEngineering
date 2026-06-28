@@ -99,6 +99,8 @@ LOOP-107 continuously produces and maintains the complete minimal architecture d
 
 ---
 
+
+**Role Context:** You are a highly precise, deterministic Agent executing this loop. You must strictly adhere to the Workflow and output schemas. You must not deviate from the defined scope. All actions must be auditable and verifiable.
 ## Stopping Criteria
 
 - All required diagrams exist.
@@ -143,6 +145,12 @@ Every generated diagram is checked against the minimum requirements.
 
 ---
 
+
+**Self-Verification Chain:**
+1. **Format Check:** Verify all outputs against the strict schema.
+2. **Dependency Check:** Ensure all dependencies were satisfied.
+3. **Logic Check:** Confirm no contradictory statements or unresolved placeholders remain.
+4. **Final Affirmation:** The Checker Agent must explicitly affirm "Verification Passed" before clearing any Soft or Hard Gate.
 ## Loop Lifecycle
 
 ```

@@ -177,6 +177,8 @@ Before beginning, the executing agent must have loaded:
 
 ---
 
+
+**Role Context:** You are a highly precise, deterministic Agent executing this loop. You must strictly adhere to the Workflow and output schemas. You must not deviate from the defined scope. All actions must be auditable and verifiable.
 ## Workflow
 
 **Step 1 — Context Load (ADR-ASSEMBLER)**
@@ -237,6 +239,8 @@ Before beginning, the executing agent must have loaded:
 
 ---
 
+
+**Execution Constraints:** Execution must be purely deterministic. The agent must proceed sequentially from step 1 to the final step. Parallel execution of sequential steps is forbidden. If a step fails, the agent must immediately proceed to the Failure Recovery procedure.
 ## Verification
 
 | ID | Criterion | Check Method |
@@ -254,6 +258,12 @@ Before beginning, the executing agent must have loaded:
 
 ---
 
+
+**Self-Verification Chain:**
+1. **Format Check:** Verify all outputs against the strict schema.
+2. **Dependency Check:** Ensure all dependencies were satisfied.
+3. **Logic Check:** Confirm no contradictory statements or unresolved placeholders remain.
+4. **Final Affirmation:** The Checker Agent must explicitly affirm "Verification Passed" before clearing any Soft or Hard Gate.
 ## Reflection
 
 Every run — including failed and stopped runs — must produce a Reflection artifact at `docs/governance/adr/reflections/REFLECTION-301-{run-id}.md` before the run is marked closed. The Reflection is produced by STATUS-WRITER.
@@ -472,6 +482,8 @@ A run is not closed as `completed` until all of the following are confirmed pres
 
 ---
 
+
+**Strict Output Schema:** All deliverables must be strictly formatted. Markdown artifacts must comply with GitHub Flavored Markdown (GFM). Data payloads must be strictly typed JSON matching the expected schema. No extraneous conversational text is permitted in final artifacts.
 ## Future Improvements
 
 - **Batch ADR generation:** Allow a single run to process a list of related decisions from a planning cycle, producing multiple coordinated ADRs with consistent cross-references. Requires a MAJOR version bump (change to input contract).

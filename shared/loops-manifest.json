@@ -31,7 +31,12 @@
     "engineering/LOOP-107-Minimal-System-Diagram-Generation.md",
     "release/LOOP-408-Delivery-Change-Steward.md",
     "strategy/LOOP-502-Product-Intelligence-Architect.md",
-    "strategy/LOOP-504-Knowledge-Integrity-Steward.md"
+    "strategy/LOOP-504-Knowledge-Integrity-Steward.md",
+    "platform/LOOP-206-Observability-Validation.md",
+    "platform/LOOP-207-Security-Validation.md",
+    "release/LOOP-401-Release-Checklist.md",
+    "release/LOOP-402-Deployment-Validation.md",
+    "release/LOOP-403-Post-Release-Verification.md"
   ],
   "Brownfield": [
     "core/LOOP-002-Context-Assembly.md",

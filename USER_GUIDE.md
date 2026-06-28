@@ -258,6 +258,54 @@ The repository defines 5 categories of execution loops under the `loops/` folder
 | **LOOP-201–299** | **Platform** | Non-functional validation runs | `loops/platform/LOOP-201-Workflow-Validation.md` |
 | **LOOP-301–399** | **Governance** | Organizational compliance and ADR gates | `loops/governance/LOOP-301-ADR-Generation.md` |
 | **LOOP-401–499** | **Release** | Deployment checks and post-release audits | `loops/release/LOOP-401-Release-Checklist.md` |
+| **LOOP-110** | Legacy Strangler | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Legacy Strangler. |
+| **LOOP-111** | Technical Debt Remediation | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Technical Debt Remediation. |
+| **LOOP-112** | Component Deprecation Lifecycle | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Component Deprecation Lifecycle. |
+| **LOOP-113** | Dead Code Elimination | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Dead Code Elimination. |
+| **LOOP-130** | Localization and Internationalization Audit | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Localization and Internationalization Audit. |
+| **LOOP-150** | Dependency Patching | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Dependency Patching. |
+| **LOOP-160** | Database Deadlock Resolution | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Database Deadlock Resolution. |
+| **LOOP-161** | Memory Leak Detection | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Memory Leak Detection. |
+| **LOOP-170** | Zero-Trust Token Rotation | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Zero-Trust Token Rotation. |
+| **LOOP-171** | Secrets Lifecycle Enforcement | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Secrets Lifecycle Enforcement. |
+| **LOOP-180** | Environment Drift Audit | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Environment Drift Audit. |
+| **LOOP-181** | Container Layer Optimization | Engineering | Medium | LOOP-002 — Context Assembly, LOOP-004 — Planning, LOOP-006 — Verification | Auto-generated standard template execution for Container Layer Optimization. |
+| **LOOP-305** | Telemetry Compliance | Governance | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Telemetry Compliance. |
+| **LOOP-306** | SaaS Cost Optimization | Governance | Medium | LOOP-007 — Reflection | Auto-generated standard template execution for SaaS Cost Optimization. |
+| **LOOP-307** | Regulatory Compliance Drift | Governance | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Regulatory Compliance Drift. |
+| **LOOP-308** | Contract-to-Code Enforcement | Governance | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Contract-to-Code Enforcement. |
+| **LOOP-309** | License Compliance Audit | Governance | Medium | LOOP-006 — Verification | Auto-generated standard template execution for License Compliance Audit. |
+| **LOOP-310** | Infrastructure Cost Attribution | Governance | Medium | LOOP-007 — Reflection | Auto-generated standard template execution for Infrastructure Cost Attribution. |
+| **LOOP-311** | Feature Access Entitlement | Governance | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Feature Access Entitlement. |
+| **LOOP-312** | Data Privacy Anonymization | Governance | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Data Privacy Anonymization. |
+| **LOOP-205** | Multi-Tenant Isolation Audit | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Multi-Tenant Isolation Audit. |
+| **LOOP-206** | Observability Validation | Platform | Medium | LOOP-005 — Implementation | Auto-generated standard template execution for Observability Validation. |
+| **LOOP-208** | Data Migration | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Data Migration. |
+| **LOOP-209** | Partner API Degradation | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Partner API Degradation. |
+| **LOOP-210** | API Shadow IT Discovery | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for API Shadow IT Discovery. |
+| **LOOP-211** | FinOps Cloud Bursting | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for FinOps Cloud Bursting. |
+| **LOOP-212** | Chaos Engineering Resilience | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Chaos Engineering Resilience. |
+| **LOOP-213** | Multi-Region State Sync | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Multi-Region State Sync. |
+| **LOOP-214** | Resource Quota Guardrail | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Resource Quota Guardrail. |
+| **LOOP-215** | Secret Leakage Prevention | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Secret Leakage Prevention. |
+| **LOOP-216** | Database Index Optimization | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Database Index Optimization. |
+| **LOOP-217** | System Event Idempotency | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for System Event Idempotency. |
+| **LOOP-218** | Backward Compatibility Verification | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Backward Compatibility Verification. |
+| **LOOP-219** | Load Balancing Anomaly Mitigation | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Load Balancing Anomaly Mitigation. |
+| **LOOP-220** | API Rate Limiting Guardrail | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for API Rate Limiting Guardrail. |
+| **LOOP-221** | Accessibility Compliance Guardrail | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Accessibility Compliance Guardrail. |
+| **LOOP-222** | Telemetry Anomaly Detection | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Telemetry Anomaly Detection. |
+| **LOOP-223** | Multi-Cloud Disaster Recovery | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Multi-Cloud Disaster Recovery. |
+| **LOOP-224** | Edge Cache Invalidation | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Edge Cache Invalidation. |
+| **LOOP-225** | Cross-Site Scripting Guardrail | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Cross-Site Scripting Guardrail. |
+| **LOOP-226** | Tenant Onboarding Validation | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Tenant Onboarding Validation. |
+| **LOOP-227** | Third-Party Webhook Reliability | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Third-Party Webhook Reliability. |
+| **LOOP-228** | Log Aggregation Sanity | Platform | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Log Aggregation Sanity. |
+| **LOOP-402** | Deployment Validation | Release | Medium | LOOP-401 — Release Checklist | Auto-generated standard template execution for Deployment Validation. |
+| **LOOP-404** | Feature Flag Lifecycle | Release | Medium | LOOP-006 — Verification, LOOP-007 — Reflection | Auto-generated standard template execution for Feature Flag Lifecycle. |
+| **LOOP-405** | Experimentation Guardrail | Release | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Experimentation Guardrail. |
+| **LOOP-406** | Edge Deployment Rollback | Release | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Edge Deployment Rollback. |
+| **LOOP-407** | Synthetic User Verification | Release | Medium | LOOP-006 — Verification | Auto-generated standard template execution for Synthetic User Verification. |
 
 ### 5.2 Functional Details of Core Workflows
 1. **Discovery (`loops/core/LOOP-001` through `loops/core/LOOP-003`):** Scans the target workspace, maps dependency relationships, and catalogs existing configurations.

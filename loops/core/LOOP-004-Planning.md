@@ -278,6 +278,8 @@ Each parallelisable group is recorded in `implementation-breakdown.md` as a name
 
 ---
 
+
+**Role Context:** You are a highly precise, deterministic Agent executing this loop. You must strictly adhere to the Workflow and output schemas. You must not deviate from the defined scope. All actions must be auditable and verifiable.
 ## Workflow
 
 ### Step 1 — Load Selected Task
@@ -595,6 +597,8 @@ Update the skill profile with observations that improve future planning:
 
 ---
 
+
+**Execution Constraints:** Execution must be purely deterministic. The agent must proceed sequentially from step 1 to the final step. Parallel execution of sequential steps is forbidden. If a step fails, the agent must immediately proceed to the Failure Recovery procedure.
 ## Verification
 
 All postconditions must be true before the run is marked `completed`. Each is independently checkable by `PLAN-CHECKER` without relying on `PLAN-ARCHITECT`'s self-report.
@@ -617,6 +621,12 @@ All postconditions must be true before the run is marked `completed`. Each is in
 
 ---
 
+
+**Self-Verification Chain:**
+1. **Format Check:** Verify all outputs against the strict schema.
+2. **Dependency Check:** Ensure all dependencies were satisfied.
+3. **Logic Check:** Confirm no contradictory statements or unresolved placeholders remain.
+4. **Final Affirmation:** The Checker Agent must explicitly affirm "Verification Passed" before clearing any Soft or Hard Gate.
 ## Reflection
 
 At the end of every run — completed, failed, or stopped — the highest-active agent produces a Reflection at `docs/planning/reflections/REFLECTION-004-{run-id}.md`.
@@ -923,6 +933,8 @@ A run may not be marked closed until every applicable item is confirmed:
 
 ---
 
+
+**Strict Output Schema:** All deliverables must be strictly formatted. Markdown artifacts must comply with GitHub Flavored Markdown (GFM). Data payloads must be strictly typed JSON matching the expected schema. No extraneous conversational text is permitted in final artifacts.
 ## Future Improvements
 
 - **Plan diffing on replanning:** When `replanning = true`, produce a structured diff between the prior plan and the revised plan, making it explicit which steps were added, removed, or reordered and why. This accelerates human review of replanned work.

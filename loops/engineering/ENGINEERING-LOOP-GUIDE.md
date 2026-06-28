@@ -272,6 +272,12 @@ Planning inputs are consumed when an Engineering Loop is resuming after interrup
 
 ---
 
+
+**Self-Verification Chain:**
+1. **Format Check:** Verify all outputs against the strict schema.
+2. **Dependency Check:** Ensure all dependencies were satisfied.
+3. **Logic Check:** Confirm no contradictory statements or unresolved placeholders remain.
+4. **Final Affirmation:** The Checker Agent must explicitly affirm "Verification Passed" before clearing any Soft or Hard Gate.
 ## Standard Outputs
 
 Every Engineering Loop produces a standard artefact set. The table below defines which artefacts are mandatory (produced by every Engineering Loop run regardless of outcome) and which are conditional (produced only when certain conditions are met).

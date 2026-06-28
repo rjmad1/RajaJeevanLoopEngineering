@@ -182,6 +182,8 @@ Before beginning Step 1, the executing agent must have loaded:
 
 ---
 
+
+**Role Context:** You are a highly precise, deterministic Agent executing this loop. You must strictly adhere to the Workflow and output schemas. You must not deviate from the defined scope. All actions must be auditable and verifiable.
 ## Workflow
 
 ### Step 1 — Load Previous State
@@ -330,6 +332,8 @@ Produce the Reflection artifact containing all ten required LOOP-STANDARD sectio
 
 ---
 
+
+**Execution Constraints:** Execution must be purely deterministic. The agent must proceed sequentially from step 1 to the final step. Parallel execution of sequential steps is forbidden. If a step fails, the agent must immediately proceed to the Failure Recovery procedure.
 ## Verification
 
 | ID | Criterion | Check Method |
@@ -347,6 +351,12 @@ Produce the Reflection artifact containing all ten required LOOP-STANDARD sectio
 
 ---
 
+
+**Self-Verification Chain:**
+1. **Format Check:** Verify all outputs against the strict schema.
+2. **Dependency Check:** Ensure all dependencies were satisfied.
+3. **Logic Check:** Confirm no contradictory statements or unresolved placeholders remain.
+4. **Final Affirmation:** The Checker Agent must explicitly affirm "Verification Passed" before clearing any Soft or Hard Gate.
 ## Reflection
 
 At the end of every run, `STATUS-WRITER` produces a Reflection at `docs/validation/events/reflections/REFLECTION-203-{run-id}.md`.
@@ -615,6 +625,8 @@ A run may not be marked closed until every applicable item is confirmed:
 
 ---
 
+
+**Strict Output Schema:** All deliverables must be strictly formatted. Markdown artifacts must comply with GitHub Flavored Markdown (GFM). Data payloads must be strictly typed JSON matching the expected schema. No extraneous conversational text is permitted in final artifacts.
 ## Future Improvements
 
 - **Schema registry integration:** Extend Step 3 to query a live schema registry API (Confluent Schema Registry, AWS Glue Schema Registry) in addition to file-based schemas, eliminating a class of schema drift findings where the registry is the source of truth.

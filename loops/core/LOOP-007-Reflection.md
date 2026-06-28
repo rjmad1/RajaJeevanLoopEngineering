@@ -392,6 +392,8 @@ The following ten categories are analysed in every run. For each category, the l
 
 ---
 
+
+**Role Context:** You are a highly precise, deterministic Agent executing this loop. You must strictly adhere to the Workflow and output schemas. You must not deviate from the defined scope. All actions must be auditable and verifiable.
 ## Workflow
 
 ### Step 1 — Load Completed Execution Artefacts
@@ -618,6 +620,8 @@ Confirm all Stop Conditions. Write final `status: completed` to `STATUS-007.md`.
 
 ---
 
+
+**Execution Constraints:** Execution must be purely deterministic. The agent must proceed sequentially from step 1 to the final step. Parallel execution of sequential steps is forbidden. If a step fails, the agent must immediately proceed to the Failure Recovery procedure.
 ## Verification
 
 All postconditions must be true before the run is marked `completed`.
@@ -638,6 +642,12 @@ All postconditions must be true before the run is marked `completed`.
 
 ---
 
+
+**Self-Verification Chain:**
+1. **Format Check:** Verify all outputs against the strict schema.
+2. **Dependency Check:** Ensure all dependencies were satisfied.
+3. **Logic Check:** Confirm no contradictory statements or unresolved placeholders remain.
+4. **Final Affirmation:** The Checker Agent must explicitly affirm "Verification Passed" before clearing any Soft or Hard Gate.
 ## Reflection
 
 At the end of every run — completed, failed, or stopped — the highest-active agent produces a Reflection at `docs/reflection/reflections/REFLECTION-007-{run-id}.md`.
@@ -942,6 +952,8 @@ A run may not be marked closed until every applicable item is confirmed:
 
 ---
 
+
+**Strict Output Schema:** All deliverables must be strictly formatted. Markdown artifacts must comply with GitHub Flavored Markdown (GFM). Data payloads must be strictly typed JSON matching the expected schema. No extraneous conversational text is permitted in final artifacts.
 ## Future Improvements
 
 - **Cross-task pattern aggregation:** Extend the aggregation trigger (trigger type 4) with a structured aggregation pass that groups lessons by task category and technology class, identifying cross-task patterns that are invisible at the single-task level — for instance, that all `FEAT` tasks in a specific module consistently produce planning assumption refutations, indicating a LOOP-002 context gap for that module.

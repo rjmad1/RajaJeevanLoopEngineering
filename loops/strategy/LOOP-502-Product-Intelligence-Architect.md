@@ -17,7 +17,7 @@ Migration Notes: New loop based on user specification.
 **Version:** 1.0  
 **Status:** Active  
 **Category:** Strategy  
-**Depends On:** LOOP-501 (Executive Strategy Loop)
+**Depends On:** None
 **Human Gates:** Hard, Soft  
 **Owner:** Product Intelligence Function  
 **Maintainer:** Product Intelligence Function  
