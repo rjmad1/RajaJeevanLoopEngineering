@@ -3081,7 +3081,7 @@ Constraints: [Enter constraints here]</pre>
     function copyCommand(btn, text) {
         navigator.clipboard.writeText(text).then(() => {
             const original = btn.innerText;
-            btn.innerText = 'Copied!';
+            btn.innerText = 'Ready to paste in your IDE!';
             btn.classList.add('copied');
             setTimeout(() => {
                 btn.innerText = original;
@@ -3163,7 +3163,7 @@ Before moving between phases, you must validate transitions using the agnostic s
         
         navigator.clipboard.writeText(text).then(() => {
             const original = btn.innerText;
-            btn.innerText = 'Copied!';
+            btn.innerText = 'Ready to paste in your IDE!';
             btn.classList.add('copied');
             setTimeout(() => {
                 btn.innerText = original;
@@ -3210,7 +3210,47 @@ docker build -t loop-engine https://github.com/rjmad1/RajaJeevanLoopEngineering.
 # Start the engine (exposes the state management API on port 8080)
 docker run -p 8080:8080 loop-engine</code></pre>
 <h3>3. IDE Prompt Insertion</h3>
-<p>Save the following minimalist configuration block as a <code>.cursorrules</code> or <code>.github/copilot-instructions.md</code> file at the root of your project to control agent behaviors:</p>
+<p>Save the following minimalist configuration block as a <code>.cursorrules</code> or <code>.github/copilot-instructions.md</code> file at the root of your project to control agent behaviors. You can run one of these quick CLI commands in your project root, or copy the rules manually below:</p>
+
+<strong>Option A: Windows (PowerShell)</strong>
+<pre><code>Set-Content -Path ".cursorrules" -Value @"
+# SYSTEM INSTRUCTION: ENFORCE BOUNDED LOOP ENGINEERING
+You must execute all workspace updates inside the formal boundaries of the RajaJeevanLoopEngineering framework.
+
+## 1. State-Bound Lifecycle
+You cannot generate arbitrary code without stepping sequentially through these explicit phases:
+Discovery ➔ Planning ➔ Implementation ➔ Verification ➔ Reflection.
+
+## 2. Mandatory Local Execution Commands
+Before moving between phases, you must validate transitions using the agnostic state utilities:
+* Register Phase Transition: ./loop-control.sh transit &lt;loop-id&gt; &lt;CURRENT_PHASE&gt; &lt;NEXT_PHASE&gt;
+* Check Circuit Breaker Status: ./loop-control.sh status &lt;loop-id&gt;
+
+## 3. Core Constraints
+* Never execute continuous code changes if verification tests fail iteratively.
+* Stop immediately if the loop-control circuit breaker trips.
+"@</code></pre>
+
+<strong>Option B: Linux / macOS (Bash)</strong>
+<pre><code>cat &lt;&lt; 'EOF' &gt; .cursorrules
+# SYSTEM INSTRUCTION: ENFORCE BOUNDED LOOP ENGINEERING
+You must execute all workspace updates inside the formal boundaries of the RajaJeevanLoopEngineering framework.
+
+## 1. State-Bound Lifecycle
+You cannot generate arbitrary code without stepping sequentially through these explicit phases:
+Discovery ➔ Planning ➔ Implementation ➔ Verification ➔ Reflection.
+
+## 2. Mandatory Local Execution Commands
+Before moving between phases, you must validate transitions using the agnostic state utilities:
+* Register Phase Transition: ./loop-control.sh transit &lt;loop-id&gt; &lt;CURRENT_PHASE&gt; &lt;NEXT_PHASE&gt;
+* Check Circuit Breaker Status: ./loop-control.sh status &lt;loop-id&gt;
+
+## 3. Core Constraints
+* Never execute continuous code changes if verification tests fail iteratively.
+* Stop immediately if the loop-control circuit breaker trips.
+EOF</code></pre>
+
+<p><strong>Option C: Manual Copy</strong></p>
 <pre><code># SYSTEM INSTRUCTION: ENFORCE BOUNDED LOOP ENGINEERING
 You must execute all workspace updates inside the formal boundaries of the RajaJeevanLoopEngineering framework.
 
