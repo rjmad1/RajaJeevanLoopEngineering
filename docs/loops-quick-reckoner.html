@@ -433,7 +433,36 @@
         .modal-content {
             max-width: 800px !important;
         }
-        </style>
+        
+    .modal-body pre {
+        background: #1e293b;
+        color: #f8fafc;
+        padding: 1rem;
+        border-radius: 6px;
+        overflow-x: auto;
+        margin-bottom: 1.5rem;
+        margin-top: 0.5rem;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        border: 1px solid #334155;
+    }
+    .modal-body code {
+        font-family: inherit;
+    }
+    .modal-body p code {
+        background: var(--surface-hover);
+        padding: 0.125rem 0.375rem;
+        border-radius: 4px;
+        font-size: 0.9em;
+        color: #ef4444;
+    }
+    .modal-body strong {
+        color: var(--primary);
+        display: block;
+        margin-top: 1rem;
+    }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -442,7 +471,7 @@
 <p class="subtitle">Holistic reference guide for General Purpose Loop Engineering workflows. Search, filter, and easily copy execution commands.</p>
 </header>
 <div class="ecosystem-banner" style="text-align: center; margin-bottom: 2rem; animation: fadeIn 1s ease;">
-<button class="enable-btn" onclick="copyCommand(this, 'I want to enable the Raja Jeevan Loops ecosystem in this project. Please thoroughly review the Raja Jeevan Loop Engineering framework repository at https://github.com/rjmad1/RajaJeevanLoopEngineering (specifically focusing on the \'docs\', \'loops\', and \'shared\' directories). Understand the architecture discovery (LOOP-001), task decomposition, and execution workflows. Once you have absorbed the framework\'s operating principles, guide me step-by-step on how to apply these loops to our current repository.')">
+<button class="enable-btn" onclick="openDeployModal()">
 <svg fill="none" stroke="currentColor" style="width:16px;height:16px;margin-right:6px;vertical-align:text-bottom" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
             Enable Loops Ecosystem
         </button>
@@ -3098,6 +3127,50 @@ Constraints: [Enter constraints here]</pre>
             closeModal();
         }
     });
+    
+    function openDeployModal() {
+        document.getElementById('deployModal').classList.remove('hidden');
+        document.body.classList.add('modal-open');
+    }
+    
+    function closeDeployModal() {
+        document.getElementById('deployModal').classList.add('hidden');
+        document.body.classList.remove('modal-open');
+    }
+    
+    document.getElementById('deployModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeDeployModal();
+        }
+    });
+
+    function copyDeployPrompt(btn) {
+        const text = `# SYSTEM INSTRUCTION: ENFORCE BOUNDED LOOP ENGINEERING
+You must execute all workspace updates inside the formal boundaries of the RajaJeevanLoopEngineering framework.
+
+## 1. State-Bound Lifecycle
+You cannot generate arbitrary code without stepping sequentially through these explicit phases:
+Discovery ➔ Planning ➔ Implementation ➔ Verification ➔ Reflection.
+
+## 2. Mandatory Local Execution Commands
+Before moving between phases, you must validate transitions using the agnostic state utilities:
+* Register Phase Transition: ./loop-control.sh transit <loop-id> <CURRENT_PHASE> <NEXT_PHASE>
+* Check Circuit Breaker Status: ./loop-control.sh status <loop-id>
+
+## 3. Core Constraints
+* Never execute continuous code changes if verification tests fail iteratively.
+* Stop immediately if the loop-control circuit breaker trips.`;
+        
+        navigator.clipboard.writeText(text).then(() => {
+            const original = btn.innerText;
+            btn.innerText = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.innerText = original;
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+    }
     </script>
 <div class="modal-overlay hidden" id="infoModal">
 <div class="modal-content">
@@ -3107,6 +3180,57 @@ Constraints: [Enter constraints here]</pre>
 </div>
 <div class="modal-body">
 <p id="modal-desc"></p>
+</div>
+</div>
+</div>
+
+<div class="modal-overlay hidden" id="deployModal">
+<div class="modal-content" style="max-width: 800px;">
+<div class="modal-header">
+<h2>Deployment &amp; Integration Guide</h2>
+<button class="close-btn" onclick="closeDeployModal()">×</button>
+</div>
+<div class="modal-body">
+<h3>1. Automated Bootstrap &amp; Installation</h3>
+<p>Run the quick onboarding script from your local terminal to instantly pull down the core logic, templates, and container configurations from the repository.</p>
+<strong>Option A: Windows (PowerShell)</strong>
+<pre><code># Download and execute the interactive bootstrapper
+Invoke-WebRequest -Uri "https://raw.githubusercontent.com/rjmad1/RajaJeevanLoopEngineering/main/interactive-bootstrap.ps1" -OutFile "interactive-bootstrap.ps1"
+.\interactive-bootstrap.ps1</code></pre>
+<strong>Option B: Linux / macOS (Bash)</strong>
+<pre><code># Download and execute the cross-platform setup script
+curl -O https://raw.githubusercontent.com/rjmad1/RajaJeevanLoopEngineering/main/bootstrap.py
+python3 bootstrap.py</code></pre>
+<p><em>Note: The script will prompt you for your project path and target loop track (Greenfield, Brownfield, Modernization, or Incident Response) to automatically scaffold the workspace.</em></p>
+<h3>2. Activate the State Engine</h3>
+<p>Run the containerized Java state engine to manage circuit breaking, phase tracking, and state validation transitions:</p>
+<pre><code># Build the target engine image
+docker build -t loop-engine https://github.com/rjmad1/RajaJeevanLoopEngineering.git#main
+
+# Start the engine (exposes the state management API on port 8080)
+docker run -p 8080:8080 loop-engine</code></pre>
+<h3>3. IDE Prompt Insertion</h3>
+<p>Save the following minimalist configuration block as a <code>.cursorrules</code> or <code>.github/copilot-instructions.md</code> file at the root of your project to control agent behaviors:</p>
+<pre><code># SYSTEM INSTRUCTION: ENFORCE BOUNDED LOOP ENGINEERING
+You must execute all workspace updates inside the formal boundaries of the RajaJeevanLoopEngineering framework.
+
+## 1. State-Bound Lifecycle
+You cannot generate arbitrary code without stepping sequentially through these explicit phases:
+Discovery ➔ Planning ➔ Implementation ➔ Verification ➔ Reflection.
+
+## 2. Mandatory Local Execution Commands
+Before moving between phases, you must validate transitions using the agnostic state utilities:
+* Register Phase Transition: ./loop-control.sh transit &lt;loop-id&gt; &lt;CURRENT_PHASE&gt; &lt;NEXT_PHASE&gt;
+* Check Circuit Breaker Status: ./loop-control.sh status &lt;loop-id&gt;
+
+## 3. Core Constraints
+* Never execute continuous code changes if verification tests fail iteratively.
+* Stop immediately if the loop-control circuit breaker trips.</code></pre>
+<div style="text-align: right; margin-top: 1.5rem;">
+<button class="enable-btn" onclick="copyDeployPrompt(this)" style="font-size: 0.9rem; padding: 0.5rem 1rem;">
+                    Copy Rules to Clipboard
+                </button>
+</div>
 </div>
 </div>
 </div>
