@@ -2,7 +2,6 @@ package com.rajajeevan.loop.engine;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
 import java.util.Map;
@@ -11,8 +10,6 @@ import org.junit.jupiter.api.Test;
 
 /** Integration tests for LoopEngineServer HTTP endpoints using Javalin test tools. */
 class LoopEngineServerTest {
-
-  private static final ObjectMapper mapper = new ObjectMapper();
 
   private Javalin createTestApp() {
     LoopEngineServer server = new LoopEngineServer();

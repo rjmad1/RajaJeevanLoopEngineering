@@ -130,8 +130,8 @@ Evaluate the product from multiple viewpoints:
 - **Engineering:** Maintainability, Complexity, Technical debt, Reliability, Performance, Scalability.
 - **Product:** Feature completeness, User workflows, Adoption, Consistency, Future extensibility.
 
-### 5. Discover Opportunities
-Generate opportunities across categories (e.g., New features, UX improvements, Architecture improvements, Automation, AI capabilities, Performance improvements, Developer experience, Documentation, Business improvements, Cost reductions, Security, Compliance, Operational excellence).
+### 5. Discover Opportunities & Generate MRD
+Generate opportunities across categories (e.g., New features, UX improvements, Architecture improvements, Automation, AI capabilities, Performance improvements, Developer experience, Documentation, Business improvements, Cost reductions, Security, Compliance, Operational excellence). Compile market trends, competitive analysis, and strategic positioning into a Market Requirements Document (MRD).
 
 ### 6. Score Opportunities
 Every opportunity must receive objective scores for: Customer Value, Business Value, Strategic Alignment, Engineering Cost, Risk, Confidence, Time to Value, Maintainability Impact, Innovation Potential, and Overall Priority.
@@ -171,6 +171,7 @@ At the end of every iteration produce:
 
 - **Executive Summary:** Current health of the product
 - **What Changed:** New observations
+- **Market Requirements Document (MRD):** Market context, trends, and competitive positioning
 - **Knowledge Updated:** Files requiring updates
 - **Opportunities:** Ranked list
 - **Roadmap Impact:** How priorities changed

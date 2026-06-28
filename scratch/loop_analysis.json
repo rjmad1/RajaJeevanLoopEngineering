@@ -2766,9 +2766,7 @@
       "version": "1.0",
       "status": "Active",
       "category": "Strategy",
-      "dependencies": [
-        "LOOP-501"
-      ],
+      "dependencies": [],
       "sections": [
         "Purpose",
         "Mission",
@@ -2782,6 +2780,27 @@
         "Stopping Conditions",
         "Optimization Goal",
         "Suggested Guild Integration"
+      ]
+    },
+    {
+      "id": "LOOP-503",
+      "filename": "LOOP-503-Roadmap-Prioritization.md",
+      "path": "loops/strategy/LOOP-503-Roadmap-Prioritization.md",
+      "version": "0.1",
+      "status": "Active",
+      "category": "Strategy",
+      "dependencies": [
+        "LOOP-502"
+      ],
+      "sections": [
+        "Purpose",
+        "Problem Statement",
+        "Why This Loop Exists",
+        "Scope",
+        "Inputs",
+        "Outputs",
+        "Workflow",
+        "Deliverables"
       ]
     },
     {
@@ -2804,6 +2823,46 @@
         "Expected Deliverables",
         "Stopping Criteria",
         "Guild Integration"
+      ]
+    },
+    {
+      "id": "LOOP-505",
+      "filename": "LOOP-505-Feature-Definition.md",
+      "path": "loops/strategy/LOOP-505-Feature-Definition.md",
+      "version": "0.1",
+      "status": "Active",
+      "category": "Strategy",
+      "dependencies": [
+        "LOOP-503"
+      ],
+      "sections": [
+        "Purpose",
+        "Problem Statement",
+        "Why This Loop Exists",
+        "Scope",
+        "Inputs",
+        "Outputs",
+        "Workflow",
+        "Deliverables"
+      ]
+    },
+    {
+      "id": "LOOP-506",
+      "filename": "LOOP-506-Go-To-Market-Orchestration.md",
+      "path": "loops/strategy/LOOP-506-Go-To-Market-Orchestration.md",
+      "version": "0.1",
+      "status": "Active",
+      "category": "Strategy",
+      "dependencies": [],
+      "sections": [
+        "Purpose",
+        "Problem Statement",
+        "Why This Loop Exists",
+        "Scope",
+        "Inputs",
+        "Outputs",
+        "Workflow",
+        "Deliverables"
       ]
     }
   ],
@@ -3088,12 +3147,17 @@
       "LOOP-006"
     ],
     "LOOP-408": [],
-    "LOOP-502": [
-      "LOOP-501"
+    "LOOP-502": [],
+    "LOOP-503": [
+      "LOOP-502"
     ],
     "LOOP-504": [
       "LOOP-502",
       "LOOP-007"
-    ]
+    ],
+    "LOOP-505": [
+      "LOOP-503"
+    ],
+    "LOOP-506": []
   }
 }

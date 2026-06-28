@@ -196,8 +196,8 @@ Before beginning Step 1, the executing agent must have loaded:
 **Outputs:** `docs/engineering/documentation/gap-classification.md`
 
 Load and formalise the documentation gap:
-- **Documentation type:** One of — `README` (module or service overview), `API-doc` (endpoint or interface documentation), `inline-doc` (method or class docstrings), `architecture-doc` (component or system level), `ADR-summary` (summary of an existing ADR), `runbook` (operational procedure).
-- **Target component:** The specific module, service, class, method, or ADR to be documented.
+- **Documentation type:** One of — `README` (module or service overview), `API-doc` (endpoint or interface documentation), `inline-doc` (method or class docstrings), `architecture-doc` (component or system level), `ADR-summary` (summary of an existing ADR), `runbook` (operational procedure), `release-notes` (customer-facing release notes).
+- **Target component:** The specific module, service, class, method, or ADR to be documented (or specific release payload for release notes).
 - **Target audience:** One of — `developer` (engineers working in the module), `operator` (engineers running the service), `architect` (engineers designing across the system), `end-user` (consumers of a public API).
 - **Gap description:** What is currently missing or inaccurate.
 - **Natural documentation location:** The file path where the documentation will be placed in the repository.
@@ -244,6 +244,8 @@ Produce draft documentation grounded in the current codebase. Apply the structur
 **Architecture-doc** structure: (1) Component purpose. (2) Component interfaces — what it exposes and what it consumes. (3) Key design decisions — with reference to accepted ADRs where applicable. (4) Mermaid diagram source for the component's relationships where applicable.
 
 **Runbook** structure: (1) Service overview. (2) Start/stop procedures. (3) Health check verification. (4) Common failure scenarios with detection and remediation steps. (5) Escalation path.
+
+**Release-notes** structure: (1) Release summary — what is included. (2) Business value — translating technical features into user impact. (3) New features & enhancements. (4) Resolved issues & bug fixes. (5) Breaking changes & migration paths.
 
 Every documentation artifact must include a header noting the HEAD SHA at which it was produced and the run ID that produced it.
 

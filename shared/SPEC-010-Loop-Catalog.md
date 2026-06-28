@@ -85,7 +85,10 @@ All loops currently in `Active` status. Updated as of 2026-06-27.
 | LOOP-304 | Release Readiness | Governance | Active | 1.0 | Principal Architecture Function | Principal Architecture Function | 2026-06-27 | LOOP-006, LOOP-007 |
 | LOOP-408 | Delivery & Change Steward | Release | Active | 1.0 | DevOps & Release Engineering | DevOps & Release Engineering | 2026-06-28 | LOOP-005, LOOP-006, LOOP-504 |
 | LOOP-502 | Product Intelligence Architect | Strategy | Active | 1.0 | Product Intelligence Function | Product Intelligence Function | 2026-06-28 | LOOP-501 |
+| LOOP-503 | Roadmap Prioritization | Strategy | Active | 0.1 | Product Strategy Function | Product Strategy Function | 2026-06-28 | LOOP-502 |
 | LOOP-504 | Knowledge Integrity Steward | Strategy | Active | 1.0 | Knowledge Management Function | Knowledge Management Function | 2026-06-28 | LOOP-502 |
+| LOOP-505 | Feature Definition | Strategy | Active | 0.1 | Product Strategy Function | Product Strategy Function | 2026-06-28 | LOOP-503 |
+| LOOP-506 | Go-To-Market Orchestration | Strategy | Active | 0.1 | Product Marketing Function | Product Marketing Function | 2026-06-28 | None |
 
 ### §3.1 — Known Downstream Consumer Index
 
@@ -104,7 +107,8 @@ This index is derived from the Depends On column above and is provided for upstr
 | LOOP-304 | LOOP-401 |
 | LOOP-401 | LOOP-402 |
 | LOOP-402 | LOOP-403 |
-| LOOP-502 | LOOP-504 |
+| LOOP-502 | LOOP-503, LOOP-504 |
+| LOOP-503 | LOOP-505 |
 | LOOP-504 | LOOP-408 |
 
 ---

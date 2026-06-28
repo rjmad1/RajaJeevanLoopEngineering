@@ -79,4 +79,7 @@ This catalog indexes all generalized loops available in the General Purpose Loop
 | **LOOP-407** | Synthetic User Verification | Release | High | LOOP-006 | Runs continuous simulated E2E workflows on production to detect silent UI degradations. |
 | **LOOP-408** | Delivery & Change Steward | Release | High | LOOP-005, LOOP-006, LOOP-504 | Delivery, release coordination, and Git change governance. |
 | **LOOP-502** | Product Intelligence Architect | Strategy | High | LOOP-501 | Continuously build and maintain a complete understanding of a product. |
+| **LOOP-503** | Roadmap Prioritization | Strategy | Medium | LOOP-502 | Continuously evaluate, rank, and schedule discovered opportunities into actionable roadmap items. |
 | **LOOP-504** | Knowledge Integrity Steward | Strategy | High | LOOP-502 | Synchronize canonical memory in the knowledge directory. |
+| **LOOP-505** | Feature Definition | Strategy | High | LOOP-503 | Translate prioritized roadmap items into comprehensive Product Requirement Documents (PRDs). |
+| **LOOP-506** | Go-To-Market Orchestration | Strategy | Medium | None | Plan and execute the launch strategy, positioning, and customer communication for new features or products. |
