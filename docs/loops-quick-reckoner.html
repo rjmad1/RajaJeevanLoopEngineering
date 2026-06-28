@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loops Quick Reckoner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            
+            --cat-core: #8b5cf6;
+            --cat-engineering: #3b82f6;
+            --cat-platform: #06b6d4;
+            --cat-governance: #f59e0b;
+            --cat-release: #10b981;
+            --cat-strategy: #ec4899;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #60a5fa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease;
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+        
+        .loops-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .loop-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .loop-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+            border-color: var(--primary-hover);
+        }
+        
+        .loop-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+        
+        .loop-card[data-category="Core"]::before { background: var(--cat-core); }
+        .loop-card[data-category="Engineering"]::before { background: var(--cat-engineering); }
+        .loop-card[data-category="Platform"]::before { background: var(--cat-platform); }
+        .loop-card[data-category="Governance"]::before { background: var(--cat-governance); }
+        .loop-card[data-category="Release"]::before { background: var(--cat-release); }
+        .loop-card[data-category="Strategy"]::before { background: var(--cat-strategy); }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .loop-id {
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: 600;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+        
+        .badges {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .badge.complexity-High { color: #f87171; background: rgba(248, 113, 113, 0.1); }
+        .badge.complexity-Medium { color: #fbbf24; background: rgba(251, 191, 36, 0.1); }
+        .badge.complexity-Low { color: #34d399; background: rgba(52, 211, 153, 0.1); }
+        
+        .loop-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .loop-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .meta-group {
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+        
+        .meta-label {
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .project-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .ptype-badge {
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            background: var(--surface-hover);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .copy-container {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--border);
+            margin-bottom: 0.5rem;
+        }
+        
+        .command-text {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #a78bfa;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .copy-btn {
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: background 0.2s;
+            flex-shrink: 0;
+            margin-left: 0.5rem;
+        }
+        
+        .copy-btn:hover { background: rgba(255,255,255,0.2); }
+        .copy-btn.copied { background: #10b981; color: #000; }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .hidden { display: none !important; }
+        
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-muted);
+            background: var(--surface);
+            border-radius: 16px;
+            border: 1px dashed var(--border);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Loops Quick Reckoner</h1>
+        <p class="subtitle">Holistic reference guide for General Purpose Loop Engineering workflows. Search, filter, and easily copy execution commands.</p>
+    </header>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="search">Search</label>
+            <input type="text" id="search" placeholder="Search by name, ID or keywords...">
+        </div>
+        <div class="control-group">
+            <label for="filter-category">Category</label>
+            <select id="filter-category">
+                <option value="all">All Categories</option>
+                <option value="Core">Core</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Platform">Platform</option>
+                <option value="Governance">Governance</option>
+                <option value="Release">Release</option>
+                <option value="Strategy">Strategy</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="filter-ptype">Project Type</label>
+            <select id="filter-ptype">
+                <option value="all">All Project Types</option>
+                <option value="Greenfield">Greenfield</option>
+                <option value="Brownfield">Brownfield</option>
+                <option value="Modernization">Modernization</option>
+                <option value="IncidentResponse">Incident Response</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label for="sort-by">Sort By</label>
+            <select id="sort-by">
+                <option value="id-asc">ID (Ascending)</option>
+                <option value="id-desc">ID (Descending)</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="category">Category</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="loops-grid" id="grid">
+        
+        <div class="loop-card" data-id="LOOP-001" data-category="Core">
+            <div class="card-header">
+                <span class="loop-id">LOOP-001</span>
+                <div class="badges">
+                    <span class="badge complexity-Low">Low</span>
+                    <span class="badge">Core</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Architecture Discovery</h3>
+            <p class="loop-desc">Mapping a repository's folder structures and interfaces.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> None
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-001 --target "<target_path>"'>./loop-control.sh run LOOP-001 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-001 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-001 -Target "<target_path>"'>Invoke-Loop -Id LOOP-001 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-001 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-002" data-category="Core">
+            <div class="card-header">
+                <span class="loop-id">LOOP-002</span>
+                <div class="badges">
+                    <span class="badge complexity-Low">Low</span>
+                    <span class="badge">Core</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Context Assembly</h3>
+            <p class="loop-desc">Gathering specific target source files and dependencies.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-001
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-002 --target "<target_path>"'>./loop-control.sh run LOOP-002 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-002 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-002 -Target "<target_path>"'>Invoke-Loop -Id LOOP-002 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-002 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-003" data-category="Core">
+            <div class="card-header">
+                <span class="loop-id">LOOP-003</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Core</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Task Discovery</h3>
+            <p class="loop-desc">Decomposing raw tasks into detailed checklist items.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-001, LOOP-002
+            </div>
+            <div class="project-types">
+                
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-003 --target "<target_path>"'>./loop-control.sh run LOOP-003 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-003 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-003 -Target "<target_path>"'>Invoke-Loop -Id LOOP-003 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-003 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-004" data-category="Core">
+            <div class="card-header">
+                <span class="loop-id">LOOP-004</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Core</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Planning</h3>
+            <p class="loop-desc">Generating step-by-step implementation plans.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-003
+            </div>
+            <div class="project-types">
+                
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-004 --target "<target_path>"'>./loop-control.sh run LOOP-004 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-004 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-004 -Target "<target_path>"'>Invoke-Loop -Id LOOP-004 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-004 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-005" data-category="Core">
+            <div class="card-header">
+                <span class="loop-id">LOOP-005</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Core</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Implementation</h3>
+            <p class="loop-desc">Making sandbox-bounded edits in the codebase.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-004
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-005 --target "<target_path>"'>./loop-control.sh run LOOP-005 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-005 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-005 -Target "<target_path>"'>Invoke-Loop -Id LOOP-005 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-005 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-006" data-category="Core">
+            <div class="card-header">
+                <span class="loop-id">LOOP-006</span>
+                <div class="badges">
+                    <span class="badge complexity-Low">Low</span>
+                    <span class="badge">Core</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Verification</h3>
+            <p class="loop-desc">Running test suites, checkstyle, and code scanners.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-005
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-006 --target "<target_path>"'>./loop-control.sh run LOOP-006 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-006 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-006 -Target "<target_path>"'>Invoke-Loop -Id LOOP-006 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-006 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-007" data-category="Core">
+            <div class="card-header">
+                <span class="loop-id">LOOP-007</span>
+                <div class="badges">
+                    <span class="badge complexity-Low">Low</span>
+                    <span class="badge">Core</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Reflection</h3>
+            <p class="loop-desc">Conducting post-run assessments and memory updates.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-007 --target "<target_path>"'>./loop-control.sh run LOOP-007 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-007 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-007 -Target "<target_path>"'>Invoke-Loop -Id LOOP-007 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-007 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-101" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-101</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Bug Fixing</h3>
+            <p class="loop-desc">Troubleshooting, replicating, and patching codebase bugs.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-101 --target "<target_path>"'>./loop-control.sh run LOOP-101 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-101 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-101 -Target "<target_path>"'>Invoke-Loop -Id LOOP-101 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-101 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-102" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-102</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Refactoring</h3>
+            <p class="loop-desc">Structural cleanups and technical debt reduction.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-102 --target "<target_path>"'>./loop-control.sh run LOOP-102 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-102 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-102 -Target "<target_path>"'>Invoke-Loop -Id LOOP-102 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-102 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-103" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-103</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Test Generation</h3>
+            <p class="loop-desc">Authoring unit and integration tests.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-001, LOOP-002, LOOP-005
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-103 --target "<target_path>"'>./loop-control.sh run LOOP-103 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-103 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-103 -Target "<target_path>"'>Invoke-Loop -Id LOOP-103 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-103 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-104" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-104</span>
+                <div class="badges">
+                    <span class="badge complexity-Low">Low</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Documentation</h3>
+            <p class="loop-desc">Generating READMEs, wikis, and reference guides.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-001, LOOP-002
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-104 --target "<target_path>"'>./loop-control.sh run LOOP-104 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-104 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-104 -Target "<target_path>"'>Invoke-Loop -Id LOOP-104 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-104 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-105" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-105</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Code Review</h3>
+            <p class="loop-desc">Automated auditing of pull requests.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-001, LOOP-002
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-105 --target "<target_path>"'>./loop-control.sh run LOOP-105 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-105 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-105 -Target "<target_path>"'>Invoke-Loop -Id LOOP-105 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-105 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-106" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-106</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Customer Journey Analytics</h3>
+            <p class="loop-desc">Mapping runtime errors to conversion funnel drop-offs.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-106 --target "<target_path>"'>./loop-control.sh run LOOP-106 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-106 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-106 -Target "<target_path>"'>Invoke-Loop -Id LOOP-106 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-106 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-107" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-107</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Minimal System Diagram Generation</h3>
+            <p class="loop-desc">Generate and verify a core suite of architectural system diagrams.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-001, LOOP-002
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-107 --target "<target_path>"'>./loop-control.sh run LOOP-107 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-107 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-107 -Target "<target_path>"'>Invoke-Loop -Id LOOP-107 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-107 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-110" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-110</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Legacy Strangler</h3>
+            <p class="loop-desc">Encapsulating monolithic features into modern microservices.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-110 --target "<target_path>"'>./loop-control.sh run LOOP-110 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-110 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-110 -Target "<target_path>"'>Invoke-Loop -Id LOOP-110 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-110 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-111" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-111</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Technical Debt Remediation</h3>
+            <p class="loop-desc">Quantifying complexity trends and scheduling refactoring.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-111 --target "<target_path>"'>./loop-control.sh run LOOP-111 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-111 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-111 -Target "<target_path>"'>Invoke-Loop -Id LOOP-111 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-111 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-112" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-112</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Component Deprecation Lifecycle</h3>
+            <p class="loop-desc">Tracks usage of older internal software libraries and schedules refactoring.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-112 --target "<target_path>"'>./loop-control.sh run LOOP-112 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-112 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-112 -Target "<target_path>"'>Invoke-Loop -Id LOOP-112 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-112 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-113" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-113</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Dead Code Elimination</h3>
+            <p class="loop-desc">Detects unused modules in production and generates PRs to prune them.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-113 --target "<target_path>"'>./loop-control.sh run LOOP-113 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-113 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-113 -Target "<target_path>"'>Invoke-Loop -Id LOOP-113 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-113 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-130" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-130</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Localization and Internationalization Audit</h3>
+            <p class="loop-desc">Scans frontend files for hardcoded strings and extracts to translation files.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-130 --target "<target_path>"'>./loop-control.sh run LOOP-130 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-130 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-130 -Target "<target_path>"'>Invoke-Loop -Id LOOP-130 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-130 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-150" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-150</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Dependency Patching</h3>
+            <p class="loop-desc">Scanning open-source packages and applying upgrades.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-150 --target "<target_path>"'>./loop-control.sh run LOOP-150 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-150 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-150 -Target "<target_path>"'>Invoke-Loop -Id LOOP-150 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-150 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-160" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-160</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Database Deadlock Resolution</h3>
+            <p class="loop-desc">Captures deadlock bottlenecks and recommends query restructuring.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-160 --target "<target_path>"'>./loop-control.sh run LOOP-160 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-160 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-160 -Target "<target_path>"'>Invoke-Loop -Id LOOP-160 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-160 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-161" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-161</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Memory Leak Detection</h3>
+            <p class="loop-desc">Subjects staging instances to synthetic traffic spikes to flag memory leaks.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-161 --target "<target_path>"'>./loop-control.sh run LOOP-161 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-161 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-161 -Target "<target_path>"'>Invoke-Loop -Id LOOP-161 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-161 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-170" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-170</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Zero-Trust Token Rotation</h3>
+            <p class="loop-desc">Automated key and auth token rotation.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-170 --target "<target_path>"'>./loop-control.sh run LOOP-170 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-170 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-170 -Target "<target_path>"'>Invoke-Loop -Id LOOP-170 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-170 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-171" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-171</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Secrets Lifecycle Enforcement</h3>
+            <p class="loop-desc">Audits operational credentials age and orchestrates zero-downtime rolling updates.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-171 --target "<target_path>"'>./loop-control.sh run LOOP-171 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-171 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-171 -Target "<target_path>"'>Invoke-Loop -Id LOOP-171 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-171 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-180" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-180</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Environment Drift Audit</h3>
+            <p class="loop-desc">Detecting and reconciling IaC mismatches.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-180 --target "<target_path>"'>./loop-control.sh run LOOP-180 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-180 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-180 -Target "<target_path>"'>Invoke-Loop -Id LOOP-180 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-180 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-181" data-category="Engineering">
+            <div class="card-header">
+                <span class="loop-id">LOOP-181</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Engineering</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Container Layer Optimization</h3>
+            <p class="loop-desc">Scans container images and strips redundant packages to minimize size/attack surface.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-002, LOOP-004, LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-181 --target "<target_path>"'>./loop-control.sh run LOOP-181 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-181 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-181 -Target "<target_path>"'>Invoke-Loop -Id LOOP-181 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-181 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-201" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-201</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Workflow Validation</h3>
+            <p class="loop-desc">Validating pipeline flow and state boundaries.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-201 --target "<target_path>"'>./loop-control.sh run LOOP-201 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-201 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-201 -Target "<target_path>"'>Invoke-Loop -Id LOOP-201 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-201 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-202" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-202</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Integration Validation</h3>
+            <p class="loop-desc">Validating third-party API keys and rate limits.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-202 --target "<target_path>"'>./loop-control.sh run LOOP-202 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-202 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-202 -Target "<target_path>"'>Invoke-Loop -Id LOOP-202 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-202 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-203" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-203</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Event Validation</h3>
+            <p class="loop-desc">Auditing event schema and publisher topics.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-203 --target "<target_path>"'>./loop-control.sh run LOOP-203 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-203 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-203 -Target "<target_path>"'>Invoke-Loop -Id LOOP-203 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-203 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-204" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-204</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">API Contract Validation</h3>
+            <p class="loop-desc">Ensuring REST and gRPC API contract compliance.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-204 --target "<target_path>"'>./loop-control.sh run LOOP-204 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-204 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-204 -Target "<target_path>"'>Invoke-Loop -Id LOOP-204 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-204 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-205" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-205</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Multi-Tenant Isolation Audit</h3>
+            <p class="loop-desc">Synthetic cross-tenant query injection to prevent data bleed.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-205 --target "<target_path>"'>./loop-control.sh run LOOP-205 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-205 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-205 -Target "<target_path>"'>Invoke-Loop -Id LOOP-205 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-205 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-206" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-206</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Observability Validation</h3>
+            <p class="loop-desc">Auditing metrics, logging, and tracing coverage.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-206 --target "<target_path>"'>./loop-control.sh run LOOP-206 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-206 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-206 -Target "<target_path>"'>Invoke-Loop -Id LOOP-206 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-206 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-207" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-207</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Security Validation</h3>
+            <p class="loop-desc">Running static application security tests (SAST).</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-207 --target "<target_path>"'>./loop-control.sh run LOOP-207 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-207 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-207 -Target "<target_path>"'>Invoke-Loop -Id LOOP-207 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-207 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-208" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-208</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Data Migration</h3>
+            <p class="loop-desc">Validating data sync integrity during legacy-to-cloud transition.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-208 --target "<target_path>"'>./loop-control.sh run LOOP-208 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-208 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-208 -Target "<target_path>"'>Invoke-Loop -Id LOOP-208 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-208 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-209" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-209</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Partner API Degradation</h3>
+            <p class="loop-desc">Simulating external endpoint failures and validating circuit breakers.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-209 --target "<target_path>"'>./loop-control.sh run LOOP-209 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-209 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-209 -Target "<target_path>"'>Invoke-Loop -Id LOOP-209 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-209 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-210" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-210</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">API Shadow IT Discovery</h3>
+            <p class="loop-desc">Scanning traffic to automatically inventory undocumented endpoints.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-210 --target "<target_path>"'>./loop-control.sh run LOOP-210 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-210 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-210 -Target "<target_path>"'>Invoke-Loop -Id LOOP-210 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-210 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-211" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-211</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">FinOps Cloud Bursting</h3>
+            <p class="loop-desc">Dynamic migration of workloads to lower-cost regions.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-211 --target "<target_path>"'>./loop-control.sh run LOOP-211 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-211 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-211 -Target "<target_path>"'>Invoke-Loop -Id LOOP-211 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-211 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-212" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-212</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Chaos Engineering Resilience</h3>
+            <p class="loop-desc">Verifying architectural self-healing through failure injection.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-212 --target "<target_path>"'>./loop-control.sh run LOOP-212 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-212 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-212 -Target "<target_path>"'>Invoke-Loop -Id LOOP-212 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-212 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-213" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-213</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Multi-Region State Sync</h3>
+            <p class="loop-desc">Monitors replication lag and adjusts query routing to prevent read inconsistencies.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-213 --target "<target_path>"'>./loop-control.sh run LOOP-213 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-213 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-213 -Target "<target_path>"'>Invoke-Loop -Id LOOP-213 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-213 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-214" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-214</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Resource Quota Guardrail</h3>
+            <p class="loop-desc">Triggers microservice containment/scaling alerts if tenant resource usage drifts.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-214 --target "<target_path>"'>./loop-control.sh run LOOP-214 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-214 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-214 -Target "<target_path>"'>Invoke-Loop -Id LOOP-214 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-214 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-215" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-215</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Secret Leakage Prevention</h3>
+            <p class="loop-desc">Scans code commits, containers, and logs in real-time to block exposed secrets.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-215 --target "<target_path>"'>./loop-control.sh run LOOP-215 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-215 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-215 -Target "<target_path>"'>Invoke-Loop -Id LOOP-215 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-215 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-216" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-216</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Database Index Optimization</h3>
+            <p class="loop-desc">Analyzes query execution plans to automatically apply missing indexes and drop redundant ones.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-216 --target "<target_path>"'>./loop-control.sh run LOOP-216 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-216 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-216 -Target "<target_path>"'>Invoke-Loop -Id LOOP-216 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-216 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-217" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-217</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">System Event Idempotency</h3>
+            <p class="loop-desc">Intentionally duplicates event payloads to verify once-and-only-once state changes.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-217 --target "<target_path>"'>./loop-control.sh run LOOP-217 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-217 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-217 -Target "<target_path>"'>Invoke-Loop -Id LOOP-217 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-217 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-218" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-218</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Backward Compatibility Verification</h3>
+            <p class="loop-desc">Executes consumer-driven contract tests to verify data schema changes do not break partners.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-218 --target "<target_path>"'>./loop-control.sh run LOOP-218 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-218 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-218 -Target "<target_path>"'>Invoke-Loop -Id LOOP-218 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-218 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-219" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-219</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Load Balancing Anomaly Mitigation</h3>
+            <p class="loop-desc">Monitors traffic distribution across regions and updates ingress routing dynamically on latency spikes.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-219 --target "<target_path>"'>./loop-control.sh run LOOP-219 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-219 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-219 -Target "<target_path>"'>Invoke-Loop -Id LOOP-219 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-219 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-220" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-220</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">API Rate Limiting Guardrail</h3>
+            <p class="loop-desc">Simulates high-velocity traffic to verify that throttling triggers correctly.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-220 --target "<target_path>"'>./loop-control.sh run LOOP-220 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-220 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-220 -Target "<target_path>"'>Invoke-Loop -Id LOOP-220 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-220 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-221" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-221</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Accessibility Compliance Guardrail</h3>
+            <p class="loop-desc">Validates front-end builds against WCAG standards and blocks non-compliant builds.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-221 --target "<target_path>"'>./loop-control.sh run LOOP-221 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-221 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-221 -Target "<target_path>"'>Invoke-Loop -Id LOOP-221 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-221 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-222" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-222</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Telemetry Anomaly Detection</h3>
+            <p class="loop-desc">Correlates application logs with API metrics to flag hidden feature failures.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-222 --target "<target_path>"'>./loop-control.sh run LOOP-222 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-222 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-222 -Target "<target_path>"'>Invoke-Loop -Id LOOP-222 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-222 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-223" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-223</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Multi-Cloud Disaster Recovery</h3>
+            <p class="loop-desc">Regularly runs isolated failover simulations to verify disaster recovery objectives.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-223 --target "<target_path>"'>./loop-control.sh run LOOP-223 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-223 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-223 -Target "<target_path>"'>Invoke-Loop -Id LOOP-223 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-223 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-224" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-224</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Edge Cache Invalidation</h3>
+            <p class="loop-desc">Instantly pushes targeted cache purge commands to edge networks on content updates.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-224 --target "<target_path>"'>./loop-control.sh run LOOP-224 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-224 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-224 -Target "<target_path>"'>Invoke-Loop -Id LOOP-224 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-224 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-225" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-225</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Cross-Site Scripting Guardrail</h3>
+            <p class="loop-desc">Injects synthetic malicious scripts into open inputs to verify sanitization layers block execution.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-225 --target "<target_path>"'>./loop-control.sh run LOOP-225 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-225 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-225 -Target "<target_path>"'>Invoke-Loop -Id LOOP-225 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-225 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-226" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-226</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Tenant Onboarding Validation</h3>
+            <p class="loop-desc">Runs configuration scripts and smoke tests to verify dedicated resource isolation.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-226 --target "<target_path>"'>./loop-control.sh run LOOP-226 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-226 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-226 -Target "<target_path>"'>Invoke-Loop -Id LOOP-226 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-226 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-227" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-227</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Third-Party Webhook Reliability</h3>
+            <p class="loop-desc">Tracks outbound webhook delivery rates, implementing backoff/dead-letter queues on failure.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-227 --target "<target_path>"'>./loop-control.sh run LOOP-227 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-227 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-227 -Target "<target_path>"'>Invoke-Loop -Id LOOP-227 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-227 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-228" data-category="Platform">
+            <div class="card-header">
+                <span class="loop-id">LOOP-228</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Platform</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Log Aggregation Sanity</h3>
+            <p class="loop-desc">Emits test events to verify centralized logging agents capture and index telemetry.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-228 --target "<target_path>"'>./loop-control.sh run LOOP-228 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-228 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-228 -Target "<target_path>"'>Invoke-Loop -Id LOOP-228 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-228 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-301" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-301</span>
+                <div class="badges">
+                    <span class="badge complexity-Low">Low</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">ADR Generation</h3>
+            <p class="loop-desc">Generating Architectural Decision Records.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-004
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-301 --target "<target_path>"'>./loop-control.sh run LOOP-301 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-301 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-301 -Target "<target_path>"'>Invoke-Loop -Id LOOP-301 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-301 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-302" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-302</span>
+                <div class="badges">
+                    <span class="badge complexity-Low">Low</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Doc Governance</h3>
+            <p class="loop-desc">Auditing documents for stale links and formats.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-007
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-302 --target "<target_path>"'>./loop-control.sh run LOOP-302 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-302 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-302 -Target "<target_path>"'>Invoke-Loop -Id LOOP-302 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-302 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-303" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-303</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Compliance</h3>
+            <p class="loop-desc">General project regulatory and compliance reviews.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-303 --target "<target_path>"'>./loop-control.sh run LOOP-303 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-303 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-303 -Target "<target_path>"'>Invoke-Loop -Id LOOP-303 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-303 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-304" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-304</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Release Readiness</h3>
+            <p class="loop-desc">Performing checklist checks before main merges.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006, LOOP-007
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-304 --target "<target_path>"'>./loop-control.sh run LOOP-304 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-304 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-304 -Target "<target_path>"'>Invoke-Loop -Id LOOP-304 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-304 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-305" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-305</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Telemetry Compliance</h3>
+            <p class="loop-desc">Verifying that analytics match tracking specifications.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-305 --target "<target_path>"'>./loop-control.sh run LOOP-305 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-305 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-305 -Target "<target_path>"'>Invoke-Loop -Id LOOP-305 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-305 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-306" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-306</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">SaaS Cost Optimization</h3>
+            <p class="loop-desc">Real-time user license analysis and account deprovisioning.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-007
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-306 --target "<target_path>"'>./loop-control.sh run LOOP-306 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-306 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-306 -Target "<target_path>"'>Invoke-Loop -Id LOOP-306 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-306 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-307" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-307</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Regulatory Compliance Drift</h3>
+            <p class="loop-desc">Evaluating code changes against changing legal frameworks.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-307 --target "<target_path>"'>./loop-control.sh run LOOP-307 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-307 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-307 -Target "<target_path>"'>Invoke-Loop -Id LOOP-307 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-307 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-308" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-308</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Contract-to-Code Enforcement</h3>
+            <p class="loop-desc">Verifies autogenerated API code matches service level agreements and privacy clauses.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-308 --target "<target_path>"'>./loop-control.sh run LOOP-308 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-308 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-308 -Target "<target_path>"'>Invoke-Loop -Id LOOP-308 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-308 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-309" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-309</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">License Compliance Audit</h3>
+            <p class="loop-desc">Scans third-party code packages to block restrictive or unauthorized licenses in build pipeline.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-309 --target "<target_path>"'>./loop-control.sh run LOOP-309 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-309 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-309 -Target "<target_path>"'>Invoke-Loop -Id LOOP-309 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-309 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-310" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-310</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Infrastructure Cost Attribution</h3>
+            <p class="loop-desc">Maps cloud resource consumption to specific components, generating efficiency dashboards.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-007
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-310 --target "<target_path>"'>./loop-control.sh run LOOP-310 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-310 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-310 -Target "<target_path>"'>Invoke-Loop -Id LOOP-310 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-310 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-311" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-311</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Feature Access Entitlement</h3>
+            <p class="loop-desc">Audits subscription levels against feature flag configs to block access to unpurchased tiers.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-311 --target "<target_path>"'>./loop-control.sh run LOOP-311 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-311 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-311 -Target "<target_path>"'>Invoke-Loop -Id LOOP-311 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-311 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-312" data-category="Governance">
+            <div class="card-header">
+                <span class="loop-id">LOOP-312</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Governance</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Data Privacy Anonymization</h3>
+            <p class="loop-desc">Scans and scrubs personally identifiable details from database staging exports.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-312 --target "<target_path>"'>./loop-control.sh run LOOP-312 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-312 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-312 -Target "<target_path>"'>Invoke-Loop -Id LOOP-312 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-312 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-401" data-category="Release">
+            <div class="card-header">
+                <span class="loop-id">LOOP-401</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Release</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Release Checklist</h3>
+            <p class="loop-desc">Step-by-step validation of release parameters.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-304
+            </div>
+            <div class="project-types">
+                
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-401 --target "<target_path>"'>./loop-control.sh run LOOP-401 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-401 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-401 -Target "<target_path>"'>Invoke-Loop -Id LOOP-401 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-401 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-402" data-category="Release">
+            <div class="card-header">
+                <span class="loop-id">LOOP-402</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Release</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Deployment Validation</h3>
+            <p class="loop-desc">Smoke testing and verifying active deployments.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-401
+            </div>
+            <div class="project-types">
+                
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-402 --target "<target_path>"'>./loop-control.sh run LOOP-402 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-402 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-402 -Target "<target_path>"'>Invoke-Loop -Id LOOP-402 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-402 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-403" data-category="Release">
+            <div class="card-header">
+                <span class="loop-id">LOOP-403</span>
+                <div class="badges">
+                    <span class="badge complexity-Medium">Medium</span>
+                    <span class="badge">Release</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Post-Release Verification</h3>
+            <p class="loop-desc">Long-term monitoring and verification post-release.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-402
+            </div>
+            <div class="project-types">
+                
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-403 --target "<target_path>"'>./loop-control.sh run LOOP-403 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-403 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-403 -Target "<target_path>"'>Invoke-Loop -Id LOOP-403 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-403 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-404" data-category="Release">
+            <div class="card-header">
+                <span class="loop-id">LOOP-404</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Release</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Feature Flag Lifecycle</h3>
+            <p class="loop-desc">Automated rollout, rollback, and cleanup of toggles.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006, LOOP-007
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-404 --target "<target_path>"'>./loop-control.sh run LOOP-404 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-404 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-404 -Target "<target_path>"'>Invoke-Loop -Id LOOP-404 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-404 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-405" data-category="Release">
+            <div class="card-header">
+                <span class="loop-id">LOOP-405</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Release</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Experimentation Guardrail</h3>
+            <p class="loop-desc">Tracking live A/B test metrics and terminating failing variants.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-405 --target "<target_path>"'>./loop-control.sh run LOOP-405 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-405 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-405 -Target "<target_path>"'>Invoke-Loop -Id LOOP-405 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-405 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-406" data-category="Release">
+            <div class="card-header">
+                <span class="loop-id">LOOP-406</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Release</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Edge Deployment Rollback</h3>
+            <p class="loop-desc">Monitoring containerized edge apps and executing local rollbacks.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-406 --target "<target_path>"'>./loop-control.sh run LOOP-406 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-406 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-406 -Target "<target_path>"'>Invoke-Loop -Id LOOP-406 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-406 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-407" data-category="Release">
+            <div class="card-header">
+                <span class="loop-id">LOOP-407</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Release</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Synthetic User Verification</h3>
+            <p class="loop-desc">Runs continuous simulated E2E workflows on production to detect silent UI degradations.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-006
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-407 --target "<target_path>"'>./loop-control.sh run LOOP-407 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-407 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-407 -Target "<target_path>"'>Invoke-Loop -Id LOOP-407 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-407 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-408" data-category="Release">
+            <div class="card-header">
+                <span class="loop-id">LOOP-408</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Release</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Delivery & Change Steward</h3>
+            <p class="loop-desc">Delivery, release coordination, and Git change governance.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-005, LOOP-006, LOOP-504
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-408 --target "<target_path>"'>./loop-control.sh run LOOP-408 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-408 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-408 -Target "<target_path>"'>Invoke-Loop -Id LOOP-408 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-408 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-502" data-category="Strategy">
+            <div class="card-header">
+                <span class="loop-id">LOOP-502</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Strategy</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Product Intelligence Architect</h3>
+            <p class="loop-desc">Continuously build and maintain a complete understanding of a product.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-501
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-502 --target "<target_path>"'>./loop-control.sh run LOOP-502 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-502 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-502 -Target "<target_path>"'>Invoke-Loop -Id LOOP-502 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-502 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+        <div class="loop-card" data-id="LOOP-504" data-category="Strategy">
+            <div class="card-header">
+                <span class="loop-id">LOOP-504</span>
+                <div class="badges">
+                    <span class="badge complexity-High">High</span>
+                    <span class="badge">Strategy</span>
+                </div>
+            </div>
+            <h3 class="loop-name">Knowledge Integrity Steward</h3>
+            <p class="loop-desc">Synchronize canonical memory in the knowledge directory.</p>
+            <div class="meta-group">
+                <span class="meta-label">Dependencies:</span> LOOP-502
+            </div>
+            <div class="project-types">
+                <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='./loop-control.sh run LOOP-504 --target "<target_path>"'>./loop-control.sh run LOOP-504 --target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-504 --target "<target_path>"')">Copy Bash</button>
+            </div>
+            <div class="copy-container">
+                <span class="command-text" title='Invoke-Loop -Id LOOP-504 -Target "<target_path>"'>Invoke-Loop -Id LOOP-504 -Target "<target_path>"</span>
+                <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-504 -Target "<target_path>"')">Copy PS</button>
+            </div>
+        </div>
+    
+    </div>
+    
+    <div id="no-results" class="no-results hidden">
+        <h2>No loops found</h2>
+        <p>Try adjusting your search or filters.</p>
+    </div>
+</div>
+
+<script>
+    const loops = [{"id": "LOOP-001", "name": "Architecture Discovery", "category": "Core", "complexity": "Low", "dependencies": "None", "description": "Mapping a repository's folder structures and interfaces.", "projectTypes": ["Greenfield", "Modernization"]}, {"id": "LOOP-002", "name": "Context Assembly", "category": "Core", "complexity": "Low", "dependencies": "LOOP-001", "description": "Gathering specific target source files and dependencies.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-003", "name": "Task Discovery", "category": "Core", "complexity": "Medium", "dependencies": "LOOP-001, LOOP-002", "description": "Decomposing raw tasks into detailed checklist items.", "projectTypes": []}, {"id": "LOOP-004", "name": "Planning", "category": "Core", "complexity": "Medium", "dependencies": "LOOP-002, LOOP-003", "description": "Generating step-by-step implementation plans.", "projectTypes": []}, {"id": "LOOP-005", "name": "Implementation", "category": "Core", "complexity": "High", "dependencies": "LOOP-004", "description": "Making sandbox-bounded edits in the codebase.", "projectTypes": ["Greenfield", "Brownfield", "IncidentResponse"]}, {"id": "LOOP-006", "name": "Verification", "category": "Core", "complexity": "Low", "dependencies": "LOOP-005", "description": "Running test suites, checkstyle, and code scanners.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-007", "name": "Reflection", "category": "Core", "complexity": "Low", "dependencies": "LOOP-006", "description": "Conducting post-run assessments and memory updates.", "projectTypes": ["IncidentResponse"]}, {"id": "LOOP-101", "name": "Bug Fixing", "category": "Engineering", "complexity": "High", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Troubleshooting, replicating, and patching codebase bugs.", "projectTypes": ["IncidentResponse"]}, {"id": "LOOP-102", "name": "Refactoring", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Structural cleanups and technical debt reduction.", "projectTypes": ["Brownfield", "Modernization"]}, {"id": "LOOP-103", "name": "Test Generation", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-001, LOOP-002, LOOP-005", "description": "Authoring unit and integration tests.", "projectTypes": ["Greenfield", "Brownfield", "Modernization", "IncidentResponse"]}, {"id": "LOOP-104", "name": "Documentation", "category": "Engineering", "complexity": "Low", "dependencies": "LOOP-001, LOOP-002", "description": "Generating READMEs, wikis, and reference guides.", "projectTypes": ["Greenfield"]}, {"id": "LOOP-105", "name": "Code Review", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-001, LOOP-002", "description": "Automated auditing of pull requests.", "projectTypes": ["Modernization"]}, {"id": "LOOP-106", "name": "Customer Journey Analytics", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-002, LOOP-006", "description": "Mapping runtime errors to conversion funnel drop-offs.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-107", "name": "Minimal System Diagram Generation", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-001, LOOP-002", "description": "Generate and verify a core suite of architectural system diagrams.", "projectTypes": ["Greenfield", "Brownfield", "Modernization", "IncidentResponse"]}, {"id": "LOOP-110", "name": "Legacy Strangler", "category": "Engineering", "complexity": "High", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Encapsulating monolithic features into modern microservices.", "projectTypes": ["Modernization"]}, {"id": "LOOP-111", "name": "Technical Debt Remediation", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Quantifying complexity trends and scheduling refactoring.", "projectTypes": ["Brownfield", "Modernization"]}, {"id": "LOOP-112", "name": "Component Deprecation Lifecycle", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Tracks usage of older internal software libraries and schedules refactoring.", "projectTypes": ["Brownfield", "Modernization"]}, {"id": "LOOP-113", "name": "Dead Code Elimination", "category": "Engineering", "complexity": "High", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Detects unused modules in production and generates PRs to prune them.", "projectTypes": ["Brownfield", "Modernization"]}, {"id": "LOOP-130", "name": "Localization and Internationalization Audit", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Scans frontend files for hardcoded strings and extracts to translation files.", "projectTypes": ["Greenfield", "Brownfield", "Modernization"]}, {"id": "LOOP-150", "name": "Dependency Patching", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Scanning open-source packages and applying upgrades.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-160", "name": "Database Deadlock Resolution", "category": "Engineering", "complexity": "High", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Captures deadlock bottlenecks and recommends query restructuring.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-161", "name": "Memory Leak Detection", "category": "Engineering", "complexity": "High", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Subjects staging instances to synthetic traffic spikes to flag memory leaks.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-170", "name": "Zero-Trust Token Rotation", "category": "Engineering", "complexity": "High", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Automated key and auth token rotation.", "projectTypes": ["Greenfield", "Brownfield", "Modernization"]}, {"id": "LOOP-171", "name": "Secrets Lifecycle Enforcement", "category": "Engineering", "complexity": "High", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Audits operational credentials age and orchestrates zero-downtime rolling updates.", "projectTypes": ["Brownfield", "Modernization"]}, {"id": "LOOP-180", "name": "Environment Drift Audit", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Detecting and reconciling IaC mismatches.", "projectTypes": ["Brownfield", "Modernization"]}, {"id": "LOOP-181", "name": "Container Layer Optimization", "category": "Engineering", "complexity": "Medium", "dependencies": "LOOP-002, LOOP-004, LOOP-006", "description": "Scans container images and strips redundant packages to minimize size/attack surface.", "projectTypes": ["Greenfield", "Brownfield", "Modernization"]}, {"id": "LOOP-201", "name": "Workflow Validation", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Validating pipeline flow and state boundaries.", "projectTypes": []}, {"id": "LOOP-202", "name": "Integration Validation", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Validating third-party API keys and rate limits.", "projectTypes": ["Greenfield"]}, {"id": "LOOP-203", "name": "Event Validation", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Auditing event schema and publisher topics.", "projectTypes": []}, {"id": "LOOP-204", "name": "API Contract Validation", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Ensuring REST and gRPC API contract compliance.", "projectTypes": ["Modernization"]}, {"id": "LOOP-205", "name": "Multi-Tenant Isolation Audit", "category": "Platform", "complexity": "High", "dependencies": "LOOP-006", "description": "Synthetic cross-tenant query injection to prevent data bleed.", "projectTypes": ["Greenfield", "Brownfield"]}, {"id": "LOOP-206", "name": "Observability Validation", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Auditing metrics, logging, and tracing coverage.", "projectTypes": []}, {"id": "LOOP-207", "name": "Security Validation", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Running static application security tests (SAST).", "projectTypes": []}, {"id": "LOOP-208", "name": "Data Migration", "category": "Platform", "complexity": "High", "dependencies": "LOOP-006", "description": "Validating data sync integrity during legacy-to-cloud transition.", "projectTypes": ["Modernization"]}, {"id": "LOOP-209", "name": "Partner API Degradation", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Simulating external endpoint failures and validating circuit breakers.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-210", "name": "API Shadow IT Discovery", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Scanning traffic to automatically inventory undocumented endpoints.", "projectTypes": ["Modernization"]}, {"id": "LOOP-211", "name": "FinOps Cloud Bursting", "category": "Platform", "complexity": "High", "dependencies": "LOOP-006", "description": "Dynamic migration of workloads to lower-cost regions.", "projectTypes": ["Brownfield"]}, {"id": "LOOP-212", "name": "Chaos Engineering Resilience", "category": "Platform", "complexity": "High", "dependencies": "LOOP-006", "description": "Verifying architectural self-healing through failure injection.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-213", "name": "Multi-Region State Sync", "category": "Platform", "complexity": "High", "dependencies": "LOOP-006", "description": "Monitors replication lag and adjusts query routing to prevent read inconsistencies.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-214", "name": "Resource Quota Guardrail", "category": "Platform", "complexity": "High", "dependencies": "LOOP-006", "description": "Triggers microservice containment/scaling alerts if tenant resource usage drifts.", "projectTypes": ["Greenfield", "Brownfield", "IncidentResponse"]}, {"id": "LOOP-215", "name": "Secret Leakage Prevention", "category": "Platform", "complexity": "High", "dependencies": "LOOP-006", "description": "Scans code commits, containers, and logs in real-time to block exposed secrets.", "projectTypes": ["Greenfield", "Brownfield", "Modernization", "IncidentResponse"]}, {"id": "LOOP-216", "name": "Database Index Optimization", "category": "Platform", "complexity": "High", "dependencies": "LOOP-006", "description": "Analyzes query execution plans to automatically apply missing indexes and drop redundant ones.", "projectTypes": ["Brownfield", "Modernization"]}, {"id": "LOOP-217", "name": "System Event Idempotency", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Intentionally duplicates event payloads to verify once-and-only-once state changes.", "projectTypes": ["Greenfield", "Brownfield", "Modernization"]}, {"id": "LOOP-218", "name": "Backward Compatibility Verification", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Executes consumer-driven contract tests to verify data schema changes do not break partners.", "projectTypes": ["Greenfield", "Brownfield", "Modernization"]}, {"id": "LOOP-219", "name": "Load Balancing Anomaly Mitigation", "category": "Platform", "complexity": "High", "dependencies": "LOOP-006", "description": "Monitors traffic distribution across regions and updates ingress routing dynamically on latency spikes.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-220", "name": "API Rate Limiting Guardrail", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Simulates high-velocity traffic to verify that throttling triggers correctly.", "projectTypes": ["Greenfield", "Brownfield", "Modernization"]}, {"id": "LOOP-221", "name": "Accessibility Compliance Guardrail", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Validates front-end builds against WCAG standards and blocks non-compliant builds.", "projectTypes": ["Greenfield", "Brownfield"]}, {"id": "LOOP-222", "name": "Telemetry Anomaly Detection", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Correlates application logs with API metrics to flag hidden feature failures.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-223", "name": "Multi-Cloud Disaster Recovery", "category": "Platform", "complexity": "High", "dependencies": "LOOP-006", "description": "Regularly runs isolated failover simulations to verify disaster recovery objectives.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-224", "name": "Edge Cache Invalidation", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Instantly pushes targeted cache purge commands to edge networks on content updates.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-225", "name": "Cross-Site Scripting Guardrail", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Injects synthetic malicious scripts into open inputs to verify sanitization layers block execution.", "projectTypes": ["Greenfield", "Brownfield", "Modernization"]}, {"id": "LOOP-226", "name": "Tenant Onboarding Validation", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Runs configuration scripts and smoke tests to verify dedicated resource isolation.", "projectTypes": ["Greenfield", "Brownfield"]}, {"id": "LOOP-227", "name": "Third-Party Webhook Reliability", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Tracks outbound webhook delivery rates, implementing backoff/dead-letter queues on failure.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-228", "name": "Log Aggregation Sanity", "category": "Platform", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Emits test events to verify centralized logging agents capture and index telemetry.", "projectTypes": ["Greenfield", "Brownfield", "IncidentResponse"]}, {"id": "LOOP-301", "name": "ADR Generation", "category": "Governance", "complexity": "Low", "dependencies": "LOOP-004", "description": "Generating Architectural Decision Records.", "projectTypes": ["Greenfield"]}, {"id": "LOOP-302", "name": "Doc Governance", "category": "Governance", "complexity": "Low", "dependencies": "LOOP-007", "description": "Auditing documents for stale links and formats.", "projectTypes": ["Modernization"]}, {"id": "LOOP-303", "name": "Compliance", "category": "Governance", "complexity": "High", "dependencies": "LOOP-006", "description": "General project regulatory and compliance reviews.", "projectTypes": ["Brownfield"]}, {"id": "LOOP-304", "name": "Release Readiness", "category": "Governance", "complexity": "Medium", "dependencies": "LOOP-006, LOOP-007", "description": "Performing checklist checks before main merges.", "projectTypes": ["Greenfield"]}, {"id": "LOOP-305", "name": "Telemetry Compliance", "category": "Governance", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Verifying that analytics match tracking specifications.", "projectTypes": ["Greenfield", "Brownfield"]}, {"id": "LOOP-306", "name": "SaaS Cost Optimization", "category": "Governance", "complexity": "Medium", "dependencies": "LOOP-007", "description": "Real-time user license analysis and account deprovisioning.", "projectTypes": ["Brownfield"]}, {"id": "LOOP-307", "name": "Regulatory Compliance Drift", "category": "Governance", "complexity": "High", "dependencies": "LOOP-006", "description": "Evaluating code changes against changing legal frameworks.", "projectTypes": ["Brownfield", "Modernization"]}, {"id": "LOOP-308", "name": "Contract-to-Code Enforcement", "category": "Governance", "complexity": "High", "dependencies": "LOOP-006", "description": "Verifies autogenerated API code matches service level agreements and privacy clauses.", "projectTypes": ["Greenfield", "Brownfield", "Modernization"]}, {"id": "LOOP-309", "name": "License Compliance Audit", "category": "Governance", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Scans third-party code packages to block restrictive or unauthorized licenses in build pipeline.", "projectTypes": ["Greenfield", "Brownfield", "Modernization"]}, {"id": "LOOP-310", "name": "Infrastructure Cost Attribution", "category": "Governance", "complexity": "Medium", "dependencies": "LOOP-007", "description": "Maps cloud resource consumption to specific components, generating efficiency dashboards.", "projectTypes": ["Brownfield", "Modernization"]}, {"id": "LOOP-311", "name": "Feature Access Entitlement", "category": "Governance", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Audits subscription levels against feature flag configs to block access to unpurchased tiers.", "projectTypes": ["Greenfield", "Brownfield"]}, {"id": "LOOP-312", "name": "Data Privacy Anonymization", "category": "Governance", "complexity": "Medium", "dependencies": "LOOP-006", "description": "Scans and scrubs personally identifiable details from database staging exports.", "projectTypes": ["Greenfield", "Brownfield", "Modernization"]}, {"id": "LOOP-401", "name": "Release Checklist", "category": "Release", "complexity": "Medium", "dependencies": "LOOP-304", "description": "Step-by-step validation of release parameters.", "projectTypes": []}, {"id": "LOOP-402", "name": "Deployment Validation", "category": "Release", "complexity": "High", "dependencies": "LOOP-401", "description": "Smoke testing and verifying active deployments.", "projectTypes": []}, {"id": "LOOP-403", "name": "Post-Release Verification", "category": "Release", "complexity": "Medium", "dependencies": "LOOP-402", "description": "Long-term monitoring and verification post-release.", "projectTypes": []}, {"id": "LOOP-404", "name": "Feature Flag Lifecycle", "category": "Release", "complexity": "High", "dependencies": "LOOP-006, LOOP-007", "description": "Automated rollout, rollback, and cleanup of toggles.", "projectTypes": ["Greenfield", "Brownfield"]}, {"id": "LOOP-405", "name": "Experimentation Guardrail", "category": "Release", "complexity": "High", "dependencies": "LOOP-006", "description": "Tracking live A/B test metrics and terminating failing variants.", "projectTypes": ["Greenfield", "Brownfield"]}, {"id": "LOOP-406", "name": "Edge Deployment Rollback", "category": "Release", "complexity": "High", "dependencies": "LOOP-006", "description": "Monitoring containerized edge apps and executing local rollbacks.", "projectTypes": ["Brownfield", "IncidentResponse"]}, {"id": "LOOP-407", "name": "Synthetic User Verification", "category": "Release", "complexity": "High", "dependencies": "LOOP-006", "description": "Runs continuous simulated E2E workflows on production to detect silent UI degradations.", "projectTypes": ["Greenfield", "Brownfield", "IncidentResponse"]}, {"id": "LOOP-408", "name": "Delivery & Change Steward", "category": "Release", "complexity": "High", "dependencies": "LOOP-005, LOOP-006, LOOP-504", "description": "Delivery, release coordination, and Git change governance.", "projectTypes": ["Greenfield", "Brownfield", "Modernization", "IncidentResponse"]}, {"id": "LOOP-502", "name": "Product Intelligence Architect", "category": "Strategy", "complexity": "High", "dependencies": "LOOP-501", "description": "Continuously build and maintain a complete understanding of a product.", "projectTypes": ["Greenfield", "Brownfield", "Modernization", "IncidentResponse"]}, {"id": "LOOP-504", "name": "Knowledge Integrity Steward", "category": "Strategy", "complexity": "High", "dependencies": "LOOP-502", "description": "Synchronize canonical memory in the knowledge directory.", "projectTypes": ["Greenfield", "Brownfield", "Modernization", "IncidentResponse"]}];
+    
+    const searchInput = document.getElementById('search');
+    const filterCategory = document.getElementById('filter-category');
+    const filterPType = document.getElementById('filter-ptype');
+    const sortBy = document.getElementById('sort-by');
+    const grid = document.getElementById('grid');
+    const noResults = document.getElementById('no-results');
+    
+    function render() {
+        const query = searchInput.value.toLowerCase();
+        const category = filterCategory.value;
+        const ptype = filterPType.value;
+        const sort = sortBy.value;
+        
+        let filtered = loops.filter(l => {
+            const matchesSearch = l.id.toLowerCase().includes(query) || 
+                                  l.name.toLowerCase().includes(query) || 
+                                  l.description.toLowerCase().includes(query);
+            const matchesCat = category === 'all' || l.category === category;
+            const matchesPType = ptype === 'all' || l.projectTypes.includes(ptype);
+            return matchesSearch && matchesCat && matchesPType;
+        });
+        
+        filtered.sort((a, b) => {
+            if (sort === 'id-asc') return a.id.localeCompare(b.id);
+            if (sort === 'id-desc') return b.id.localeCompare(a.id);
+            if (sort === 'name-asc') return a.name.localeCompare(b.name);
+            if (sort === 'category') return a.category.localeCompare(b.category);
+            return 0;
+        });
+        
+        const cards = document.querySelectorAll('.loop-card');
+        let visibleCount = 0;
+        
+        cards.forEach(card => {
+            const id = card.getAttribute('data-id');
+            if (filtered.find(l => l.id === id)) {
+                card.classList.remove('hidden');
+                card.style.order = filtered.findIndex(l => l.id === id);
+                visibleCount++;
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+        
+        if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+        } else {
+            noResults.classList.add('hidden');
+        }
+    }
+    
+    searchInput.addEventListener('input', render);
+    filterCategory.addEventListener('change', render);
+    filterPType.addEventListener('change', render);
+    sortBy.addEventListener('change', render);
+    
+    function copyCommand(btn, text) {
+        navigator.clipboard.writeText(text).then(() => {
+            const original = btn.innerText;
+            btn.innerText = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.innerText = original;
+                btn.classList.remove('copied');
+            }, 2000);
+        });
+    }
+</script>
+</body>
+</html>
