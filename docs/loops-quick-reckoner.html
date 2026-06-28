@@ -3201,7 +3201,10 @@ Constraints: [Enter constraints here]</pre>
             
             const btn = document.createElement('button');
             btn.className = 'copy-btn';
-            btn.innerText = 'Copy';
+            const copyIcon = `<svg fill="none" stroke="currentColor" style="width:14px;height:14px;margin-right:4px;vertical-align:text-bottom" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>`;
+            const checkIcon = `<svg fill="none" stroke="currentColor" style="width:14px;height:14px;margin-right:4px;vertical-align:text-bottom" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+            
+            btn.innerHTML = `${copyIcon} Copy`;
             btn.style.position = 'absolute';
             btn.style.top = '0.5rem';
             btn.style.right = '0.5rem';
@@ -3212,11 +3215,11 @@ Constraints: [Enter constraints here]</pre>
             
             btn.addEventListener('click', () => {
                 // Get the text content directly from the <pre> without the button's text
-                navigator.clipboard.writeText(pre.textContent.trim()).then(() => {
-                    btn.innerText = 'Copied!';
+                navigator.clipboard.writeText(pre.textContent.replace(/Copy|Copied!/g, '').trim()).then(() => {
+                    btn.innerHTML = `${checkIcon} Copied!`;
                     btn.classList.add('copied');
                     setTimeout(() => {
-                        btn.innerText = 'Copy';
+                        btn.innerHTML = `${copyIcon} Copy`;
                         btn.classList.remove('copied');
                     }, 2000);
                 });
