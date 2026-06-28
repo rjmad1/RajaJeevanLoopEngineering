@@ -127,6 +127,7 @@ The following loop specifications are proposed and in Draft status. Content has 
 |---|---|---|---|---|---|
 | LOOP-105 | Code Review | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
 | LOOP-106 | Customer Journey Analytics | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
+| LOOP-107 | Minimal System Diagram Generation | Active | Principal Engineering Function | 2026-06-28 | Generating architectural system diagrams |
 | LOOP-110 | Legacy Strangler | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
 | LOOP-111 | Technical Debt Remediation | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |
 | LOOP-112 | Component Deprecation Lifecycle | Proposed | Principal Engineering Function | 2026-06-27 | Planned draft skeleton |

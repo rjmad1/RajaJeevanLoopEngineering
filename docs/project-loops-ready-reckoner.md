@@ -374,3 +374,12 @@ In your CI/CD configuration (such as GitHub Actions, GitLab CI, or Jenkins), cal
     ./scripts/run-loop-pipeline.sh ${{ github.event.pull_request.number }} LOOP-105
 ```
 This forces all agent modifications and human PR contributions to be systematically scored and validated before merge approval.
+
+## Additional Assorted Loops
+
+| Step | Loop ID & File Link | Objective | Input Artefacts | Output Artefacts | Key Gate / Guardrail |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **+** | [LOOP-107 — Minimal System Diagram Generation](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/engineering/LOOP-107-Minimal-System-Diagram-Generation.md) | Generate system diagrams | Codebase context | Architecture diagrams | Verify diagram matches current state |
+| **+** | [LOOP-408 — Delivery Change Steward](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/release/LOOP-408-Delivery-Change-Steward.md) | Oversee delivery changes | Release notes | Delivery approvals | GATE-1: Release sign-off |
+| **+** | [LOOP-502 — Product Intelligence Architect](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/strategy/LOOP-502-Product-Intelligence-Architect.md) | Strategic product intelligence | Market/Product data | Strategic insights | Review by product owners |
+| **+** | [LOOP-504 — Knowledge Integrity Steward](file:///c:/Users/rajaj/Projects/RajaJeevanLoopEngineering/RajaJeevanLoopEngineering/loops/strategy/LOOP-504-Knowledge-Integrity-Steward.md) | Ensure documentation integrity | Wiki/Docs | Verified knowledge base | Must pass knowledge consistency checks |

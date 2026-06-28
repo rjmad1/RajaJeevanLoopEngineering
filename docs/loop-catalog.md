@@ -17,6 +17,7 @@ This catalog indexes all generalized loops available in the General Purpose Loop
 | **LOOP-104** | Documentation | Engineering | Low | LOOP-001, LOOP-002 | Generating READMEs, wikis, and reference guides. |
 | **LOOP-105** | Code Review | Engineering | Medium | LOOP-001, LOOP-002 | Automated auditing of pull requests. |
 | **LOOP-106** | Customer Journey Analytics | Engineering | Medium | LOOP-002, LOOP-006 | Mapping runtime errors to conversion funnel drop-offs. |
+| **LOOP-107** | Minimal System Diagram Generation | Engineering | Medium | LOOP-001, LOOP-002 | Generate and verify a core suite of architectural system diagrams. |
 | **LOOP-110** | Legacy Strangler | Engineering | High | LOOP-002, LOOP-004, LOOP-006 | Encapsulating monolithic features into modern microservices. |
 | **LOOP-111** | Technical Debt Remediation | Engineering | Medium | LOOP-002, LOOP-004, LOOP-006 | Quantifying complexity trends and scheduling refactoring. |
 | **LOOP-112** | Component Deprecation Lifecycle | Engineering | Medium | LOOP-002, LOOP-004, LOOP-006 | Tracks usage of older internal software libraries and schedules refactoring. |

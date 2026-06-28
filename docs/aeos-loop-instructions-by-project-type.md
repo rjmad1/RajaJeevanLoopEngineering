@@ -1289,3 +1289,54 @@ matches your most frequently failing modules. If the same module appears in
 ---
 
 *AEOS Loop Instructions — Generic Edition. Replace bracketed values before submitting.*
+
+## Additional Specialized Loops
+
+### LOOP-107 — Minimal System Diagram Generation
+
+**When:** Run on-demand when system architecture diagrams are missing or outdated.
+
+**Explainer:** Generates a core suite of architectural system diagrams from current state.
+
+`markdown
+Loop: LOOP-107
+Goal: Generate and verify a core suite of architectural system diagrams.
+Expected output: Verified and updated architecture diagrams.
+`
+
+### LOOP-408 — Delivery Change Steward
+
+**When:** Run on-demand for delivery and change stewardship.
+
+**Explainer:** Oversees release and delivery changes for governance.
+
+`markdown
+Loop: LOOP-408
+Goal: Delivery and Change Stewardship.
+Expected output: Validated changes ready for delivery.
+`
+
+### LOOP-502 — Product Intelligence Architect
+
+**When:** Run on-demand for product intelligence.
+
+**Explainer:** Oversees product intelligence and architectural decisions.
+
+`markdown
+Loop: LOOP-502
+Goal: Product intelligence architecture analysis.
+Expected output: Strategic product intelligence insights.
+`
+
+### LOOP-504 — Knowledge Integrity Steward
+
+**When:** Run on-demand for knowledge integrity.
+
+**Explainer:** Oversees documentation and knowledge integrity across the project.
+
+`markdown
+Loop: LOOP-504
+Goal: Ensure knowledge integrity.
+Expected output: Verified and aligned documentation knowledge base.
+`
+
