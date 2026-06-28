@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loops Quick Reckoner</title>
+    <title>Raja Jeevan Loops Quick Reckoner</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -284,7 +284,7 @@
 
 <div class="container">
     <header>
-        <h1>Loops Quick Reckoner</h1>
+        <h1>Raja Jeevan Loops Quick Reckoner</h1>
         <p class="subtitle">Holistic reference guide for General Purpose Loop Engineering workflows. Search, filter, and easily copy execution commands.</p>
     </header>
 
@@ -324,6 +324,13 @@
                 <option value="category">Category</option>
             </select>
         </div>
+        <div class="control-group">
+            <label for="output-mode">Output Mode</label>
+            <select id="output-mode" onchange="toggleMode()">
+                <option value="cli">CLI Commands</option>
+                <option value="ide">Intelligent IDE Prompt</option>
+            </select>
+        </div>
     </div>
 
     <div class="loops-grid" id="grid">
@@ -344,11 +351,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-001 --target "<target_path>"'>./loop-control.sh run LOOP-001 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-001 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-001 -Target "<target_path>"'>Invoke-Loop -Id LOOP-001 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-001 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -370,11 +377,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-002 --target "<target_path>"'>./loop-control.sh run LOOP-002 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-002 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-002 -Target "<target_path>"'>Invoke-Loop -Id LOOP-002 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-002 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -396,11 +403,11 @@
             <div class="project-types">
                 
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-003 --target "<target_path>"'>./loop-control.sh run LOOP-003 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-003 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-003 -Target "<target_path>"'>Invoke-Loop -Id LOOP-003 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-003 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -422,11 +429,11 @@
             <div class="project-types">
                 
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-004 --target "<target_path>"'>./loop-control.sh run LOOP-004 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-004 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-004 -Target "<target_path>"'>Invoke-Loop -Id LOOP-004 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-004 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -448,11 +455,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-005 --target "<target_path>"'>./loop-control.sh run LOOP-005 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-005 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-005 -Target "<target_path>"'>Invoke-Loop -Id LOOP-005 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-005 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -474,11 +481,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-006 --target "<target_path>"'>./loop-control.sh run LOOP-006 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-006 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-006 -Target "<target_path>"'>Invoke-Loop -Id LOOP-006 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-006 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -500,11 +507,11 @@
             <div class="project-types">
                 <span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-007 --target "<target_path>"'>./loop-control.sh run LOOP-007 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-007 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-007 -Target "<target_path>"'>Invoke-Loop -Id LOOP-007 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-007 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -526,11 +533,11 @@
             <div class="project-types">
                 <span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-101 --target "<target_path>"'>./loop-control.sh run LOOP-101 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-101 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-101 -Target "<target_path>"'>Invoke-Loop -Id LOOP-101 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-101 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -552,11 +559,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-102 --target "<target_path>"'>./loop-control.sh run LOOP-102 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-102 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-102 -Target "<target_path>"'>Invoke-Loop -Id LOOP-102 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-102 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -578,11 +585,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-103 --target "<target_path>"'>./loop-control.sh run LOOP-103 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-103 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-103 -Target "<target_path>"'>Invoke-Loop -Id LOOP-103 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-103 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -604,11 +611,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-104 --target "<target_path>"'>./loop-control.sh run LOOP-104 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-104 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-104 -Target "<target_path>"'>Invoke-Loop -Id LOOP-104 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-104 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -630,11 +637,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-105 --target "<target_path>"'>./loop-control.sh run LOOP-105 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-105 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-105 -Target "<target_path>"'>Invoke-Loop -Id LOOP-105 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-105 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -656,11 +663,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-106 --target "<target_path>"'>./loop-control.sh run LOOP-106 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-106 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-106 -Target "<target_path>"'>Invoke-Loop -Id LOOP-106 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-106 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -682,11 +689,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-107 --target "<target_path>"'>./loop-control.sh run LOOP-107 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-107 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-107 -Target "<target_path>"'>Invoke-Loop -Id LOOP-107 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-107 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -708,11 +715,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-110 --target "<target_path>"'>./loop-control.sh run LOOP-110 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-110 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-110 -Target "<target_path>"'>Invoke-Loop -Id LOOP-110 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-110 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -734,11 +741,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-111 --target "<target_path>"'>./loop-control.sh run LOOP-111 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-111 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-111 -Target "<target_path>"'>Invoke-Loop -Id LOOP-111 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-111 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -760,11 +767,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-112 --target "<target_path>"'>./loop-control.sh run LOOP-112 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-112 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-112 -Target "<target_path>"'>Invoke-Loop -Id LOOP-112 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-112 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -786,11 +793,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-113 --target "<target_path>"'>./loop-control.sh run LOOP-113 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-113 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-113 -Target "<target_path>"'>Invoke-Loop -Id LOOP-113 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-113 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -812,11 +819,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-130 --target "<target_path>"'>./loop-control.sh run LOOP-130 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-130 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-130 -Target "<target_path>"'>Invoke-Loop -Id LOOP-130 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-130 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -838,11 +845,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-150 --target "<target_path>"'>./loop-control.sh run LOOP-150 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-150 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-150 -Target "<target_path>"'>Invoke-Loop -Id LOOP-150 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-150 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -864,11 +871,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-160 --target "<target_path>"'>./loop-control.sh run LOOP-160 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-160 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-160 -Target "<target_path>"'>Invoke-Loop -Id LOOP-160 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-160 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -890,11 +897,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-161 --target "<target_path>"'>./loop-control.sh run LOOP-161 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-161 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-161 -Target "<target_path>"'>Invoke-Loop -Id LOOP-161 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-161 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -916,11 +923,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-170 --target "<target_path>"'>./loop-control.sh run LOOP-170 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-170 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-170 -Target "<target_path>"'>Invoke-Loop -Id LOOP-170 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-170 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -942,11 +949,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-171 --target "<target_path>"'>./loop-control.sh run LOOP-171 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-171 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-171 -Target "<target_path>"'>Invoke-Loop -Id LOOP-171 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-171 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -968,11 +975,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-180 --target "<target_path>"'>./loop-control.sh run LOOP-180 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-180 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-180 -Target "<target_path>"'>Invoke-Loop -Id LOOP-180 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-180 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -994,11 +1001,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-181 --target "<target_path>"'>./loop-control.sh run LOOP-181 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-181 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-181 -Target "<target_path>"'>Invoke-Loop -Id LOOP-181 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-181 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1020,11 +1027,11 @@
             <div class="project-types">
                 
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-201 --target "<target_path>"'>./loop-control.sh run LOOP-201 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-201 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-201 -Target "<target_path>"'>Invoke-Loop -Id LOOP-201 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-201 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1046,11 +1053,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-202 --target "<target_path>"'>./loop-control.sh run LOOP-202 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-202 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-202 -Target "<target_path>"'>Invoke-Loop -Id LOOP-202 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-202 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1072,11 +1079,11 @@
             <div class="project-types">
                 
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-203 --target "<target_path>"'>./loop-control.sh run LOOP-203 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-203 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-203 -Target "<target_path>"'>Invoke-Loop -Id LOOP-203 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-203 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1098,11 +1105,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-204 --target "<target_path>"'>./loop-control.sh run LOOP-204 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-204 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-204 -Target "<target_path>"'>Invoke-Loop -Id LOOP-204 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-204 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1124,11 +1131,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-205 --target "<target_path>"'>./loop-control.sh run LOOP-205 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-205 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-205 -Target "<target_path>"'>Invoke-Loop -Id LOOP-205 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-205 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1150,11 +1157,11 @@
             <div class="project-types">
                 
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-206 --target "<target_path>"'>./loop-control.sh run LOOP-206 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-206 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-206 -Target "<target_path>"'>Invoke-Loop -Id LOOP-206 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-206 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1176,11 +1183,11 @@
             <div class="project-types">
                 
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-207 --target "<target_path>"'>./loop-control.sh run LOOP-207 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-207 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-207 -Target "<target_path>"'>Invoke-Loop -Id LOOP-207 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-207 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1202,11 +1209,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-208 --target "<target_path>"'>./loop-control.sh run LOOP-208 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-208 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-208 -Target "<target_path>"'>Invoke-Loop -Id LOOP-208 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-208 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1228,11 +1235,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-209 --target "<target_path>"'>./loop-control.sh run LOOP-209 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-209 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-209 -Target "<target_path>"'>Invoke-Loop -Id LOOP-209 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-209 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1254,11 +1261,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-210 --target "<target_path>"'>./loop-control.sh run LOOP-210 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-210 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-210 -Target "<target_path>"'>Invoke-Loop -Id LOOP-210 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-210 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1280,11 +1287,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-211 --target "<target_path>"'>./loop-control.sh run LOOP-211 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-211 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-211 -Target "<target_path>"'>Invoke-Loop -Id LOOP-211 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-211 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1306,11 +1313,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-212 --target "<target_path>"'>./loop-control.sh run LOOP-212 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-212 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-212 -Target "<target_path>"'>Invoke-Loop -Id LOOP-212 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-212 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1332,11 +1339,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-213 --target "<target_path>"'>./loop-control.sh run LOOP-213 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-213 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-213 -Target "<target_path>"'>Invoke-Loop -Id LOOP-213 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-213 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1358,11 +1365,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-214 --target "<target_path>"'>./loop-control.sh run LOOP-214 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-214 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-214 -Target "<target_path>"'>Invoke-Loop -Id LOOP-214 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-214 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1384,11 +1391,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-215 --target "<target_path>"'>./loop-control.sh run LOOP-215 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-215 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-215 -Target "<target_path>"'>Invoke-Loop -Id LOOP-215 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-215 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1410,11 +1417,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-216 --target "<target_path>"'>./loop-control.sh run LOOP-216 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-216 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-216 -Target "<target_path>"'>Invoke-Loop -Id LOOP-216 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-216 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1436,11 +1443,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-217 --target "<target_path>"'>./loop-control.sh run LOOP-217 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-217 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-217 -Target "<target_path>"'>Invoke-Loop -Id LOOP-217 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-217 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1462,11 +1469,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-218 --target "<target_path>"'>./loop-control.sh run LOOP-218 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-218 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-218 -Target "<target_path>"'>Invoke-Loop -Id LOOP-218 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-218 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1488,11 +1495,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-219 --target "<target_path>"'>./loop-control.sh run LOOP-219 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-219 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-219 -Target "<target_path>"'>Invoke-Loop -Id LOOP-219 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-219 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1514,11 +1521,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-220 --target "<target_path>"'>./loop-control.sh run LOOP-220 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-220 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-220 -Target "<target_path>"'>Invoke-Loop -Id LOOP-220 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-220 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1540,11 +1547,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-221 --target "<target_path>"'>./loop-control.sh run LOOP-221 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-221 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-221 -Target "<target_path>"'>Invoke-Loop -Id LOOP-221 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-221 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1566,11 +1573,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-222 --target "<target_path>"'>./loop-control.sh run LOOP-222 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-222 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-222 -Target "<target_path>"'>Invoke-Loop -Id LOOP-222 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-222 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1592,11 +1599,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-223 --target "<target_path>"'>./loop-control.sh run LOOP-223 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-223 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-223 -Target "<target_path>"'>Invoke-Loop -Id LOOP-223 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-223 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1618,11 +1625,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-224 --target "<target_path>"'>./loop-control.sh run LOOP-224 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-224 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-224 -Target "<target_path>"'>Invoke-Loop -Id LOOP-224 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-224 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1644,11 +1651,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-225 --target "<target_path>"'>./loop-control.sh run LOOP-225 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-225 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-225 -Target "<target_path>"'>Invoke-Loop -Id LOOP-225 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-225 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1670,11 +1677,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-226 --target "<target_path>"'>./loop-control.sh run LOOP-226 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-226 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-226 -Target "<target_path>"'>Invoke-Loop -Id LOOP-226 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-226 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1696,11 +1703,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-227 --target "<target_path>"'>./loop-control.sh run LOOP-227 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-227 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-227 -Target "<target_path>"'>Invoke-Loop -Id LOOP-227 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-227 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1722,11 +1729,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-228 --target "<target_path>"'>./loop-control.sh run LOOP-228 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-228 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-228 -Target "<target_path>"'>Invoke-Loop -Id LOOP-228 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-228 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1748,11 +1755,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-301 --target "<target_path>"'>./loop-control.sh run LOOP-301 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-301 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-301 -Target "<target_path>"'>Invoke-Loop -Id LOOP-301 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-301 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1774,11 +1781,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-302 --target "<target_path>"'>./loop-control.sh run LOOP-302 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-302 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-302 -Target "<target_path>"'>Invoke-Loop -Id LOOP-302 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-302 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1800,11 +1807,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-303 --target "<target_path>"'>./loop-control.sh run LOOP-303 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-303 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-303 -Target "<target_path>"'>Invoke-Loop -Id LOOP-303 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-303 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1826,11 +1833,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-304 --target "<target_path>"'>./loop-control.sh run LOOP-304 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-304 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-304 -Target "<target_path>"'>Invoke-Loop -Id LOOP-304 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-304 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1852,11 +1859,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-305 --target "<target_path>"'>./loop-control.sh run LOOP-305 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-305 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-305 -Target "<target_path>"'>Invoke-Loop -Id LOOP-305 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-305 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1878,11 +1885,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-306 --target "<target_path>"'>./loop-control.sh run LOOP-306 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-306 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-306 -Target "<target_path>"'>Invoke-Loop -Id LOOP-306 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-306 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1904,11 +1911,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-307 --target "<target_path>"'>./loop-control.sh run LOOP-307 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-307 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-307 -Target "<target_path>"'>Invoke-Loop -Id LOOP-307 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-307 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1930,11 +1937,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-308 --target "<target_path>"'>./loop-control.sh run LOOP-308 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-308 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-308 -Target "<target_path>"'>Invoke-Loop -Id LOOP-308 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-308 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1956,11 +1963,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-309 --target "<target_path>"'>./loop-control.sh run LOOP-309 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-309 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-309 -Target "<target_path>"'>Invoke-Loop -Id LOOP-309 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-309 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -1982,11 +1989,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-310 --target "<target_path>"'>./loop-control.sh run LOOP-310 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-310 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-310 -Target "<target_path>"'>Invoke-Loop -Id LOOP-310 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-310 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2008,11 +2015,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-311 --target "<target_path>"'>./loop-control.sh run LOOP-311 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-311 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-311 -Target "<target_path>"'>Invoke-Loop -Id LOOP-311 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-311 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2034,11 +2041,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-312 --target "<target_path>"'>./loop-control.sh run LOOP-312 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-312 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-312 -Target "<target_path>"'>Invoke-Loop -Id LOOP-312 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-312 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2060,11 +2067,11 @@
             <div class="project-types">
                 
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-401 --target "<target_path>"'>./loop-control.sh run LOOP-401 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-401 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-401 -Target "<target_path>"'>Invoke-Loop -Id LOOP-401 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-401 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2086,11 +2093,11 @@
             <div class="project-types">
                 
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-402 --target "<target_path>"'>./loop-control.sh run LOOP-402 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-402 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-402 -Target "<target_path>"'>Invoke-Loop -Id LOOP-402 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-402 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2112,11 +2119,11 @@
             <div class="project-types">
                 
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-403 --target "<target_path>"'>./loop-control.sh run LOOP-403 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-403 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-403 -Target "<target_path>"'>Invoke-Loop -Id LOOP-403 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-403 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2138,11 +2145,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-404 --target "<target_path>"'>./loop-control.sh run LOOP-404 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-404 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-404 -Target "<target_path>"'>Invoke-Loop -Id LOOP-404 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-404 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2164,11 +2171,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-405 --target "<target_path>"'>./loop-control.sh run LOOP-405 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-405 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-405 -Target "<target_path>"'>Invoke-Loop -Id LOOP-405 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-405 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2190,11 +2197,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-406 --target "<target_path>"'>./loop-control.sh run LOOP-406 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-406 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-406 -Target "<target_path>"'>Invoke-Loop -Id LOOP-406 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-406 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2216,11 +2223,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-407 --target "<target_path>"'>./loop-control.sh run LOOP-407 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-407 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-407 -Target "<target_path>"'>Invoke-Loop -Id LOOP-407 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-407 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2242,11 +2249,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-408 --target "<target_path>"'>./loop-control.sh run LOOP-408 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-408 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-408 -Target "<target_path>"'>Invoke-Loop -Id LOOP-408 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-408 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2268,11 +2275,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-502 --target "<target_path>"'>./loop-control.sh run LOOP-502 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-502 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-502 -Target "<target_path>"'>Invoke-Loop -Id LOOP-502 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-502 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2294,11 +2301,11 @@
             <div class="project-types">
                 <span class="ptype-badge">Greenfield</span><span class="ptype-badge">Brownfield</span><span class="ptype-badge">Modernization</span><span class="ptype-badge">IncidentResponse</span>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='./loop-control.sh run LOOP-504 --target "<target_path>"'>./loop-control.sh run LOOP-504 --target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, './loop-control.sh run LOOP-504 --target "<target_path>"')">Copy Bash</button>
             </div>
-            <div class="copy-container">
+            <div class="copy-container cli-mode">
                 <span class="command-text" title='Invoke-Loop -Id LOOP-504 -Target "<target_path>"'>Invoke-Loop -Id LOOP-504 -Target "<target_path>"</span>
                 <button class="copy-btn" onclick="copyCommand(this, 'Invoke-Loop -Id LOOP-504 -Target "<target_path>"')">Copy PS</button>
             </div>
@@ -2381,6 +2388,17 @@
                 btn.classList.remove('copied');
             }, 2000);
         });
+    }
+
+    function toggleMode() {
+        const mode = document.getElementById('output-mode').value;
+        if (mode === 'ide') {
+            document.querySelectorAll('.cli-mode').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.ide-mode').forEach(el => el.classList.remove('hidden'));
+        } else {
+            document.querySelectorAll('.ide-mode').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.cli-mode').forEach(el => el.classList.remove('hidden'));
+        }
     }
 </script>
 </body>
