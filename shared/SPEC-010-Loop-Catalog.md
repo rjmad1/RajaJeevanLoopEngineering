@@ -83,6 +83,9 @@ All loops currently in `Active` status. Updated as of 2026-06-27.
 | LOOP-301 | ADR Generation | Governance | Active | 1.0 | Principal Architecture Function | Principal Architecture Function | 2026-06-27 | LOOP-004 |
 | LOOP-302 | Documentation Governance | Governance | Active | 1.0 | Principal Architecture Function | Principal Architecture Function | 2026-06-27 | LOOP-007 |
 | LOOP-304 | Release Readiness | Governance | Active | 1.0 | Principal Architecture Function | Principal Architecture Function | 2026-06-27 | LOOP-006, LOOP-007 |
+| LOOP-408 | Delivery & Change Steward | Release | Active | 1.0 | DevOps & Release Engineering | DevOps & Release Engineering | 2026-06-28 | LOOP-005, LOOP-006, LOOP-504 |
+| LOOP-502 | Product Intelligence Architect | Strategy | Active | 1.0 | Product Intelligence Function | Product Intelligence Function | 2026-06-28 | LOOP-501 |
+| LOOP-504 | Knowledge Integrity Steward | Strategy | Active | 1.0 | Knowledge Management Function | Knowledge Management Function | 2026-06-28 | LOOP-502 |
 
 ### §3.1 — Known Downstream Consumer Index
 
@@ -94,13 +97,15 @@ This index is derived from the Depends On column above and is provided for upstr
 | LOOP-002 | LOOP-003, LOOP-004, LOOP-101, LOOP-102, LOOP-103, LOOP-104, LOOP-105 |
 | LOOP-003 | LOOP-004 |
 | LOOP-004 | LOOP-005, LOOP-101, LOOP-102, LOOP-301 |
-| LOOP-005 | LOOP-006, LOOP-103, LOOP-206 |
-| LOOP-006 | LOOP-007, LOOP-101, LOOP-102, LOOP-201, LOOP-202, LOOP-203, LOOP-204, LOOP-205, LOOP-207, LOOP-303, LOOP-304 |
+| LOOP-005 | LOOP-006, LOOP-103, LOOP-206, LOOP-408 |
+| LOOP-006 | LOOP-007, LOOP-101, LOOP-102, LOOP-201, LOOP-202, LOOP-203, LOOP-204, LOOP-205, LOOP-207, LOOP-303, LOOP-304, LOOP-408 |
 | LOOP-007 | LOOP-302, LOOP-304 |
 | LOOP-207 | LOOP-303 |
 | LOOP-304 | LOOP-401 |
 | LOOP-401 | LOOP-402 |
 | LOOP-402 | LOOP-403 |
+| LOOP-502 | LOOP-504 |
+| LOOP-504 | LOOP-408 |
 
 ---
 

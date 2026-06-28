@@ -12,10 +12,14 @@ Migration Notes: Direct copy of the general loop framework specification.
 ---
 # LOOP-302 — Documentation Governance
 
+> [!WARNING]
+> **DEPRECATED & SUPERSEDED**  
+> This loop has been superseded by **LOOP-504 (Knowledge Integrity Steward)**, which introduces a graph-based approach to documentation and knowledge management.
+
 **Loop ID:** LOOP-302
 **Name:** Documentation Governance
 **Version:** 1.0
-**Status:** Active
+**Status:** Superseded by LOOP-504
 **Category:** Governance
 **Depends On:** LOOP-001 — Architecture Discovery, LOOP-007 — Reflection
 **Human Gates:** Hard, Soft

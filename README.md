@@ -143,7 +143,9 @@ Instead of letting an AI agent blindly write and commit code, this framework for
 
 ## 2. Replaces Open-Ended Prompts with State-Bound Loops
 
-Instead of engineers typing random prompts, the framework organizes work into formal, auditable execution loops. The agent transitions through explicit steps like **Discovery $\rightarrow$ Planning $\rightarrow$ Implementation $\rightarrow$ Verification $\rightarrow$ Reflection**.
+Instead of engineers typing random prompts, the framework organizes work into formal, auditable execution loops. The agent transitions through an explicit ecosystem: **Product Intelligence $\rightarrow$ Knowledge Integrity $\rightarrow$ Discovery $\rightarrow$ Planning $\rightarrow$ Implementation $\rightarrow$ Verification $\rightarrow$ Reflection**.
+
+Crucially, **Reflection** feeds outcomes back into a living **Knowledge Graph**, which automatically triggers the **Knowledge Integrity Steward** to synchronize documentation, ADRs, and roadmaps, maintaining a continuous feedback system.
 
 ## 3. Includes a Built-In Circuit Breaker
 

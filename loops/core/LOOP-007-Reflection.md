@@ -26,9 +26,9 @@ Migration Notes: Direct copy of the general loop framework specification.
 
 ## Purpose
 
-LOOP-007 captures the engineering knowledge produced by each completed engineering cycle. Its responsibility is organisational learning: analysing what was planned, what was implemented, what was verified, and what the differences between these reveal about the quality of the engineering process. It does not modify implementation artefacts. It does not re-verify the implementation. It records what should be remembered so that future runs of every loop in the chain are better than the current one.
+LOOP-007 captures the engineering knowledge produced by each completed engineering cycle. Its responsibility is organisational learning: analysing what was planned, what was implemented, what was verified, and what the differences between these reveal about the quality of the engineering process. It does not modify implementation artefacts. It does not re-verify the implementation. It feeds what should be remembered into the **Knowledge Graph** so that future runs of every loop in the chain are better than the current one.
 
-The loop is the mechanism by which the engineering operating system improves over time. Without it, each cycle starts from the same baseline as the last. With it, patterns accumulate, recurring failures become visible before they recur, and the knowledge embedded in each completed task propagates forward to every task that follows.
+The loop is the mechanism by which the engineering operating system improves over time. Without it, each cycle starts from the same baseline as the last. With it, patterns accumulate, recurring failures become visible before they recur, and the knowledge embedded in each completed task propagates forward to the Knowledge Graph. Upon updating the Graph, LOOP-007 triggers the **Knowledge Integrity Steward (LOOP-504)** to automatically synchronize downstream Markdown files, ADRs, and the roadmap.
 
 ---
 

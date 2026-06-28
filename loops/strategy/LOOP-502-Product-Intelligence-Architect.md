@@ -100,25 +100,9 @@ Competitors, Industry trends, AI opportunities, Regulatory changes, Emerging tec
 
 ## Persistent Knowledge
 
-Maintain and continuously improve the following knowledge base in the `knowledge/` directory:
+Feed your findings and prioritized recommendations into the living Knowledge Graph. The Knowledge Graph connects features, ADRs, customer needs, and technical debt as interrelated nodes. 
 
-- `PROJECT.md`
-- `VISION.md`
-- `DOMAIN.md`
-- `ARCHITECTURE.md`
-- `CUSTOMERS.md`
-- `BUSINESS.md`
-- `TECHNICAL_DEBT.md`
-- `PRODUCT_MODEL.md`
-- `FEATURE_CATALOG.md`
-- `ROADMAP.md`
-- `RISKS.md`
-- `ASSUMPTIONS.md`
-- `DECISIONS.md`
-- `LEARNINGS.md`
-- `STATUS.md`
-
-Treat these as the canonical memory. Never rely on conversational memory. Update only the documents affected by the current iteration.
+Updating this graph will trigger the **Knowledge Integrity Steward (LOOP-504)** to automatically synchronize the canonical memory in the `knowledge/` directory (e.g. `PROJECT.md`, `VISION.md`, `ROADMAP.md`), ensuring consistency without duplication.
 
 ---
 
@@ -227,6 +211,9 @@ Executive Strategy Loop (LOOP-501)
 Product Intelligence Architect (LOOP-502) ← This loop
             │
             ▼
+Knowledge Integrity Steward (LOOP-504)
+            │
+            ▼
 Roadmap Prioritization Loop (LOOP-503)
             │
             ├─────────────┬──────────────┬─────────────┐
@@ -241,6 +228,6 @@ Implementation Loop (LOOP-005)
 Verification Loop (LOOP-006)
             │
             ▼
-Reflection & Knowledge Update Loop (LOOP-007)
-            └───────────────▲
+Reflection Loop (LOOP-007)
+            └───────────────▲ (Feeds back into Knowledge Graph, triggering LOOP-504)
 ```
