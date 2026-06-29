@@ -5,6 +5,7 @@
     "core/LOOP-001-Architecture-Discovery.md",
     "engineering/LOOP-103-Test-Generation.md",
     "core/LOOP-005-Implementation.md",
+    "core/LOOP-008-Loop-Creation.md",
     "platform/LOOP-202-Integration-Validation.md",
     "governance/LOOP-304-Release-Readiness.md",
     "release/LOOP-404-Feature-Flag-Lifecycle.md",
@@ -45,6 +46,7 @@
     "core/LOOP-002-Context-Assembly.md",
     "engineering/LOOP-103-Test-Generation.md",
     "core/LOOP-005-Implementation.md",
+    "core/LOOP-008-Loop-Creation.md",
     "core/LOOP-006-Verification.md",
     "engineering/LOOP-102-Refactoring.md",
     "governance/LOOP-303-Compliance.md",
@@ -102,6 +104,7 @@
   ],
   "Modernization": [
     "core/LOOP-001-Architecture-Discovery.md",
+    "core/LOOP-008-Loop-Creation.md",
     "engineering/LOOP-105-Code-Review.md",
     "engineering/LOOP-103-Test-Generation.md",
     "engineering/LOOP-102-Refactoring.md",

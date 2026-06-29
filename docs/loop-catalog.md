@@ -11,6 +11,7 @@ This catalog indexes all generalized loops available in the General Purpose Loop
 | **LOOP-005** | Implementation | Core | High | LOOP-004 | Making sandbox-bounded edits in the codebase. |
 | **LOOP-006** | Verification | Core | Low | LOOP-005 | Running test suites, checkstyle, and code scanners. |
 | **LOOP-007** | Reflection | Core | Low | LOOP-006 | Conducting post-run assessments and memory updates. |
+| **LOOP-008** | Loop Creation | Core | Low | None | End-to-end loop creation based on user prompt. |
 | **LOOP-101** | Bug Fixing | Engineering | High | LOOP-002, LOOP-004, LOOP-006 | Troubleshooting, replicating, and patching codebase bugs. |
 | **LOOP-102** | Refactoring | Engineering | Medium | LOOP-002, LOOP-004, LOOP-006 | Structural cleanups and technical debt reduction. |
 | **LOOP-103** | Test Generation | Engineering | Medium | LOOP-001, LOOP-002, LOOP-005 | Authoring unit and integration tests. |

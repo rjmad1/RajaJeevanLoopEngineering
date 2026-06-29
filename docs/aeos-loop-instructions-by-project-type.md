@@ -85,6 +85,7 @@ Let's say you need to fix a bug in your payment code and your task number is `TA
 | 7 | **LOOP-104** | After every public interface, API, or module boundary is implemented. | Serves as the active architecture record. |
 | 8 | **LOOP-006** | Automatically invoked after every LOOP-005 run — no manual trigger required. | Checks functional correctness and coverage. |
 | 9 | **LOOP-007** | Automatically invoked at the end of every session — no manual trigger required. | Captures design decisions and assumptions. |
+| 10 | **LOOP-008** | On-demand when a new repeatable workflow is needed. | End-to-end loop creation with duplication checks. |
 
 ### LOOP-001 — Architecture Discovery
 
@@ -260,6 +261,7 @@ Output: docs/reflection/
 | 8 | **LOOP-105** | Before any LOOP-005 implementation is merged — simulate peer review. | Peer review simulation; blocks on critical findings. |
 | 9 | **LOOP-006** | Automatically invoked after LOOP-005 — do not skip; regression detection is critical. | Regression check against `session_start_sha` is mandatory. |
 | 10 | **LOOP-007** | Automatically invoked at session end — review output after every 3–4 cycles. | Review findings to identify structural patterns. |
+| 11 | **LOOP-008** | On-demand when a new repeatable workflow is needed. | End-to-end loop creation with duplication checks. |
 
 ### Specialized Engineering & Operational Audit Loops
 
@@ -673,6 +675,7 @@ Expected output: Edge rollback status and validation report.
 | 9 | **LOOP-006** | Automatically invoked — regression detection is the primary safety net. | Characterization tests must pass; high safety score (80). |
 | 10 | **LOOP-007** | Automatically invoked — review after every module migration. | Review learnings to update future migration plans. |
 | 11 | **LOOP-001 (Post)** | After every module migration is complete. | Confirm boundary has moved and no coupling was added. |
+| 12 | **LOOP-008** | On-demand when a new repeatable workflow is needed. | End-to-end loop creation with duplication checks. |
 
 > [!IMPORTANT]
 > **Mandatory Cycle Per Module:**

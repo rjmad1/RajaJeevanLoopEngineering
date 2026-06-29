@@ -72,6 +72,7 @@ All loops currently in `Active` status. Updated as of 2026-06-27.
 | LOOP-005 | Implementation | Core | Active | 1.0 | Principal Architecture Function | Principal Architecture Function | 2026-06-26 | LOOP-004 |
 | LOOP-006 | Verification | Core | Active | 1.0 | Principal Architecture Function | Principal Architecture Function | 2026-06-26 | LOOP-005 |
 | LOOP-007 | Reflection | Core | Active | 1.0 | Principal Architecture Function | Principal Architecture Function | 2026-06-26 | LOOP-006 |
+| LOOP-008 | Loop Creation | Core | Active | 1.0 | Principal Architecture Function | Principal Architecture Function | 2026-06-29 | None |
 | LOOP-101 | Bug Fixing | Engineering | Active | 1.0 | Principal Engineering Function | Principal Engineering Function | 2026-06-27 | LOOP-002, LOOP-004, LOOP-006 |
 | LOOP-102 | Refactoring | Engineering | Active | 1.0 | Principal Engineering Function | Principal Engineering Function | 2026-06-27 | LOOP-002, LOOP-004, LOOP-006 |
 | LOOP-103 | Test Generation | Engineering | Active | 1.0 | Principal Engineering Function | Principal Engineering Function | 2026-06-27 | LOOP-001, LOOP-002, LOOP-005, LOOP-006 |
