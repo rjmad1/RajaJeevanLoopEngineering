@@ -283,3 +283,13 @@ The implementation must strictly adhere to the following principles:
 - Continuously refine prompts, rubrics, templates, and documentation based on execution outcomes.
 - Integrate with product repositories (Git), documentation systems, issue trackers, analytics platforms, and design tools.
 - Produce measurable quality improvements across successive iterations.
+
+---
+
+## Latest Findings & Education
+
+**Recent Enhancements:**
+- **Automated Feedback Loops:** Enhanced telemetry now feeds directly back into the PM workflows, tightening the loop between user behavior shifts and artifact evolution.
+- **Improved Visual & Textual Hierarchy:** Critical deliverables, such as the Market Requirements Document (MRD), are now rendered with optimal readability and structured semantics in the presentation layers (e.g., modals).
+- **Self-Correction Patterns:** The loop now autonomously detects when its evaluation rubrics become too lenient or too strict by correlating PRD quality scores with subsequent engineering clarification requests.
+- **Artifact Evolution:** PM templates (e.g., Roadmaps, Stories) adapt their sections dynamically based on the frequency of missing information flagged by the Quality Gate.

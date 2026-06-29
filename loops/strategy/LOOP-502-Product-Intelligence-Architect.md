@@ -232,3 +232,13 @@ Verification Loop (LOOP-006)
 Reflection Loop (LOOP-007)
             └───────────────▲ (Feeds back into Knowledge Graph, triggering LOOP-504)
 ```
+
+---
+
+## Latest Findings & Education
+
+**Recent Enhancements:**
+- **Richer Semantic Context:** The loop now integrates more deeply with `Knowledge Integrity Steward (LOOP-504)`, ensuring that product discoveries instantly inform ongoing execution.
+- **Enhanced Modal Readability:** Improved typography and semantic formatting across product artifact displays, reducing cognitive load when evaluating complex product graphs.
+- **Strategic Impact:** Recent executions emphasize prioritizing immediate, tangible customer value over architectural hypotheticals unless backed by direct user pain metrics.
+- **Continuous Learning:** The Intelligence Architect now proactively audits its own recommendations against historical outcomes, calibrating confidence scores based on empirical success rates.
