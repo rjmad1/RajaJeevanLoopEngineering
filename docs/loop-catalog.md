@@ -84,3 +84,4 @@ This catalog indexes all generalized loops available in the General Purpose Loop
 | **LOOP-504** | Knowledge Integrity Steward | Strategy | High | LOOP-502 | Synchronize canonical memory in the knowledge directory. |
 | **LOOP-505** | Feature Definition | Strategy | High | LOOP-503 | Translate prioritized roadmap items into comprehensive Product Requirement Documents (PRDs). |
 | **LOOP-506** | Go-To-Market Orchestration | Strategy | Medium | None | Plan and execute the launch strategy, positioning, and customer communication for new features or products. |
+| **LOOP-507** | Self-Improving Product Management | Strategy | High | None | A closed-loop operational system that continuously improves product artifacts and PM practices. |

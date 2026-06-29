@@ -90,6 +90,7 @@ All loops currently in `Active` status. Updated as of 2026-06-27.
 | LOOP-504 | Knowledge Integrity Steward | Strategy | Active | 1.0 | Knowledge Management Function | Knowledge Management Function | 2026-06-28 | LOOP-502 |
 | LOOP-505 | Feature Definition | Strategy | Active | 0.1 | Product Strategy Function | Product Strategy Function | 2026-06-28 | LOOP-503 |
 | LOOP-506 | Go-To-Market Orchestration | Strategy | Active | 0.1 | Product Marketing Function | Product Marketing Function | 2026-06-28 | None |
+| LOOP-507 | Self-Improving Product Management | Strategy | Active | 1.0 | Product Management Function | Product Management Function | 2026-06-29 | None |
 
 ### §3.1 — Known Downstream Consumer Index
 

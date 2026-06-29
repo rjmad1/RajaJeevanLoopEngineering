@@ -1380,3 +1380,14 @@ Goal: Ensure knowledge integrity.
 Expected output: Verified and aligned documentation knowledge base.
 `
 
+### LOOP-507 — Self-Improving Product Management
+
+**When:** Run continuously as a self-improving PM operational system.
+
+**Explainer:** Orchestrates product management activities, ensures artifact quality, and continuously improves PM processes and knowledge bases based on trigger conditions.
+
+`markdown
+Loop: LOOP-507
+Goal: Self-Improving Product Management.
+Expected output: High quality PM artifacts, decisions, and continuous loop improvements.
+`

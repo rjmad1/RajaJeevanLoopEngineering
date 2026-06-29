@@ -60,9 +60,9 @@ Orchestrating a launch is a commercial operation that requires its own independe
 **Agent:** `GTM-ORCHESTRATOR`
 Assess the feature completion status and strategic positioning.
 
-### Step 2 — Draft GTM Strategy
+### Step 2 — Draft GTM Strategy & Deliverables
 **Agent:** `GTM-ORCHESTRATOR`
-Draft the positioning, target audience, pricing impact, and marketing channels.
+Draft the positioning, target audience, pricing impact, and marketing channels. Consult the [Product Management Deliverables Catalog](../../docs/pm-deliverables-catalog.md) to generate relevant artifacts (e.g., Working Backwards Press Release, Pricing Strategy, Value Proposition Canvas).
 
 ### Step 3 — Plan Launch Timeline
 **Agent:** `GTM-ORCHESTRATOR`
@@ -79,5 +79,6 @@ Commit the GTM Strategy and Launch Plan to the repository.
 - GTM Strategy.
 - Launch Plan.
 - Marketing Collateral Checklists.
+- Additional context-specific artifacts generated from the [PM Deliverables Catalog](../../docs/pm-deliverables-catalog.md).
 
 **Strict Output Schema:** All deliverables must be strictly formatted. Markdown artifacts must comply with GitHub Flavored Markdown (GFM). No extraneous conversational text is permitted in final artifacts.

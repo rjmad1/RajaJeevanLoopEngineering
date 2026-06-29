@@ -59,9 +59,9 @@ Defining the boundaries, UX, and requirements of a single feature requires its o
 **Agent:** `PRODUCT-OWNER`
 Read the prioritized roadmap item and relevant user personas.
 
-### Step 2 — Draft PRD
+### Step 2 — Draft PRD & Deliverables
 **Agent:** `PRODUCT-OWNER`
-Draft the PRD, including Objectives, Scope, UX Flows, and Non-Functional Requirements.
+Draft the PRD, including Objectives, Scope, UX Flows, and Non-Functional Requirements. Consult the [Product Management Deliverables Catalog](../../docs/pm-deliverables-catalog.md) to generate additional context-specific deliverables (e.g., User Stories, Empathy Maps, Assumption Mapping).
 
 ### Step 3 — Define Acceptance Criteria
 **Agent:** `PRODUCT-OWNER`
@@ -78,5 +78,6 @@ Commit the approved PRD to the repository to serve as the input for LOOP-004 (Pl
 - Product Requirement Document (PRD).
 - Business Acceptance Criteria.
 - UX/Wireframe text specifications.
+- Additional context-specific artifacts generated from the [PM Deliverables Catalog](../../docs/pm-deliverables-catalog.md).
 
 **Strict Output Schema:** All deliverables must be strictly formatted. Markdown artifacts must comply with GitHub Flavored Markdown (GFM). No extraneous conversational text is permitted in final artifacts.
