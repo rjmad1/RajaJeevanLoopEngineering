@@ -86,6 +86,7 @@ Let's say you need to fix a bug in your payment code and your task number is `TA
 | 8 | **LOOP-006** | Automatically invoked after every LOOP-005 run — no manual trigger required. | Checks functional correctness and coverage. |
 | 9 | **LOOP-007** | Automatically invoked at the end of every session — no manual trigger required. | Captures design decisions and assumptions. |
 | 10 | **LOOP-008** | On-demand when a new repeatable workflow is needed. | End-to-end loop creation with duplication checks. |
+| 11 | **LOOP-009** | On-demand when any subject requires systematic analysis and capability design. | Rigorous reasoning; strict Output Contract. |
 
 ### LOOP-001 — Architecture Discovery
 
@@ -241,6 +242,21 @@ Focus areas for greenfield:
 Output: docs/reflection/
 ```
 
+### LOOP-009 — Systematic Analysis and Design
+
+**When:** On-demand, whenever you need to systematically analyze a topic, design a system architecture, model an IAM/RBAC capability, or design business workflows.
+
+**Explainer:** Iteratively refines any problem space across 9 loops, identifying requirements, risks, trade-offs, and governance policies, and producing a complete, expert-grade design.
+
+```markdown
+Loop: LOOP-009
+Goal: Systematically analyze and design [capability/subject name].
+INPUT_TOPIC: [Enter target subject, e.g. Zero-Trust Access Control]
+OPTIONAL_CONTEXT: [Enter optional context, e.g. Compliance requirements, target tech stack]
+OPTIONAL_CONSTRAINTS: [Enter optional constraints, e.g. Budget, time, technology]
+```
+
+
 ---
 
 ## Project Type 2 — Brownfield
@@ -262,6 +278,7 @@ Output: docs/reflection/
 | 9 | **LOOP-006** | Automatically invoked after LOOP-005 — do not skip; regression detection is critical. | Regression check against `session_start_sha` is mandatory. |
 | 10 | **LOOP-007** | Automatically invoked at session end — review output after every 3–4 cycles. | Review findings to identify structural patterns. |
 | 11 | **LOOP-008** | On-demand when a new repeatable workflow is needed. | End-to-end loop creation with duplication checks. |
+| 12 | **LOOP-009** | On-demand when any subject requires systematic analysis and capability design. | Rigorous reasoning; strict Output Contract. |
 
 ### Specialized Engineering & Operational Audit Loops
 
@@ -654,6 +671,21 @@ Scope: Edge container deployments and health checkers.
 Expected output: Edge rollback status and validation report.
 ```
 
+### LOOP-009 — Systematic Analysis and Design
+
+**When:** On-demand, whenever you need to systematically analyze a topic, design a system architecture, model an IAM/RBAC capability, or design business workflows.
+
+**Explainer:** Iteratively refines any problem space across 9 loops, identifying requirements, risks, trade-offs, and governance policies, and producing a complete, expert-grade design.
+
+```markdown
+Loop: LOOP-009
+Goal: Systematically analyze and design [capability/subject name].
+INPUT_TOPIC: [Enter target subject, e.g. Zero-Trust Access Control]
+OPTIONAL_CONTEXT: [Enter optional context, e.g. Compliance requirements, target tech stack]
+OPTIONAL_CONSTRAINTS: [Enter optional constraints, e.g. Budget, time, technology]
+```
+
+
 ---
 
 ## Project Type 3 — Legacy Modernisation
@@ -676,6 +708,7 @@ Expected output: Edge rollback status and validation report.
 | 10 | **LOOP-007** | Automatically invoked — review after every module migration. | Review learnings to update future migration plans. |
 | 11 | **LOOP-001 (Post)** | After every module migration is complete. | Confirm boundary has moved and no coupling was added. |
 | 12 | **LOOP-008** | On-demand when a new repeatable workflow is needed. | End-to-end loop creation with duplication checks. |
+| 13 | **LOOP-009** | On-demand when any subject requires systematic analysis and capability design. | Rigorous reasoning; strict Output Contract. |
 
 > [!IMPORTANT]
 > **Mandatory Cycle Per Module:**
@@ -876,6 +909,21 @@ Note: The patterns captured here directly inform LOOP-004 planning for the
 next module migration. Review docs/reflection/engineering-patterns.md before
 planning each new module migration.
 ```
+
+### LOOP-009 — Systematic Analysis and Design
+
+**When:** On-demand, whenever you need to systematically analyze a topic, design a system architecture, model an IAM/RBAC capability, or design business workflows.
+
+**Explainer:** Iteratively refines any problem space across 9 loops, identifying requirements, risks, trade-offs, and governance policies, and producing a complete, expert-grade design.
+
+```markdown
+Loop: LOOP-009
+Goal: Systematically analyze and design [capability/subject name].
+INPUT_TOPIC: [Enter target subject, e.g. Zero-Trust Access Control]
+OPTIONAL_CONTEXT: [Enter optional context, e.g. Compliance requirements, target tech stack]
+OPTIONAL_CONSTRAINTS: [Enter optional constraints, e.g. Budget, time, technology]
+```
+
 
 ---
 

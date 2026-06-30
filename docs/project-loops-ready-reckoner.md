@@ -380,6 +380,7 @@ This forces all agent modifications and human PR contributions to be systematica
 | Step | Loop ID & File Link | Objective | Input Artefacts | Output Artefacts | Key Gate / Guardrail |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **+** | [LOOP-008 — Loop Creation](../loops/core/LOOP-008-Loop-Creation.md) | End-to-end loop creation based on user prompt | User prompt | LOOP-XXX.md file, updated catalogs | Ensure no duplicate loop exists |
+| **+** | [LOOP-009 — Systematic Analysis and Design](../loops/core/LOOP-009-Systematic-Analysis-and-Design.md) | Reusable reasoning framework to systematically transform any subject into enterprise-grade analysis and design | User prompt topic, optional context/constraints | `analysis-and-design-LOOP-009.md` file, updated catalogs | Strict 15-section Output Contract verification |
 | **+** | [LOOP-107 — Minimal System Diagram Generation](../loops/engineering/LOOP-107-Minimal-System-Diagram-Generation.md) | Generate system diagrams | Codebase context | Architecture diagrams | Verify diagram matches current state |
 | **+** | [LOOP-408 — Delivery Change Steward](../loops/release/LOOP-408-Delivery-Change-Steward.md) | Oversee delivery changes | Release notes | Delivery approvals | GATE-1: Release sign-off |
 | **+** | [LOOP-502 — Product Intelligence Architect](../loops/strategy/LOOP-502-Product-Intelligence-Architect.md) | Strategic product intelligence | Market/Product data | Strategic insights | Review by product owners |
