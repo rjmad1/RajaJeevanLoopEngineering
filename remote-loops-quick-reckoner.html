@@ -715,12 +715,6 @@ Constraints: [Enter constraints here]')" style="align-self: flex-end;">Copy IDE 
     }
     
     // Close modal on click outside
-    document.getElementById('infoModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeModal();
-        }
-    });
-    
     function openDeployModal() {
         initCopyButtonsForModal();
         document.getElementById('deployModal').classList.remove('hidden');
@@ -731,12 +725,6 @@ Constraints: [Enter constraints here]')" style="align-self: flex-end;">Copy IDE 
         document.getElementById('deployModal').classList.add('hidden');
         document.body.classList.remove('modal-open');
     }
-    
-    document.getElementById('deployModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeDeployModal();
-        }
-    });
 
     function openUpdateModal() {
         initCopyButtonsForModal();
@@ -748,14 +736,34 @@ Constraints: [Enter constraints here]')" style="align-self: flex-end;">Copy IDE 
         document.getElementById('updateModal').classList.add('hidden');
         document.body.classList.remove('modal-open');
     }
-    
-    document.getElementById('updateModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeUpdateModal();
-        }
-    });
 
     document.addEventListener('DOMContentLoaded', () => {
+        const infoModal = document.getElementById('infoModal');
+        if (infoModal) {
+            infoModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        }
+        
+        const deployModal = document.getElementById('deployModal');
+        if (deployModal) {
+            deployModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeDeployModal();
+                }
+            });
+        }
+        
+        const updateModal = document.getElementById('updateModal');
+        if (updateModal) {
+            updateModal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeUpdateModal();
+                }
+            });
+        }
         document.querySelectorAll('.modal-body pre').forEach(pre => {
             const wrapper = document.createElement('div');
             wrapper.style.position = 'relative';
