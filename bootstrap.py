@@ -195,6 +195,20 @@ def main():
                 shutil.copy(template_base, agents_dest)
                 print("    - Created base .agents/AGENTS.md")
 
+        budget_dest = os.path.join(target_agents_dir, "loop-budget.md")
+        if not os.path.exists(budget_dest):
+            budget_base = os.path.join(template_src, "loop-budget.md")
+            if os.path.exists(budget_base):
+                shutil.copy(budget_base, budget_dest)
+                print("    - Created base .agents/loop-budget.md")
+
+        log_dest = os.path.join(target_agents_dir, "loop-run-log.md")
+        if not os.path.exists(log_dest):
+            log_base = os.path.join(template_src, "loop-run-log.md")
+            if os.path.exists(log_base):
+                shutil.copy(log_base, log_dest)
+                print("    - Created base .agents/loop-run-log.md")
+
     # 6. Copy Programmatic Rule Engine & code
     print("[+] Porting rule engine execution library...")
     code_src = os.path.join(src_root, "code")

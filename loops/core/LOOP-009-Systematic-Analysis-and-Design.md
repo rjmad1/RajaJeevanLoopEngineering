@@ -101,8 +101,15 @@ None. This is a chain-head loop that functions as a general reasoning framework.
 A run is initiated by any of the following:
 1. **Manual invocation** — An engineer or agent explicitly triggers the loop with a topic to analyze.
 2. **Upstream loop trigger** — A task discovery or planning step requires detailed capability design before implementation can proceed.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -116,8 +123,14 @@ A run is initiated by any of the following:
 ## External State
 
 None. This loop is fully self-contained and does not modify external databases, networks, or non-repository environments.
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-009"
 
 ## Required Context
 
@@ -282,8 +295,23 @@ The agent must verify that:
 
 - **RISK-1: Analysis Paralysis** — Iterations could run indefinitely without converging. (Mitigation: Maximum duration check forces exit after 4 hours).
 - **RISK-2: Unsupported Recommendations** — Recommending solutions based on unverified assumptions. (Mitigation: Checked strictly in LOOP-9).
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 

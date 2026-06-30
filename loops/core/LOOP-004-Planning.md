@@ -150,8 +150,15 @@ A run is initiated by any of the following:
 4. **GATE-1 resolution** — A prior run was halted at GATE-1; the blocking condition has been resolved and planning resumes.
 
 Trigger source, task ID, and timestamp must be recorded in `STATUS-004.md` at run start.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -186,8 +193,14 @@ PRE-3 failure triggers GATE-1 rather than `precondition_failed` — the human mu
 | `docs/loops/core/SKILL-004.md` | Read-Write | Single file | Same as executing agent | Single file | `git checkout docs/loops/core/SKILL-004.md` | Yes |
 
 This loop makes no writes to source code, tests, configuration, CI/CD, or any system outside the repository. It is a pure planning loop: it reads and writes planning documents only.
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-004"
 
 ## Required Context
 
@@ -871,8 +884,23 @@ All metrics are recorded in the Reflection and in `STATUS-004.md` at Step 12.
 - **Control:** Effort estimates are expressed as ranges, not point estimates. SKILL-004.md tracks the relationship between plan-time estimates and LOOP-005/006 actual durations, enabling calibration.
 - **Detection:** LOOP-005 and LOOP-007 Reflection duration metrics consistently exceed planning estimate ranges.
 - **Response:** SKILL-004.md estimate calibration updated; LOOP-003 complexity signal table reviewed.
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 

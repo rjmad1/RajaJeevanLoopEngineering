@@ -119,8 +119,15 @@ A run is initiated by any of the following:
 3. **Repository event** — A pull request is merged that introduces a significant new pattern, framework, or architectural boundary without a corresponding ADR.
 
 Trigger source, timestamp, and decision statement must be recorded in `STATUS-301.md` at run start.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -146,8 +153,14 @@ Trigger source, timestamp, and decision statement must be recorded in `STATUS-30
 | `docs/governance/adr/` | Write | Metadata and Reflection artifacts | Same as executing agent | Confined to this directory | `git checkout docs/governance/adr/` | Yes |
 
 This loop makes no writes to external systems, APIs, databases, or deployment targets.
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-301"
 
 ## Required Context
 
@@ -449,8 +462,23 @@ A run may not be marked `completed` without a Reflection. A failed run must incl
 - **Control:** Maximum run duration of 4 hours enforced. After 3 revision cycles without convergence, loop halts with status `stopped` and escalates to human.
 - **Detection:** `adr.checker_revision_rounds` metric; run duration monitoring.
 - **Response:** Loop halts; human resolves the interpretation disagreement; loop re-runs with clarified decision statement.
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 

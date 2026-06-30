@@ -131,6 +131,19 @@ if (Test-Path -Path $TemplateSrc) {
         Copy-Item -Path (Join-Path $TemplateSrc "AGENTS-TEMPLATE.md") -Destination $AgentsDestFile -Force
         Write-Host "    - Created base .agents/AGENTS.md" -ForegroundColor Gray
     }
+
+    # Copy loop-budget.md and loop-run-log.md to customizations root
+    $BudgetDestFile = Join-Path $TargetAgentsDir "loop-budget.md"
+    if (-not (Test-Path -Path $BudgetDestFile)) {
+        Copy-Item -Path (Join-Path $TemplateSrc "loop-budget.md") -Destination $BudgetDestFile -Force
+        Write-Host "    - Created base .agents/loop-budget.md" -ForegroundColor Gray
+    }
+
+    $LogDestFile = Join-Path $TargetAgentsDir "loop-run-log.md"
+    if (-not (Test-Path -Path $LogDestFile)) {
+        Copy-Item -Path (Join-Path $TemplateSrc "loop-run-log.md") -Destination $LogDestFile -Force
+        Write-Host "    - Created base .agents/loop-run-log.md" -ForegroundColor Gray
+    }
 }
 
 # 6. Copy Programmatic Rule Engine & Execution Core (Java code)

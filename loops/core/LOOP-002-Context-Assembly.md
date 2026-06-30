@@ -140,8 +140,15 @@ A run is initiated by any of the following:
 4. **Stale context detection** — A downstream loop detects that the context package in `docs/context/` is older than the configured reuse threshold (default: 1 hour) and requests a fresh package for the same task.
 
 Trigger source, task description, and timestamp must be recorded in `STATUS-002.md` at run start.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -172,8 +179,14 @@ If PRE-3 fails (stale LOOP-001 outputs), the loop records the failure in `STATUS
 | ADR directory | Read | All ADR files | Same as executing agent | Read-only | N/A | Yes |
 
 This loop makes no writes outside the repository. It does not call external APIs, write to databases, or trigger deployments.
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-002"
 
 ## Required Context
 
@@ -815,8 +828,23 @@ All metrics are recorded in the Reflection and in `STATUS-002.md` at Step 12.
 - **Description:** Not applicable. All writes are to the local repository filesystem and are fully idempotent; re-running for the same task produces an equivalent package.
 - **Likelihood:** N/A
 - **Impact:** N/A
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 

@@ -50,6 +50,15 @@ Manually creating a new loop requires high cognitive load: finding the next avai
 **Out of scope:**
 - Modifying the underlying execution engine.
 - Writing the detailed loop steps beyond a robust initial draft (the user can refine the generated draft later).
+---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 

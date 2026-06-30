@@ -117,8 +117,15 @@ A run is initiated by any of the following:
 4. **Scheduled execution** — At minimum once per release cycle; recommended quarterly for any release-independent compliance tracking.
 
 Trigger source, timestamp, and target release candidate identifier must be recorded in STATUS-303.md at run start.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -144,8 +151,14 @@ Trigger source, timestamp, and target release candidate identifier must be recor
 | `docs/loops/governance/SKILL-303.md` | Read-Write | Single file | Same as executing agent | Single file | `git checkout docs/loops/governance/SKILL-303.md` | Yes |
 
 This loop makes no writes to external systems, APIs, databases, or deployment targets. It does not modify any source file, test file, or configuration file.
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-303"
 
 ## Required Context
 
@@ -418,8 +431,23 @@ Every run must produce a Reflection artifact at `docs/governance/compliance/refl
 - **Control:** Maximum run duration of 4 hours enforced. License check is bounded to direct dependencies and first-level transitive dependencies; deeper levels are logged as Not Assessed.
 - **Detection:** Run duration monitoring; step timing recorded in STATUS-303.md.
 - **Response:** Loop halts at 4-hour mark with `stopped` status; partial assessment recorded.
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 

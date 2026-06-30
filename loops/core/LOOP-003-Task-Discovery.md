@@ -153,8 +153,15 @@ A run is initiated by any of the following:
 5. **LOOP-004 request** — The Planning loop requests a fresh backlog because the existing one is older than the configured reuse threshold (default: 24 hours) or is empty.
 
 Trigger source and timestamp must be recorded in `STATUS-003.md` at run start.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -185,8 +192,14 @@ If PRE-2 fails, the loop triggers GATE-1 rather than halting with `precondition_
 | `docs/loops/core/SKILL-003.md` | Read-Write | Single file | Same as executing agent | Single file | `git checkout docs/loops/core/SKILL-003.md` | Yes |
 
 This loop makes no writes to any external system outside the repository. It does not call issue tracker APIs, push notifications, or modify CI/CD configuration.
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-003"
 
 ## Required Context
 
@@ -891,8 +904,23 @@ All metrics are recorded in the Reflection and in `STATUS-003.md` at Step 12.
 - **Description:** Not applicable. All writes are to the local repository filesystem and are fully idempotent; re-running against the same inputs produces an equivalent backlog.
 - **Likelihood:** N/A
 - **Impact:** N/A
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 

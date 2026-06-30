@@ -148,8 +148,15 @@ A run is initiated by any of the following:
 4. **Post-replan execution** — LOOP-004 has produced a revised plan (replanning) and LOOP-005 must execute the delta steps.
 
 Trigger source, task ID, plan version, and timestamp must be recorded in `STATUS-005.md` at run start.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -183,8 +190,14 @@ PRE-2 and PRE-3 failures trigger GATE-1. All other precondition failures produce
 **Critical constraint:** This loop modifies repository source files. Every source file modification must be authorised by a step in the execution plan. No modification may be made to a file not listed in the current step's `files_modified` field. This constraint is enforced at Step 4 (execution) and checked at Step 5 (recording) before the next step begins.
 
 This loop does not: call external APIs, write to databases at runtime, push to remote repositories, trigger deployments, or send notifications. Those actions belong to release and deployment loops.
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-005"
 
 ## Required Context
 
@@ -868,8 +881,23 @@ All metrics are recorded in the Reflection and in `STATUS-005.md` at Step 9.
 - **Control:** VER-4 scans all modified files for secrets patterns before the run is marked complete. Change Management Governance prohibits secret values in tracked files.
 - **Detection:** VER-4 failure.
 - **Response:** Immediate revocation of the exposed secret by the appropriate credential owner (out of band from this loop); removal of the secret from the file; GATE-1 for the revised step; incident record in Reflection.
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 

@@ -105,6 +105,16 @@ A run is initiated by any of the following:
 
 ---
 
+## Scheduling
+
+- **Cadence:** <!-- e.g. On-demand, Daily at 02:00, Every 4 hours -->
+- **First Run Behavior:** <!-- e.g. Fire immediately on start, or wait for next interval -->
+- **Durability:** <!-- e.g. Durable (survives session restarts via status file), Ephemeral -->
+- **Off-Hours Behavior:** <!-- e.g. Paused overnight, slower cadence (e.g. 12-hour interval) -->
+- **Self-Cleanup:** <!-- e.g. Automatically deletes scheduler when watchlist is empty -->
+
+---
+
 ## Preconditions
 
 | ID | Precondition | Check Method |
@@ -120,6 +130,15 @@ A run is initiated by any of the following:
 | System | Operation | Scope | Auth | Isolation | Rollback | Idempotent |
 |--------|-----------|-------|------|-----------|----------|------------|
 | <!-- System name and type --> | <!-- Read \| Write \| Read-Write --> | <!-- Specific resources accessed --> | <!-- Auth mechanism --> | <!-- How cross-tenant/cross-env contamination is prevented --> | <!-- Reversal strategy if loop fails mid-write --> | <!-- Yes \| No \| Conditional --> |
+
+---
+
+## Connectors (MCP)
+
+- **Required Servers:** <!-- e.g. github-server, filesystem-server, linear-server -->
+- **Permissions:** <!-- e.g. Read-only access to /code, Write access to docs/loops/ -->
+- **PR/Ticket Operations:** <!-- e.g. Allowed to open/update PRs, create issues, add comments -->
+- **Identity:** <!-- e.g. Bot Identity: "AEOS Loop Engine — [Loop ID]" -->
 
 ---
 
@@ -335,6 +354,24 @@ Any human principal may terminate a running loop at any step by setting `status:
 - **Control:** Maximum run duration declared in Scope; FR procedure halts and records partial outputs.
 - **Detection:** Wall-clock duration exceeds declared maximum.
 - **Response:** FR-N (maximum run duration exceeded procedure).
+
+---
+
+## Cost & Limits
+
+- **Token Budget:** <!-- e.g. Estimated budget of 500k tokens per run -->
+- **Daily Budget Cap:** <!-- e.g. Daily cap of $5.00 across all runs, checked via loop-budget.md -->
+- **Max Iterations:** <!-- e.g. Max 5 iterations per item per run -->
+- **Max Auto-PRs:** <!-- e.g. Max 3 auto-PRs per day (cleanup loops) -->
+- **Kill Switch Criteria:** <!-- e.g. Immediate halt if spending exceeds budget or loop iterations exceed 5 -->
+
+---
+
+## Safety
+
+- **Auto-Merge Policy:** <!-- e.g. No auto-merge allowed; human checker must approve PR merge -->
+- **Secrets/Env Denylist:** <!-- e.g. Git changes to .env, keys, credentials, config/secrets are forbidden -->
+- **Flake Handling:** <!-- e.g. Do not retry flaky tests; isolate and log test failure for manual triage -->
 
 ---
 

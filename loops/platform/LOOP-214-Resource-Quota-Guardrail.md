@@ -55,7 +55,16 @@ Covers all primary operations related to Resource Quota Guardrail. Out of scope:
 - Prior state validation
 ## Trigger
 
-Triggered manually by an engineer or automatically via a scheduled Platform orchestration event.
+Triggered manually by an engineer or automatically via a scheduled Platform orchestration event.---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
+
 ## Preconditions
 
 - System is in a stable, known state.
@@ -64,7 +73,15 @@ Triggered manually by an engineer or automatically via a scheduled Platform orch
 
 - Version control systems
 - CI/CD pipelines
-- Observability and telemetry dashboards
+- Observability and telemetry dashboards---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-214"
+
 ## Required Context
 
 - Current architecture baseline
@@ -114,7 +131,24 @@ Triggered manually by an engineer or automatically via a scheduled Platform orch
 ## Risks
 
 - Unintended side-effects on interdependent Platform systems.
-- Timeouts during extensive Resource Quota Guardrail operations.
+- Timeouts during extensive Resource Quota Guardrail operations.---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
+
+---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
+
 ## Stop Conditions
 
 - Critical errors encountered during Resource Quota Guardrail.

@@ -12,7 +12,7 @@ Migration Notes: Direct copy of the general loop framework specification.
 ---
 # SPEC-010 — Loop Catalog
 
-**Version:** 1.1
+**Version:** 1.2
 **Status:** Active
 **Type:** Engineering Specification
 **Governs:** The authoritative registry of all loop identifiers in the AEOS framework
@@ -242,6 +242,7 @@ Failure to maintain this catalog within the required window is a governance even
 
 | Version | Date | Author | Notes |
 |---|---|---|---|
+| 1.2 | 2026-06-30 | Principal AI Engineering Architect | Updated catalog to align with standard v1.1 structural sections |
 | 1.1 | 2026-06-27 | Principal AI Engineering Architect | Registered 29 new loops in Proposed status |
 | 1.0 | 2026-06-27 | Principal AI Engineering Architect | Initial Active version; 26 loops registered |
 

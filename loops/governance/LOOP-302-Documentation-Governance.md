@@ -124,8 +124,15 @@ A run is initiated by any of the following:
 4. **LOOP-001 completion** — After a LOOP-001 run that discovers significant new modules or APIs, LOOP-302 may be triggered to check whether documentation was created alongside the new components.
 
 Trigger source and timestamp must be recorded in STATUS-302.md at run start.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -150,8 +157,14 @@ Trigger source and timestamp must be recorded in STATUS-302.md at run start.
 | `docs/loops/governance/SKILL-302.md` | Read-Write | Single file | Same as executing agent | Single file | `git checkout docs/loops/governance/SKILL-302.md` | Yes |
 
 This loop makes no writes to external systems, APIs, databases, or deployment targets. It does not modify any source file, test file, or configuration file.
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-302"
 
 ## Required Context
 
@@ -421,8 +434,23 @@ Every run must produce a Reflection artifact at `docs/governance/documentation/r
 - **Control:** Maximum run duration of 3 hours enforced. DOC-SCANNER uses depth-limited traversal (maximum 10 levels). Symlinks are followed only one level deep.
 - **Detection:** Run duration monitoring; DOC-SCANNER records file count at each depth level.
 - **Response:** Loop halts at 3-hour mark with `stopped` status; partial inventory recorded.
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 

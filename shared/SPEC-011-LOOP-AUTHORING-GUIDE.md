@@ -597,6 +597,14 @@ The following checklist must be completed before a specification is submitted fo
 - [ ] The N1–N6 conditions were checked and none apply (AR)
 - [ ] The specification is a Loop and not better expressed as a Guide, Specification, or Template (AR)
 
+### Scheduling
+
+- [ ] Cadence is declared and matches the urgency/frequency requirement (ER)
+- [ ] First run behavior is defined (ER)
+- [ ] Durability properties are documented (ER)
+- [ ] Off-hours execution behavior is defined (ER)
+- [ ] Self-cleanup trigger (`scheduler_delete`) is defined for idle watchlists (AR)
+
 ### Inputs
 
 - [ ] All inputs are listed in the Inputs table (ER)
@@ -623,12 +631,32 @@ The following checklist must be completed before a specification is submitted fo
 - [ ] Maximum run duration is declared (ER)
 - [ ] Idempotency behaviour is declared with any exemptions noted (ER)
 
+### External State
+
+- [ ] An External State table is present (ER)
+- [ ] Every row has all seven required columns (System, Operation, Scope, Auth, Isolation, Rollback, Idempotent) (ER)
+- [ ] No undeclared external writes exist in the workflow (ER)
+- [ ] No secret values are written to any tracked file (AR)
+
+### Connectors (MCP)
+
+- [ ] All MCP servers and connectors are declared (AR)
+- [ ] Connector permissions are minimized (read-only vs write separated) (AR)
+- [ ] Action execution (PR/ticket opening) is declared (ER)
+- [ ] bot identity ("AEOS Loop Engine — [Loop ID]") is clear (ER)
+
 ### Agents and Maker/Checker
 
 - [ ] All agents are listed in the Agents table with Role, Responsibilities, Tools, and Human Oversight columns (ER)
 - [ ] Every artefact has exactly one designated Maker (ER)
 - [ ] Every artefact has exactly one designated Checker (ER)
 - [ ] No agent is designated as both Maker and Checker for any artefact (AR)
+
+### Workflow
+
+- [ ] Workflow steps are sequential and present-tense (ER)
+- [ ] Steps declare inputs, outputs, and gates (ER)
+- [ ] No auto-merge without human approval is present (AR)
 
 ### Verification
 
@@ -657,18 +685,25 @@ The following checklist must be completed before a specification is submitted fo
 - [ ] Assessed risks include: likelihood, impact, trigger, controls, detection, response (AR)
 - [ ] Risk likelihood and impact use the SPEC-001 §10.C2 scale (AR)
 
-### External State
-
-- [ ] An External State table is present (ER)
-- [ ] Every row has all seven required columns (System, Operation, Scope, Auth, Isolation, Rollback, Idempotent) (ER)
-- [ ] No undeclared external writes exist in the workflow (ER)
-- [ ] No secret values are written to any tracked file (AR)
-
 ### Metrics
 
 - [ ] All twelve LOOP-STANDARD required metrics are declared in the required table (ER)
 - [ ] Loop-specific metrics are declared in a separate table (ER)
 - [ ] Metric keys follow SPEC-005 naming conventions (ER)
+
+### Cost & Limits
+
+- [ ] Run-time token budgets are estimated (ER)
+- [ ] Daily cap validation is declared via `loop-budget.md` (AR)
+- [ ] Append-only logging to `loop-run-log.md` is declared (ER)
+- [ ] Maximum iterations per item and maximum auto-PRs per day are bounded (ER)
+- [ ] Kill switch and pause conditions are defined (Both)
+
+### Safety
+
+- [ ] Secrets/env files are actively denylisted (AR)
+- [ ] Auto-merge allowlist guidelines are documented (AR)
+- [ ] Flake handling avoids automatic retry loops (ER)
 
 ### Stop Conditions
 

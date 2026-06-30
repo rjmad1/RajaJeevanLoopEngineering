@@ -130,8 +130,15 @@ A run is initiated by any of the following:
 4. **Upstream signal** — Another loop declares a dependency on fresh LOOP-001 outputs and the current outputs are older than 7 days.
 
 Trigger source and timestamp must be recorded in `STATUS-001.md` at run start.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -160,8 +167,14 @@ If PRE-3 fails (a concurrent run is detected), the loop must not start. It recor
 | Git history | Read | Current branch log and blame | Filesystem permissions | Read-only; no commits made by this loop | N/A | Yes |
 
 This loop makes no writes to any external system outside the repository. It does not call external APIs, write to databases, or trigger deployments.
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-001"
 
 ## Required Context
 
@@ -709,8 +722,23 @@ All metrics are recorded in the Reflection and in `STATUS-001.md` at Step 11.
 - **Control:** Maximum directory depth and file count enforced in Step 3; maximum run duration enforced by FR-5.
 - **Detection:** `scan_ceiling_reached` flag or `max_duration_exceeded` status.
 - **Response:** FR-5 procedure; partial outputs preserved for subsequent run.
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 

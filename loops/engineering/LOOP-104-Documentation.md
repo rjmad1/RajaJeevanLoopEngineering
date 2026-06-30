@@ -122,8 +122,15 @@ A run is initiated by any of the following:
 4. **Post-implementation trigger** — After a LOOP-101 or LOOP-102 run completes, the affected module's documentation is flagged as potentially stale and a DOC task is created.
 
 The trigger source, task ID, and current HEAD SHA must be recorded in `STATUS-104.md` at run start.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -150,8 +157,14 @@ The trigger source, task ID, and current HEAD SHA must be recorded in `STATUS-10
 | `docs/loops/engineering/SKILL-104.md` | Read-Write | Single file | Same as executing agent | Single file | `git checkout docs/loops/engineering/SKILL-104.md` | Yes |
 
 This loop does not write to any external system outside the repository. It does not modify source code, test files, or configuration files.
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-104"
 
 ## Required Context
 
@@ -540,8 +553,23 @@ Any human principal may terminate a running loop at any step by setting `status:
 - **Control:** Maximum run duration of 6 hours enforced by FR-5. Task record should scope documentation to a manageable surface; large API surfaces should be split into multiple DOC tasks.
 - **Detection:** Wall-clock elapsed time check at each step boundary.
 - **Response:** FR-5 procedure; partial documentation artifact preserved; new DOC task covers the remaining scope.
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 

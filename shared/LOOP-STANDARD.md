@@ -109,43 +109,51 @@ Immediately after the H1 title, before any section, every loop document must inc
 
 4. `## Scope` — The explicit boundaries of the loop. What it does and what it explicitly does not do. Scope must be narrow enough that a single run can complete in a bounded time window.
 
-5. `## Inputs` — All inputs the loop requires, with type, source, and whether the input is required or optional. Inputs must be enumerable before the loop begins.
+5. `## Scheduling` — The execution schedule details (cadence, durability, off-hours behavior, self-cleanup policies).
 
-6. `## Outputs` — All artifacts the loop produces, with type, destination, and acceptance criteria. Every output must be verifiable.
+6. `## Inputs` — All inputs the loop requires, with type, source, and whether the input is required or optional. Inputs must be enumerable before the loop begins.
 
-7. `## Dependencies` — Other loops that must be Active and whose outputs this loop consumes. Format: `LOOP-XXX — Name — what is consumed`.
+7. `## Outputs` — All artifacts the loop produces, with type, destination, and acceptance criteria. Every output must be verifiable.
 
-8. `## Trigger` — The condition or event that initiates a run. Must be deterministic. Acceptable triggers: manual invocation, scheduled cron, upstream loop completion, repository event, external webhook.
+8. `## Dependencies` — Other loops that must be Active and whose outputs this loop consumes. Format: `LOOP-XXX — Name — what is consumed`.
 
-9. `## Preconditions` — The conditions that must be true before execution begins. The loop must verify all preconditions at startup and halt if any are not met. Each precondition must be machine-checkable.
+9. `## Trigger` — The condition or event that initiates a run. Must be deterministic. Acceptable triggers: manual invocation, scheduled cron, upstream loop completion, repository event, external webhook.
 
-10. `## External State` — All state outside the repository that the loop reads from or writes to. For each: the system, the operation (read/write), the scope of access, and the rollback strategy if the loop fails mid-execution.
+10. `## Preconditions` — The conditions that must be true before execution begins. The loop must verify all preconditions at startup and halt if any are not met. Each precondition must be machine-checkable.
 
-11. `## Required Context` — The information the executing agent must have loaded before beginning. Includes files to read, configurations to resolve, secrets to access, and environment requirements.
+11. `## External State` — All state outside the repository that the loop reads from or writes to. For each: the system, the operation (read/write), the scope of access, and the rollback strategy if the loop fails mid-execution.
 
-12. `## Agents` — The agents involved in the run. Each entry must specify: Agent ID, Role (Maker or Checker), Responsibilities, Tools available, and Human Oversight Gate assignment. Must conform to `templates/AGENTS-TEMPLATE.md`.
+12. `## Connectors (MCP)` — Explicit configuration and permission boundaries for Model Context Protocol (MCP) server connectors utilized by the loop.
 
-13. `## Workflow` — The step-by-step execution sequence. Each step must declare: step number, name, responsible agent, inputs consumed, outputs produced, and the gate (if any) that follows it. Steps must be ordered and non-ambiguous.
+13. `## Required Context` — The information the executing agent must have loaded before beginning. Includes files to read, configurations to resolve, secrets to access, and environment requirements.
 
-14. `## Verification` — The postconditions that must be true for the run to be considered successful. Each verification criterion must be independently checkable by the Checker agent without relying on the Maker's self-report.
+14. `## Agents` — The agents involved in the run. Each entry must specify: Agent ID, Role (Maker or Checker), Responsibilities, Tools available, and Human Oversight Gate assignment. Must conform to `templates/AGENTS-TEMPLATE.md`.
 
-15. `## Reflection` — The structured self-assessment that must be produced at the end of every run (including failed runs). See Section 10.
+15. `## Workflow` — The step-by-step execution sequence. Each step must declare: step number, name, responsible agent, inputs consumed, outputs produced, and the gate (if any) that follows it. Steps must be ordered and non-ambiguous.
 
-16. `## Human Approval Gates` — All Hard and Soft gates declared in the Workflow, with full specification. See Section 8.
+16. `## Verification` — The postconditions that must be true for the run to be considered successful. Each verification criterion must be independently checkable by the Checker agent without relying on the Maker's self-report.
 
-17. `## Failure Recovery` — For each failure mode: the detection condition, the immediate action, the rollback procedure, and the escalation path.
+17. `## Reflection` — The structured self-assessment that must be produced at the end of every run (including failed runs). See Section 10.
 
-18. `## Metrics` — The metrics collected during each run. See Section 11.
+18. `## Human Approval Gates` — All Hard and Soft gates declared in the Workflow, with full specification. See Section 8.
 
-19. `## Risks` — The risks associated with executing this loop. Each risk must have: description, likelihood (High/Medium/Low), impact (High/Medium/Low), and mitigation.
+19. `## Failure Recovery` — For each failure mode: the detection condition, the immediate action, the rollback procedure, and the escalation path.
 
-20. `## Stop Conditions` — Conditions under which the loop terminates without failure and without completing. Each stop condition must specify what cleanup is performed and what state is left behind.
+20. `## Metrics` — The metrics collected during each run. See Section 11.
 
-21. `## Deliverables` — The complete list of artifacts that a successful run must have produced before it is considered closed. Checklist format. Matches `templates/CHECKLIST-TEMPLATE.md`.
+21. `## Risks` — The risks associated with executing this loop. Each risk must have: description, likelihood (High/Medium/Low), impact (High/Medium/Low), and mitigation.
 
-22. `## Future Improvements` — Known limitations and candidate improvements for future versions. Not a backlog; only items that would require a version bump to implement.
+22. `## Cost & Limits` — Quantitative token budgeting, cost thresholds, daily caps, iteration limit boundaries, and budget verification steps.
 
-23. `## Version History` — See Section 6.
+23. `## Safety` — Code safety policies (no auto-merge rules, secrets denylists, test flake handling guidelines).
+
+24. `## Stop Conditions` — Conditions under which the loop terminates without failure and without completing. Each stop condition must specify what cleanup is performed and what state is left behind.
+
+25. `## Deliverables` — The complete list of artifacts that a successful run must have produced before it is considered closed. Checklist format. Matches `templates/CHECKLIST-TEMPLATE.md`.
+
+26. `## Future Improvements` — Known limitations and candidate improvements for future versions. Not a backlog; only items that would require a version bump to implement.
+
+27. `## Version History` — See Section 6.
 
 ---
 
@@ -524,6 +532,43 @@ Every Version History entry must include:
 
 ---
 
+## 17. Scheduling Requirements
+
+Every loop must declare its scheduling properties to manage resource consumption and prioritize operations. This includes defining execution cadence (e.g. interval-based vs trigger-based), durability across server/tool restarts, and special off-hours adjustments (e.g. pausing overnight or slowing down). Additionally, loops must implement a self-cleanup trigger (`scheduler_delete`) when their watchlist is empty to avoid phantom polling.
+
+---
+
+## 18. Connector and MCP Security
+
+All integrations with third-party tools, repositories, or services must be routed through Model Context Protocol (MCP) servers under the principle of least privilege:
+- Explicitly split read-only vs read-write permissions for each server.
+- The loop must have authority to act (e.g. open/update PRs or tickets) rather than just leaving comments or suggestions, if that is its primary purpose.
+- Every automated comment or PR update must carry a distinct bot identity (e.g. "AEOS Loop Engine — [Loop ID]") to ensure transparent audits.
+
+---
+
+## 19. Cost & Limit Constraints
+
+To prevent runaway API expenses and compute wastage, loops must operate under strict cost guardrails:
+- An estimated run-time token budget must be defined.
+- Loops must check a daily budget cap (stored in a shared configuration file such as `loop-budget.md`) at start and end using a `loop-budget` checking utility.
+- All runs must register append-only history in `loop-run-log.md`.
+- Strict execution boundaries must be enforced:
+  - Maximum iterations per single item per run.
+  - Maximum automated PRs created/updated per day (for cleanup loops).
+  - Explicit pause/kill criteria to act as a local circuit breaker before external limits are reached.
+
+---
+
+## 20. Safety Safeguards
+
+To prevent automated pipelines from corrupting the target repository, loops must strictly enforce safety policies:
+- **No Auto-Merge:** Automated code promotion is strictly forbidden without a human approval gate or a highly scoped, explicit path allowlist.
+- **Secrets/Env Denylist:** Git modifications targeting files containing credentials, tokens, environment configs, or key stores must be actively blocked.
+- **Flake Handling:** Loops must not attempt to bypass intermittent/flaky test failures with automatic retry loops. If a test is flaky, it must be flagged for manual review rather than masked.
+
+---
+
 ## Conformance Summary
 
 A loop document is conformant with this standard if and only if:
@@ -531,12 +576,16 @@ A loop document is conformant with this standard if and only if:
 - [ ] The file name follows the `LOOP-XXX-Meaningful-Name.md` convention
 - [ ] The H1 title matches the file name using the declared format
 - [ ] The header block is present with all five fields populated
-- [ ] All 23 required sections are present in the declared order
+- [ ] All 27 required sections are present in the declared order
 - [ ] No required section is empty (for loops in Review or Active status)
 - [ ] The Maker/Checker pattern is declared in `## Agents` for every artifact-producing step
 - [ ] At least one Hard Gate or Soft Gate is declared (per category minimum in Section 8)
 - [ ] All five mandatory risk categories are assessed in `## Risks`
 - [ ] All external state accesses are declared with all required fields in `## External State`
+- [ ] The Scheduling section defines cadence, durability, and cleanup (Section 17)
+- [ ] The Connectors (MCP) section declares servers, permissions, and identity (Section 18)
+- [ ] The Cost & Limits section defines token budget, daily caps, and iteration limits (Section 19)
+- [ ] The Safety section defines auto-merge, secrets, and flake handling rules (Section 20)
 - [ ] All dependencies reference Active loops
 - [ ] Version History contains an entry for every behavioral change
 - [ ] The version in the header block matches the latest Version History entry
@@ -546,5 +595,6 @@ A loop document is conformant with this standard if and only if:
 
 ## Version History
 
+- **1.1** — 2026-06-30 — Principal AI Engineering Architect — Integrated Scheduling, Connectors (MCP), Cost & Limits, and Safety requirements from the Loop Design Checklist.
 - **1.0** — 2026-06-26 — Principal AI Engineering Architect — Initial Active version establishing the canonical loop engineering standard.
 

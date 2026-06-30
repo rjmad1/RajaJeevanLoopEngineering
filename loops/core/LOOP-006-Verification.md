@@ -152,8 +152,15 @@ A run is initiated by any of the following:
 4. **GATE-1 resolution** — A prior run was halted at GATE-1; the blocking condition has been resolved and verification resumes.
 
 Trigger source, task ID, LOOP-005 run ID, and timestamp must be recorded in `STATUS-006.md` at run start.
-
 ---
+
+## Scheduling
+
+- **Cadence:** On-demand / Trigger-based
+- **First Run Behavior:** Fire immediately on start
+- **Durability:** Durable (survives session restarts via status file)
+- **Off-Hours Behavior:** Paused overnight
+- **Self-Cleanup:** Automatically deletes scheduler when watchlist is empty
 
 ## Preconditions
 
@@ -187,8 +194,14 @@ PRE-2 failure (repository state has changed since implementation) triggers GATE-
 | `docs/verification/` directory | Write | All verification output artefacts | Same as executing agent | Confined to this directory; no writes elsewhere | `git checkout docs/verification/` | Yes |
 | `docs/loops/core/STATUS-006.md` | Read-Write | Single file | Same as executing agent | Single file | `git checkout docs/loops/core/STATUS-006.md` | Yes |
 | `docs/loops/core/SKILL-006.md` | Read-Write | Single file | Same as executing agent | Single file | `git checkout docs/loops/core/SKILL-006.md` | Yes |
-
 ---
+
+## Connectors (MCP)
+
+- **Required Servers:** github-server, filesystem-server
+- **Permissions:** Read-only access to source code, Write access to docs/loops/
+- **PR/Ticket Operations:** Allowed to open/update PRs, create issues, and add comments
+- **Identity:** Bot Identity: "AEOS Loop Engine — LOOP-006"
 
 ## Required Context
 
@@ -978,8 +991,23 @@ All metrics are recorded in the Reflection and in `STATUS-006.md` at Step 11.
 - **Description:** Not applicable. This loop writes only to `docs/verification/` and the loop state files. It does not write to source files, databases, or external systems.
 - **Likelihood:** N/A
 - **Impact:** N/A
+---
+
+## Cost & Limits
+
+- **Token Budget:** Estimated budget of 500k tokens per run
+- **Daily Budget Cap:** Daily cap of $5.00 across all runs, checked via loop-budget.md
+- **Max Iterations:** Max 5 iterations per item per run
+- **Max Auto-PRs:** Max 3 auto-PRs per day
+- **Kill Switch Criteria:** Immediate halt if spending exceeds budget or loop iterations exceed 5
 
 ---
+
+## Safety
+
+- **Auto-Merge Policy:** No auto-merge allowed; human checker must approve PR merge
+- **Secrets/Env Denylist:** Git changes to .env, keys, credentials, config/secrets are forbidden
+- **Flake Handling:** Do not retry flaky tests; isolate and log test failure for manual triage
 
 ## Stop Conditions
 
